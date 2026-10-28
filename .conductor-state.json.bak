@@ -1,0 +1,132 @@
+{
+  "schema_version": "1.0",
+  "working_dir": "/Users/MAC/dev-ghost",
+  "stage0_activated": true,
+  "created_at": "2026-10-28T00:00:00Z",
+  "manifest": {
+    "hackathon": {
+      "name": "DEV Hacktoberfest Open-Source AI Challenge — Week 4: Ghost in the Machine",
+      "url": "https://dev.to/challenges/hacktoberfest-week4-2026-10-26",
+      "platform": "other",
+      "hard_deadline": "2026-10-31T23:59:00Z",
+      "soft_deadline": "2026-10-31T17:00:00Z",
+      "soft_deadline_note": "Internal cutoff: post published Oct 31 18:00 WAT (=17:00 UTC)",
+      "videoLengthRequirement": 90,
+      "tracks": [
+        "Overall ($250)",
+        "Best Use of Render ($200)",
+        "Best Use of TabPFN ($200)"
+      ],
+      "judging_criteria": "Writing quality (heaviest) > theme relevance > creativity > technical execution > partner-tech use. The DEV blog post IS the entry; app is evidence.",
+      "sponsors": [
+        "DEV Community",
+        "Render",
+        "Prior Labs (TabPFN)"
+      ]
+    },
+    "research_depth": 4,
+    "team": [
+      {
+        "name": "Damilola Mustapha",
+        "email": "damilolamustaphaa@gmail.com",
+        "github": "set",
+        "twitter": "set"
+      }
+    ],
+    "demoFormat": "recorded",
+    "demo": {
+      "music_vibe": "none",
+      "creative_overrides": "let skill decide"
+    },
+    "dry_run": false,
+    "run_profile": "SPRINT",
+    "size_directive": "1-day-equivalent build; dev.to post is the real deliverable, writing-quality-first, docs-writer-grade.",
+    "partner_targets": [
+      "Render (deploy, thin field, +EV)",
+      "TabPFN (if tabular angle fits)"
+    ],
+    "concept_origin": "standalone-fresh",
+    "tabpfn_policy": "check-viability-only-pursue-if-natural"
+  },
+  "checkpoints_answered": {
+    "manifest": {
+      "answered": true,
+      "answered_by": "user",
+      "at": "2026-10-28T00:00:00Z"
+    }
+  },
+  "pipeline": {
+    "phases": {
+      "intel": {
+        "status": "running",
+        "dispatched_at": "2026-10-28T00:05:00Z"
+      },
+      "warroom": {
+        "status": "pending"
+      },
+      "forge": {
+        "status": "pending"
+      },
+      "critique": {
+        "status": "pending"
+      },
+      "url_preverify": {
+        "status": "pending"
+      },
+      "build": {
+        "status": "pending"
+      },
+      "debug": {
+        "status": "pending"
+      },
+      "wire": {
+        "status": "pending"
+      },
+      "verify_milestone": {
+        "status": "pending"
+      },
+      "design": {
+        "status": "pending"
+      },
+      "design_forge": {
+        "status": "pending"
+      },
+      "stress_test": {
+        "status": "pending"
+      },
+      "polish": {
+        "status": "pending"
+      },
+      "deploy": {
+        "status": "pending"
+      },
+      "livetest": {
+        "status": "pending"
+      },
+      "interrogate": {
+        "status": "pending"
+      },
+      "demo_rehearsal": {
+        "status": "pending"
+      },
+      "demo": {
+        "status": "pending"
+      },
+      "package": {
+        "status": "pending"
+      },
+      "verify_preflight": {
+        "status": "pending"
+      }
+    }
+  },
+  "cycle_ledger": {
+    "value": null
+  },
+  "confirmed_urls": {},
+  "pipeline_log_chain": "ee19ac0d75ced1f3f2f2a67aa11921a9128b3a030f0c7ea8699a1aa2ec59365e",
+  "gate_integrity": {
+    "sha": "9cb41ba631c5a38d9c862241fe5bcc8a627b9b5331a13610a6933b566a3f08e3",
+    "recorded_at": "2026-10-28T21:06:01Z"
+  }
+}

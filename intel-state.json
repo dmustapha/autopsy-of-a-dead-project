@@ -1,0 +1,151 @@
+{
+  "version": "3.0",
+  "status": "complete",
+  "autonomous_mode": true,
+  "blocked_reason": null,
+  "hackathon_name": "Hacktoberfest Open-Source AI Challenge — Week 4: Ghost in the Machine",
+  "current_phase": "phase-4",
+  "phases_complete": [
+    "phase-0",
+    "phase-1",
+    "phase-2",
+    "phase-3",
+    "phase-4"
+  ],
+  "timestamps": {
+    "phase-0": "2026-10-28",
+    "phase-4": "2026-10-28"
+  },
+  "artifacts": {
+    "config": "/Users/MAC/dev-ghost/config.json",
+    "research_brief": "/Users/MAC/dev-ghost/research/research-brief.md"
+  },
+  "sources_consulted": [
+    "https://dev.to/challenges/hacktoberfest-week4-2026-10-26",
+    "https://dev.to/page/hacktoberfest-week1-2026-10-05-contest-rules",
+    "https://dev.to/munimv2/what-wins-dev-challenges-323-winners-compared-with-the-8320-entries-they-beat-2p8",
+    "https://github.com/munimtechnologies/devchallenge-study",
+    "https://dev.to/devteam/hacktoberfest-2026-dev-challenges-five-challenges-one-prompt-a-new-theme-every-week-1e54",
+    "https://dev.to/dien/phantomterminal-ai-ghost-in-the-machine-code-seances-dia-de-los-muertos-altar-2b63",
+    "https://docs.priorlabs.ai/quickstart",
+    "https://docs.priorlabs.ai/models/accessing-model-weights",
+    "https://github.com/priorlabs/tabpfn-client",
+    "https://huggingface.co/Prior-Labs/tabpfn_3_5",
+    "https://agentdeals.dev/vendor/render",
+    "https://temps.sh/blog/render-pricing-2026",
+    "https://www.eesel.ai/blog/groq-pricing",
+    "https://devrelay.com/"
+  ],
+  "capability_map": {
+    "primitives": [
+      {
+        "name": "dev.to (DEV) as submission platform",
+        "can": "Markdown post with cover image, tables, code blocks, embedded GIF/video, liquid embeds (GitHub repo card, {% agent_session %}); tags gate the submission; reactions are the published tiebreaker",
+        "cant": "Cannot host a running app; no originality auto-check (manual judging); theme page kept secret until launch so exact prompt text is only on the live page",
+        "maturity": "GA",
+        "evidence": "dev.to challenge page + Week 1 contest rules + munim winner study",
+        "load_bearing_for": "THE submission itself — the post is the product; writing quality is the single heaviest judged axis"
+      },
+      {
+        "name": "Render (web service hosting)",
+        "can": "Deploy a public web service / Docker container; host the agent frontend + OSS AI runtime; qualifies for Best Use of Render ($200)",
+        "cant": "FREE tier spins down after 15 min idle (first post-sleep request 30-60s); 512MB/0.1CPU free is too small for local LLM weights; 750 free instance-hrs/mo then suspended",
+        "maturity": "GA",
+        "evidence": "agentdeals.dev/vendor/render + temps.sh render-pricing-2026 (free sleeps; Starter $7/mo always-on 512MB; $25/mo 2GB)",
+        "load_bearing_for": "Best Use of Render ($200) + the live demo link — MUST be a durable paid tier (Starter $7/mo min) so it is up during the judging window (dl-1 ephemeral-infra-dies lesson)"
+      },
+      {
+        "name": "Groq free API (hosted open-weight inference)",
+        "can": "OpenAI-compatible hosted inference for OPEN-WEIGHT models (Llama 3.1/3.3, Qwen3-32B); fastest TTFB (~85ms) + 280-660 tok/s; free tier no credit card; trivial to call from a tiny Render service",
+        "cant": "Rate-limited free tier (30-60 RPM, 6-12k TPM) — fine for a demo, not production load; it is hosted (not local), so lean on 'open-weight model' framing, not 'local inference'",
+        "maturity": "GA",
+        "evidence": "eesel.ai/blog/groq-pricing + machinelearningplus inference benchmark 2026",
+        "load_bearing_for": "the open-source-AI CORE via a Render-friendly path — keeps the Render service tiny (no GPU/weights to host), satisfies the open-weight requirement, fast enough to demo live"
+      },
+      {
+        "name": "Ollama + small open-weight model (local inference)",
+        "can": "Run Gemma 2/3, Qwen 2.5, Phi-4-mini fully locally/offline; strongest 'open innovation' + 'local inference' narrative; the dominant stack among current competitors",
+        "cant": "Even a 2-4B Q4 model needs ~2-4GB RAM — exceeds Render free (512MB) and Starter (512MB); needs $25/mo 2GB tier at least, or ship it local-only and deploy only a thin UI; Render cold-pull of weights is slow",
+        "maturity": "GA",
+        "evidence": "localaimaster/morphllm Ollama VRAM tables 2026 (Gemma3-4B ~4GB; Phi-4-mini ~2.5GB)",
+        "load_bearing_for": "the 'offline / privacy / local-first' narrative axis — load-bearing ONLY if the build stays local or buys a 2GB+ Render tier; otherwise Groq carries the core and Ollama is a mentioned local-dev path"
+      },
+      {
+        "name": "TabPFN-3.5 (Prior Labs tabular foundation model)",
+        "can": "pip install tabpfn (local, open weights on HF, non-commercial) OR tabpfn-client (hosted API, GPU-managed); one checkpoint does classification + regression in a forward pass; zero training; qualifies for Best Use of TabPFN ($200)",
+        "cant": "Needs TABULAR historical data to be natural — no native fit for text/story generation; local weights are non-commercial-license + GPU-friendly (heavy for Render free); license acceptance step (interactive login) adds a build-time wrinkle",
+        "maturity": "GA",
+        "evidence": "docs.priorlabs.ai/quickstart + /models/accessing-model-weights + huggingface.co/Prior-Labs/tabpfn_3_5",
+        "load_bearing_for": "Best Use of TabPFN ($200) — load-bearing ONLY for a concept with a genuine tabular-prediction core; flagged NOT-load-bearing for a pure story/chat build (would be a bolt-on = penalized)"
+      },
+      {
+        "name": "DevRelay (agent-session embed)",
+        "can": "Embed an AI coding-agent transcript via {% agent_session id %}; shows the judges your build process; organizer explicitly says judges appreciate it",
+        "cant": "Optional, not scored directly; capturing a clean session needs Cursor+DevRelay or the devrelay CLI mid-build (must plan to capture during the build, not after)",
+        "maturity": "beta",
+        "evidence": "devrelay.com + organizer Week-overview post",
+        "load_bearing_for": "NOT load-bearing — a free credibility/transparency boost in the post; capture opportunistically during build"
+      }
+    ]
+  },
+  "organizer_feedback": [
+    {
+      "area": "docs",
+      "friction": "Week-4 theme name + example-project prompt text stay secret on the live page until launch; the hub/overview post does not carry it, so pre-launch planning can't quote the exact prompt — must read the live challenge page on build day",
+      "evidence": "devteam Hacktoberfest-2026 overview post ('each theme stays secret until the day it launches')"
+    },
+    {
+      "area": "DX",
+      "friction": "TabPFN local weights require an interactive browser login to accept the model license — awkward in a headless Render build/CI; the hosted tabpfn-client sidesteps it but adds an API key",
+      "evidence": "docs.priorlabs.ai/models/accessing-model-weights"
+    },
+    {
+      "area": "infra",
+      "friction": "Render free tier (512MB, 15-min spin-down) is unusable for a live judging demo AND too small for local LLM weights — builders not warned they effectively need a paid tier to win the Render category",
+      "evidence": "temps.sh render-pricing-2026 + agentdeals render vendor page"
+    }
+  ],
+  "context_percentage": 0,
+  "errors": [
+    "social_intel_skipped: true (autonomous conductor run — no user for Discord/X review)"
+  ],
+  "phase_ledger": [
+    {
+      "phase": "phase_0",
+      "started_at": "2026-10-28T00:05:00Z",
+      "completed_at": "2026-10-28T00:06:00Z",
+      "evidence": "config.json written: hackathon params, tracks (Overall/Render/TabPFN), judging weights (writing heaviest), dev.to platform, Oct-31 11:59PM PDT deadline, demoFormat recorded"
+    },
+    {
+      "phase": "phase_1",
+      "started_at": "2026-10-28T00:06:00Z",
+      "completed_at": "2026-10-28T00:09:00Z",
+      "evidence": "~13 web searches + WebFetch: challenge rules (tags devchallenge+hf26challenge, brand-new/one-entry/open-source-core), winning-post anatomy (323 winners study), Render Starter-tier durability, TabPFN access model, Groq open-weight inference path; capability_map + organizer_feedback populated"
+    },
+    {
+      "phase": "phase_2",
+      "started_at": "2026-10-28T00:09:00Z",
+      "completed_at": "2026-10-28T00:09:30Z",
+      "evidence": "social intel SKIPPED — autonomous conductor run, no user available for Discord/Twitter review; gap noted in research-brief Social Intel section"
+    },
+    {
+      "phase": "phase_3",
+      "started_at": "2026-10-28T00:09:30Z",
+      "completed_at": "2026-10-28T00:11:00Z",
+      "evidence": "competitor scan from public hf26challenge-tagged posts; leading competitor PhantomTerminal (~2k words, missing cover image + demo video); density map + kill list built"
+    },
+    {
+      "phase": "phase_4",
+      "started_at": "2026-10-28T00:11:00Z",
+      "completed_at": "2026-10-28T00:13:00Z",
+      "evidence": "research-brief.md synthesized (20KB): all required sections, capability-map gate clean, 4-category kill list, 3-5 themed open-weight-core concept seeds incl TabPFN grand-slam angle"
+    }
+  ],
+  "expected_phases": [
+    "phase_0",
+    "phase_1",
+    "phase_2",
+    "phase_3",
+    "phase_4"
+  ]
+}
