@@ -1,4 +1,26 @@
+# ── app ──
 .env
+.env.local
 .venv
 __pycache__/
 *.pyc
+
+# ── pipeline internals (never ship in the product repo) ──
+*-state.json
+.conductor-lock/
+.conductor-owner.json
+.conductor-owner.json.bak
+.conductor-resume.md
+.conductor-state.json
+.conductor-state.json.bak
+.conductor-recovery.log
+.conductor-recovery-claim*
+.crossmodel-gate/
+.semantic-review-request.json
+.input-manifest.json
+.watchdog-alerts.log
+.ship-check.json
+pipeline-log.md
+PULSE.md
+quality/
+autopsy/
