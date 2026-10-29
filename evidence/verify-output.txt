@@ -1,0 +1,19 @@
+=== 1/4 clone-fresh guard ===
+  OK: no state/.env tracked
+=== 2/4 no-secret assert ===
+  OK: no secret literals in tracked files
+=== 3/4 offline test suite ===
+..............                                                           [100%]
+14 passed in 0.43s
+=== 4/4 recompute + zero-drift ===
+=== CLAIM: seed-dataset (48 rows, 5 balanced classes) ===
+  OK: 48 rows — {"rows": 48, "classes": {"abandoned": 10, "alive": 10, "burned_out": 9, "completed": 9, "pivoted": 10}}
+=== CLAIM: test-suite-green (14 cases) ===
+  OK: ..............                                                           [100%]
+14 passed in 0.22s
+=== CLAIM: honest-engine-badge (rules fallback labeled correctly) ===
+  OK: fallback engine=rules
+
+RECOMPUTE PASS — zero drift on all verifiable claims.
+
+VERIFY PASS — clean-room release gate green (offline tier).
