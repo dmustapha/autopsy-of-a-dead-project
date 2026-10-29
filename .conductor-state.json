@@ -100,7 +100,9 @@
         "completed_at": "2026-10-29T06:03:32Z"
       },
       "build": {
-        "status": "pending"
+        "status": "pending",
+        "dispatched_at": null,
+        "note": "RESET to pending — build runs in a FRESH CHAT via the conductor (Dami directive). Partial B0/B1 was NOT built (dispatch rejected)."
       },
       "debug": {
         "status": "pending"

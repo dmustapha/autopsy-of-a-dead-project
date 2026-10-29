@@ -1,0 +1,61 @@
+# owner/repo, death_mode, note  (safe public repos only; no small living personal repos)
+#
+# ============ ALIVE (controls — famous, high-velocity, broad base) ============
+facebook/react, alive, high velocity and a huge contributor base
+fastapi/fastapi, alive, steady cadence, healthy bus factor
+pallets/flask, alive, mature but still actively maintained
+django/django, alive, decades old yet still shipping releases
+vuejs/core, alive, large core team, continuous commits
+pytorch/pytorch, alive, enormous active contributor base
+rust-lang/rust, alive, thousands of contributors, relentless cadence
+kubernetes/kubernetes, alive, CNCF flagship, nonstop activity
+tensorflow/tensorflow, alive, Google-backed, still active
+vercel/next.js, alive, extremely active frontend framework
+#
+# ============ COMPLETED (archived / reached purpose / deliberate quiet) ============
+google/leveldb, completed, archived, purpose served as a reference KV store
+facebookarchive/pop, completed, archived design-prototyping tool, deliberately finished
+facebookarchive/fixit, completed, archived linter, stated end-of-life
+h5bp/html5-boilerplate, completed, long-lived template, mature and quiet
+twbs/bootstrap-sass, completed, official sass port, superseded by core bootstrap sass
+jquery-archive/jquery-mobile, completed, archived, era ended with mobile web shift
+blueimp/jQuery-File-Upload, completed, enormously popular plugin, now stable and quiet
+google/guava, completed, mature Java core-libs, slow deliberate cadence
+square/dagger, completed, original Dagger, superseded by Dagger 2 but preserved
+addyosmani/backbone-fundamentals, completed, finished book-as-repo, stable
+#
+# ============ ABANDONED (dead, often not archived; once-popular) ============
+substack/node-browserify, abandoned, once-dominant bundler, cadence fell off a cliff
+jashkenas/coffeescript, abandoned, superseded by ES6, near-zero activity
+twitter/bootstrap, abandoned, the old pre-twbs org mirror, dead org path
+balderdashy/sails, abandoned, once-hot Node MVC framework, activity collapsed
+meteor/meteor, abandoned, once-huge full-stack JS, long decline
+senchalabs/connect, abandoned, superseded by express internals, quiet for years
+Leaflet/Leaflet.markercluster, abandoned, popular plugin, maintainer stepped away
+gruntjs/grunt, abandoned, task runner displaced by npm scripts and webpack
+bower/bower, abandoned, package manager officially deprecated, left to rest
+request/request, abandoned, hugely popular HTTP client, formally deprecated
+#
+# ============ BURNED_OUT (single maintainer, steep decay to zero) ============
+sindresorhus/caprine, burned_out, single-maintainer desktop app, cadence dropped off
+nodejs/node-v0.x-archive, burned_out, the old single-stream node repo, exhausted and archived
+tj/commander.js, burned_out, long solo-led, cadence thinned over years
+chjj/marked, burned_out, originally one maintainer, steep slowdown before handoff
+isaacs/node-glob, burned_out, long solo-maintained, decaying cadence
+petkaantonov/bluebird, burned_out, promise lib, maintainer moved on, decay to near zero
+caolan/async, burned_out, once-ubiquitous, single-lead cadence collapse
+mrdoob/stats.js, burned_out, tiny solo tool, long-tail near-zero commits
+substack/node-mkdirp, burned_out, one-maintainer micro-lib, dormant
+jonschlinkert/micromatch, burned_out, prolific solo author, cadence thinned
+#
+# ============ PIVOTED (short active life, successor exists) ============
+angular/angular.js, pivoted, AngularJS, superseded by the rewritten Angular, EOL
+facebookarchive/react-native-fbsdk, pivoted, replaced by react-native-fbsdk-next
+facebookarchive/draft-js, pivoted, editor superseded by Lexical, pointer to successor
+yarnpkg/yarn, pivoted, classic yarn, development moved to the berry rewrite
+expo/react-native-gesture-handler, pivoted, early effort folded into the RN ecosystem rewrite
+zeit/next.js, pivoted, zeit org mirror, project moved to the vercel org
+balderdashy/waterline, pivoted, ORM split out of sails, direction changed
+emberjs/list-view, pivoted, superseded by vertical-collection addon
+google/incremental-dom, pivoted, approach superseded by lit-html direction
+polymer/polymer, pivoted, superseded by the Lit library, README points onward
