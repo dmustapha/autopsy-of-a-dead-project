@@ -59,6 +59,12 @@
       "answered_by": "user",
       "selected": "Autopsy of a Dead Project",
       "at": "2026-10-29T02:00:00Z"
+    },
+    "post_forge_credentials": {
+      "answered": true,
+      "answered_by": "conductor",
+      "note": "GROQ_API_KEY/TABPFN_TOKEN needed at build (B2/B3), RENDER account at deploy (B5) — deferred-until-build per .input-manifest; not required for url_preverify. Surfaced to Dami at the build boundary.",
+      "at": "2026-10-29T08:10:00Z"
     }
   },
   "pipeline": {
@@ -89,7 +95,9 @@
         "completed_at": "2026-10-29T06:02:24Z"
       },
       "url_preverify": {
-        "status": "pending"
+        "status": "complete",
+        "verdict": "pass",
+        "completed_at": "2026-10-29T06:03:32Z"
       },
       "build": {
         "status": "pending"
@@ -141,7 +149,39 @@
   "cycle_ledger": {
     "value": null
   },
-  "confirmed_urls": {},
+  "confirmed_urls": {
+    "github_api": {
+      "url": "https://api.github.com",
+      "status": 200,
+      "note": "feature source — live, unauth read works"
+    },
+    "groq_api": {
+      "url": "https://api.groq.com",
+      "status": 200,
+      "models_endpoint": 401,
+      "note": "live; 401 on /models = reachable, needs GROQ_API_KEY (expected)"
+    },
+    "tabpfn_priorlabs": {
+      "url": "https://docs.priorlabs.ai",
+      "status": 200,
+      "note": "TabPFN hosted client docs reachable"
+    },
+    "render": {
+      "url": "https://render.com",
+      "status": 200,
+      "note": "deploy target reachable"
+    },
+    "challenge_page": {
+      "url": "https://dev.to/challenges/hacktoberfest-week4-2026-10-26",
+      "status": 200,
+      "note": "live challenge page — read on build day for exact theme prompt (DS-1)"
+    },
+    "hacktoberfest_promos": {
+      "url": "https://hacktoberfest.com/my/promos",
+      "status": 200,
+      "note": "Render/credits promos"
+    }
+  },
   "pipeline_log_chain": "34298d4e8f2915868c847a5ab3dcdecd6389c750f17677665dfc18fb0a19d9b5",
   "gate_integrity": {
     "sha": "9cb41ba631c5a38d9c862241fe5bcc8a627b9b5331a13610a6933b566a3f08e3",
