@@ -85,5 +85,16 @@
     "app": ["app/schemas.py", "app/validators.py", "app/github.py", "app/features.py", "app/classifier.py", "app/narrator.py", "app/cache.py", "app/ratelimit.py", "app/main.py", "app/templates/index.html", "app/static/app.js", "app/static/card.css"],
     "tests": ["tests/test_validators.py", "tests/test_features.py", "tests/test_classifier_shape.py", "tests/test_narration_grounding.py"]
   },
-  "timestamp": "2026-10-29T08:10:00Z"
+  "timestamp": "2026-10-29T08:10:00Z",
+  "context_percentage": 20,
+  "inputs_opened": ["ARCHITECTURE.md","PLAN.md","PRD.md","INVARIANTS.md","POST-DRAFT.md","HANDOFF.md","PULSE.md"],
+  "phase_ledger": [
+    {"phase": "B0 — Seed dataset (linchpin)", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "CSV + 5 classes + balance met; LOO unmeasurable (503) -> rules-primary fallback (ADR-007)."},
+    {"phase": "B1 — Feature extractor", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "12 tests green; github.py 301-redirect fix (DEV-001); real-repo row verified."},
+    {"phase": "B2 — TabPFN classifier", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "shape test green; clearly-alive->alive, clearly-dead->abandoned via rules; engine=tabpfn UNTESTED (503, DEV-002)."},
+    {"phase": "B3 — Gemma narration", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "grounding test green (99999 rejected); narrator wired to Ollama/Gemma (DEV-003); live Gemma deferred to deploy (DEV-004)."},
+    {"phase": "B4 — Web UI + local loop", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "full local e2e loop proven; prewarm made non-blocking (DEV-005); rate limiter wired; error matrix holds (no 500)."},
+    {"phase": "B5 — Deploy artifacts (Oracle)", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "systemd unit + nginx conf + RUNBOOK + CI workflow committed; NO remote provisioning (conductor deploy phase owns the live V.B5 run)."},
+    {"phase": "B6 — Evidence + claims", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "claims.json 8 verified / 2 pending (screenshots=design, live-url=deploy); NOTES.md 6 blocks; EX_* set."}
+  ]
 }
