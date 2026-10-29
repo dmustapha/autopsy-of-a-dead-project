@@ -1,0 +1,15 @@
+name: tests
+on: [push, pull_request]
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      # Offline tier only: no TABPFN_TOKEN / no Ollama in CI, so classify() uses the labeled
+      # rules fallback and narrate() uses the templated fallback. The 4 suites are deterministic
+      # and credential-free (grounding mocks the LLM client). Live-network verification happens at deploy.
+      - run: pytest -q

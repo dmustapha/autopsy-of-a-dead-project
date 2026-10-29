@@ -1,0 +1,66 @@
+{
+  "project": "Autopsy of a Dead Project",
+  "generated": "2026-10-29",
+  "claims": [
+    {
+      "id": "seed-dataset",
+      "claim": "A hand-labeled seed dataset of 48 real public repos across 5 death-modes ships in-repo (10 alive / 10 abandoned / 10 pivoted / 9 completed / 9 burned_out).",
+      "evidence": "data/seed_repos.csv",
+      "status": "verified"
+    },
+    {
+      "id": "seed-build-log",
+      "claim": "The seed CSV is built by the SAME production feature extractor; 2 repos dropped (genuine 404s), 6 recovered via the 301-redirect fix.",
+      "evidence": "data/build_seed.log",
+      "status": "verified"
+    },
+    {
+      "id": "loo-separability-honest",
+      "claim": "TabPFN LOO was UNMEASURABLE this build (Prior Labs HTTP 503 'Service is disabled'); the 1-NN proxy LOO on standardized features = 15/48 = 31% (chance 20%). Reported honestly; app ships rules-primary per ADR-007.",
+      "evidence": "data/build_seed.log",
+      "status": "verified"
+    },
+    {
+      "id": "open-source-core",
+      "claim": "The core AI is open-source only: TabPFN (open weights) classifies via tabpfn-client + set_access_token; narration is Gemma (open weights) via Ollama. No closed model in the verdict/narration path.",
+      "evidence": "app/classifier.py, app/narrator.py, requirements.txt",
+      "status": "verified"
+    },
+    {
+      "id": "honest-engine-badge",
+      "claim": "Every verdict carries an engine flag (tabpfn|rules) surfaced verbatim on the certificate; a fallback is labeled 'forensic-rules estimate — model unavailable'.",
+      "evidence": "app/static/app.js, app/schemas.py",
+      "status": "verified"
+    },
+    {
+      "id": "grounded-narration",
+      "claim": "Narration rejects any 2+-digit number absent from the evidence block (retry once, then templated fallback). The grounding test proves a fabricated 99999 is rejected.",
+      "evidence": "tests/test_narration_grounding.py",
+      "status": "verified"
+    },
+    {
+      "id": "local-e2e-loop",
+      "claim": "The full local loop runs end-to-end: real repo -> features -> classify -> grounded eulogy -> AutopsyResult JSON; /healthz 200, bad input -> 422, 404 repo -> friendly 422 (no uncaught 500).",
+      "evidence": "BUILD-REPORT.md (V.B4 transcript)",
+      "status": "verified"
+    },
+    {
+      "id": "test-suite-green",
+      "claim": "All 4 offline test suites pass (14 cases): validators, features, classifier shape, narration grounding.",
+      "evidence": ".github/workflows/test.yml",
+      "status": "verified"
+    },
+    {
+      "id": "certificate-screenshots",
+      "claim": "A 1200x630 certificate screenshot for each of 3 example repos (abandoned / burned_out / alive) for the post cover image.",
+      "evidence": "evidence/{abandoned,burned_out,alive}.png",
+      "status": "pending"
+    },
+    {
+      "id": "live-deploy-warm",
+      "claim": "The app is live on the Oracle Always-Free VM, warm, with Gemma-via-Ollama narration and TabPFN re-activated.",
+      "evidence": "https://<oracle-host>/healthz",
+      "status": "pending"
+    }
+  ]
+}

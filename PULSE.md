@@ -153,3 +153,38 @@ None. STAGE 2 BUILD is authorized.
 
 #### For Next Skill
 build: action the 4 approved build-directive elevations — **E-1** create POST-DRAFT.md at PRE-BUILD from PRD §47 with [CAPTURE] hooks each phase fills; **E-3** CODE the per-IP soft rate limit in main.py at B4 (SECURITY/PLAN promise it but ARCH II.9 has no limiter → build-follows-plan-literally would skip it); **E-5** at B0 pick the two dead example repos from the real seed (ARCH II.9 ships fake slugs someorg/abandoned-thing + solo/burned-out-thing → one-click examples would 404 on camera) and set EX_* env; **E-2** B6 writes the real B0 LOO number into claims.json + the post results table next to the TabPFN-track claim. Also honor the 9 forge critical-review survivors (INVARIANTS "Survivors") — pressure-tested, not re-discovered: the healthz token-presence proxy (E-4, deferred) is proven only by a live /autopsy returning engine=tabpfn. START at B0 (seed + LOO) — the linchpin and the critical path; read the LIVE challenge page first (DS-1).
+
+---
+
+### hackathon-build — 2026-10-29 (conductor-dispatched, fresh) — COMPLETE (pass_with_blockers)
+
+#### Verified Facts
+- Local end-to-end loop PROVEN: real repo (`bower/bower`) → 6 features → verdict `abandoned` (engine=rules) → grounded templated eulogy → full AutopsyResult JSON. `/healthz` 200 ready <2s; bad input→422; 404 repo→friendly 422; no uncaught 500 (I6 holds).
+- Seed dataset built from the production extractor: 48 rows, 5 classes balanced 10/10/10/9/9. `follow_redirects=True` fix (DEV-001) recovered 6 renamed repos incl. facebook/react; 2 genuine 404s dropped.
+- All 4 offline test suites green: 14 cases (validators 5+5 param, features 2, classifier shape 1, narration grounding 1). CI workflow scaffolded (offline tier).
+- Security gate PASS, 0 P0: no IDOR surface (no object-id routes), no value-moving POSTs, no secrets in client bundle, .env gitignored.
+- E-1/E-2/E-3/E-5 critique elevations all actioned: POST-DRAFT.md filled with real numbers; LOO in claims.json + post table; rate limiter coded (ratelimit.py II.38) + wired into /autopsy; EX_* set from the real seed.
+
+#### Active Facts (override earlier)
+- TabPFN hosted service was DOWN on build day: HTTP 503 "Service is disabled" on every fit (token VALID — set_access_token authenticated; server-side outage). Real TabPFN LOO UNMEASURABLE; 1-NN proxy LOO = 15/48 = 31% (chance 20%). App ships `engine="rules"` primary, labeled honestly (ADR-007). TabPFN re-activates with no code change when the service returns.
+- Narration = Gemma via Ollama (FINAL STACK): narrator.py wired to LLM_BASE_URL/LLM_MODEL/LLM_API_KEY defaulting to Ollama/gemma2:2b (DEV-003). No local Ollama → verified via templated fallback; live Gemma deferred to deploy (DEV-004).
+- render.yaml is DEAD (PART III.4) — not created. Deploy = Oracle Always-Free + Ollama; artifacts in deploy/ (autopsy.service, nginx-autopsy.conf, RUNBOOK.md).
+
+#### Blockers for Downstream
+- 2 UNTESTED deviations to resolve at deploy/livetest (NOT build failures — designed degradation):
+  1. DEV-002: engine=tabpfn happy path + real LOO — re-verify when Prior Labs 503 clears.
+  2. DEV-004: Gemma-via-Ollama narration quality/register — verify on the Oracle VM (Ollama co-located).
+
+#### Key Decisions
+- ADR-007: TabPFN build-day outage → ship rules-primary, reframe TabPFN as the assist in the post; never faked a verdict or a LOO number (INVARIANTS ESCALATE).
+- DEV-005: prewarm moved from blocking `@startup await` to `asyncio.create_task` (fire-and-forget) so a slow/failing upstream can never block server readiness — caught live (server refused connections for >20s during TabPFN-503 prewarm retries).
+
+#### For Next Skill
+- debug/livetest: drive the real consumer chain — a green /healthz only proves token-presence (healthz-is-a-proxy invariant); the ONLY proof of engine=tabpfn is a live /autopsy returning it, which requires Prior Labs back up. Re-run V.B2 + measure real LOO then.
+- deploy: run deploy/RUNBOOK.md on the Oracle VM; its "MUST re-verify" section lists the 2 deferred proofs (Gemma narration + TabPFN happy path). Live V.B5 gate is deploy's, not build's.
+- design: screenshot the real certificate card (claims.json `certificate-screenshots` pending); demo: record the real loop; package: write the post from POST-DRAFT.md + data/NOTES.md (6 blocks).
+
+#### Recomputable VF
+VF-1 seed CSV has 48 rows across 5 balanced classes. Recompute: `python -c "import pandas as pd;d=pd.read_csv('data/seed_repos.csv');print(len(d),dict(d['death_mode'].value_counts()))"` => `48 {'alive':10,'abandoned':10,'pivoted':10,'completed':9,'burned_out':9}`
+VF-2 all 4 offline suites green. Recompute: `PYTHONPATH=. .venv/bin/python -m pytest -q 2>/dev/null | tail -1` => `14 passed`
+VF-3 the fallback verdict is honestly labeled engine=rules. Recompute: `PYTHONPATH=. .venv/bin/python -c "from app.schemas import Features;from app.classifier import _forensic_rules;print(_forensic_rules(Features(days_since_last_commit=900,commit_cadence_decay=-3,lifespan_days=700,contributor_count=4,bus_factor=2,velocity_ratio=0.0)).engine)"` => `rules`

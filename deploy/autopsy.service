@@ -1,0 +1,12 @@
+[Unit]
+Description=Autopsy of a Dead Project
+After=network.target ollama.service
+
+[Service]
+WorkingDirectory=/opt/autopsy
+EnvironmentFile=/opt/autopsy/.env
+ExecStart=/opt/autopsy/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
