@@ -1,0 +1,60 @@
+ERR facebookarchive/fixit: repository not found or private
+ERR substack/node-mkdirp: repository not found or private
+ok  facebook/react -> alive
+ok  fastapi/fastapi -> alive
+ok  pallets/flask -> alive
+ok  django/django -> alive
+ok  vuejs/core -> alive
+ok  pytorch/pytorch -> alive
+ok  rust-lang/rust -> alive
+ok  kubernetes/kubernetes -> alive
+ok  tensorflow/tensorflow -> alive
+ok  vercel/next.js -> alive
+ok  google/leveldb -> completed
+ok  facebookarchive/pop -> completed
+ok  h5bp/html5-boilerplate -> completed
+ok  twbs/bootstrap-sass -> completed
+ok  jquery-archive/jquery-mobile -> completed
+ok  blueimp/jQuery-File-Upload -> completed
+ok  google/guava -> completed
+ok  square/dagger -> completed
+ok  addyosmani/backbone-fundamentals -> completed
+ok  substack/node-browserify -> abandoned
+ok  jashkenas/coffeescript -> abandoned
+ok  twitter/bootstrap -> abandoned
+ok  balderdashy/sails -> abandoned
+ok  meteor/meteor -> abandoned
+ok  senchalabs/connect -> abandoned
+ok  Leaflet/Leaflet.markercluster -> abandoned
+ok  gruntjs/grunt -> abandoned
+ok  bower/bower -> abandoned
+ok  request/request -> abandoned
+ok  sindresorhus/caprine -> burned_out
+ok  nodejs/node-v0.x-archive -> burned_out
+ok  tj/commander.js -> burned_out
+ok  chjj/marked -> burned_out
+ok  isaacs/node-glob -> burned_out
+ok  petkaantonov/bluebird -> burned_out
+ok  caolan/async -> burned_out
+ok  mrdoob/stats.js -> burned_out
+ok  jonschlinkert/micromatch -> burned_out
+ok  angular/angular.js -> pivoted
+ok  facebookarchive/react-native-fbsdk -> pivoted
+ok  facebookarchive/draft-js -> pivoted
+ok  yarnpkg/yarn -> pivoted
+ok  expo/react-native-gesture-handler -> pivoted
+ok  zeit/next.js -> pivoted
+ok  balderdashy/waterline -> pivoted
+ok  emberjs/list-view -> pivoted
+ok  google/incremental-dom -> pivoted
+ok  polymer/polymer -> pivoted
+
+wrote 48 rows to data/seed_repos.csv
+(LOO check skipped: TabPFN is inaccessible at the moment, please try again later.)
+
+=== B0 SEPARABILITY (honest record, build 2026-10-29) ===
+TabPFN hosted inference endpoint returned HTTP 503 "Service is disabled" on every attempt
+(token authenticated OK via set_access_token; the outage is server-side at Prior Labs).
+Real TabPFN LOO: UNMEASURABLE this build (service down).
+1-NN PROXY LOO (standardized features, same metric as app/_nearest_mode): 15/48 = 31% (chance 20%).
+Worst confusion: abandoned<->completed (9), abandoned<->burned_out (7).

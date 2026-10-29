@@ -1,0 +1,22 @@
+.certificate { background: #14141c; border: 1px solid #2a2a38; border-radius: 16px;
+  padding: 28px; box-shadow: 0 10px 40px rgba(0,0,0,.5); font-family: Georgia, serif; }
+.cert-head { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid #2a2a38;
+  padding-bottom: 12px; }
+.cert-head h2 { font-size: 1.4rem; letter-spacing: .04em; margin: 0; flex: 1; }
+.sigil { font-size: 1.6rem; color: #d6a756; }
+.cert-id { color: #7a7a88; font-size: .8rem; }
+.cert-body { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 18px 0; }
+.cert-body dt { color: #8a8a98; } .cert-body dd { margin: 0; }
+.verdict { font-weight: 700; text-transform: capitalize; }
+.verdict--abandoned { color: #c9623f; } .verdict--burned_out { color: #d6a756; }
+.verdict--pivoted { color: #6fa8c9; } .verdict--completed { color: #7fbf7f; }
+.verdict--alive { color: #7fd17f; }
+.evidence { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: .9rem; }
+.evidence caption { text-align: left; color: #8a8a98; margin-bottom: 6px; }
+.evidence th { text-align: left; color: #b8b8c4; font-weight: 500; padding: 4px 0; }
+.evidence td { text-align: right; font-variant-numeric: tabular-nums; }
+.coroner { border-left: 3px solid #d6a756; padding-left: 14px; color: #d8d8e0; font-style: italic;
+  min-height: 3em; line-height: 1.6; }
+.cert-foot { margin-top: 16px; font-size: .78rem; }
+.engine--tabpfn { color: #7fbf7f; } .engine--rules { color: #d6a756; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; } }

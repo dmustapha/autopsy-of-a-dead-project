@@ -27,7 +27,7 @@ def _headers() -> dict:
     return h
 
 async def fetch_repo(owner: str, repo: str) -> RepoData:
-    async with httpx.AsyncClient(timeout=10.0, headers=_headers()) as client:
+    async with httpx.AsyncClient(timeout=10.0, headers=_headers(), follow_redirects=True) as client:
         meta_r = await client.get(f"{API}/repos/{owner}/{repo}")
         if meta_r.status_code == 404:
             raise RepoError("not_found", "repository not found or private")
