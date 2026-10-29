@@ -1,1 +1,6 @@
-{}
+{
+  "intel": {
+    "verdict": "pass",
+    "sig": "32fdd5291c35d64196e1f98b394163410e2ac08e81cbe04eb3287a11e4996702"
+  }
+}

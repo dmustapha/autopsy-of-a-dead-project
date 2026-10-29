@@ -1,0 +1,8 @@
+2026-10-28T21:25:00Z WATCHDOG: Pipeline 'unknown' stale >975s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc
+2026-10-28T21:45:01Z WATCHDOG: Pipeline 'unknown' stale >2176s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc
+2026-10-28T22:05:01Z WATCHDOG: Pipeline 'unknown' stale >3376s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc
+2026-10-28T22:25:00Z WATCHDOG: Pipeline 'unknown' stale >4575s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc
+2026-10-28T22:40:00Z WATCHDOG: Pipeline 'unknown' stale >5475s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc
+2026-10-28T22:55:01Z WATCHDOG: Pipeline 'unknown' stale >6376s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc
+2026-10-28T23:15:01Z WATCHDOG: Pipeline 'unknown' stale >7575s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc
+2026-10-28T23:35:00Z WATCHDOG: Pipeline 'unknown' stale >8775s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc

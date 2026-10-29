@@ -5,3 +5,5 @@
 2026-10-28T20:58:51Z | intel | BLOCKED | intel | gate-tamper: gate_integrity missing on a progressed run (self-rebaseline attempt)
 2026-10-28T21:06:01Z | conductor | START | init | Pipeline initialized
 2026-10-28T21:08:31Z | intel | COMPLETE | intel | gate=pass verdict=pass
+2026-10-28T23:42:47Z | warroom | START | warroom | Dispatching warroom
+2026-10-29T00:10:17Z | warroom | COMPLETE | warroom | gate=pass verdict=pass

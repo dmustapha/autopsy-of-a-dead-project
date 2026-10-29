@@ -58,11 +58,14 @@
   "pipeline": {
     "phases": {
       "intel": {
-        "status": "running",
-        "dispatched_at": "2026-10-28T00:05:00Z"
+        "status": "complete",
+        "dispatched_at": "2026-10-28T00:05:00Z",
+        "verdict": "pass",
+        "completed_at": "2026-10-28T21:08:45Z"
       },
       "warroom": {
-        "status": "pending"
+        "status": "running",
+        "dispatched_at": "2026-10-29T00:00:00Z"
       },
       "forge": {
         "status": "pending"
@@ -124,7 +127,7 @@
     "value": null
   },
   "confirmed_urls": {},
-  "pipeline_log_chain": "ee19ac0d75ced1f3f2f2a67aa11921a9128b3a030f0c7ea8699a1aa2ec59365e",
+  "pipeline_log_chain": "8e53372ab1e5fd9deb31b9f00269af5f79e6b68ea01b289975f42dff080dd5e1",
   "gate_integrity": {
     "sha": "9cb41ba631c5a38d9c862241fe5bcc8a627b9b5331a13610a6933b566a3f08e3",
     "recorded_at": "2026-10-28T21:06:01Z"

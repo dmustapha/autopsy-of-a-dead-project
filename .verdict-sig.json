@@ -2,5 +2,9 @@
   "intel": {
     "verdict": "pass",
     "sig": "32fdd5291c35d64196e1f98b394163410e2ac08e81cbe04eb3287a11e4996702"
+  },
+  "warroom": {
+    "verdict": "pass",
+    "sig": "bdf8b88f37fd5bc169b4ea9a9ab3bc5f5af23beef5b1bf3870dbd3cacb89e909"
   }
 }

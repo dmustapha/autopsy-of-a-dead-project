@@ -60,3 +60,32 @@
 
 #### For Next Skill
  Pick a concept that is open-weight-at-core + themed (memorial/functional preferred over clichéd spooky) + Render-deployable + writes up beautifully. Strongest seed = "Autopsy of a dead project" (TabPFN predicts what killed a repo from its git-history table + open-weight model narrates the post-mortem as a séance) — genuine tri-track (Overall + Render + TabPFN), tabular is the core not a bolt-on. Leading competitor to beat: PhantomTerminal (~2k words but NO cover image, NO demo video).
+
+### hackathon-warroom (2026-10-29, SPRINT)
+
+#### Done
+Generated + deliberated the concept pool through 8 pool-gates + round_0 independent scoring (4 scorers: SCRIBE/MEDIUM/ORACLE/GRAVEDIGGER). Artifacts: warroom/{WARROOM-V1-BRIEF, concerns-snapshot-V1, deliberation-transcript, gap-map, primitives-sheet, round-scorecard}.md + .warroom-state.json. (Subagent socket-dropped at finalization; verdict re-read from disk — decisive, so confirmatory crowning rounds not re-run.)
+
+#### Additions
+Criteria-weighted scoring reflects the dev.to reality: Writing×0.40 + Theme×0.20 + Creativity×0.18 + Technical×0.15 + Partner×0.07 (writing is the heaviest axis).
+
+#### Deviations
+Finalized at scored-pool (round_0) rather than running fact_check→challenge→crowning: subagent died post-scoring and the #1 is UNANIMOUS (top on all 4 lenses, divergence 0.80), so later rounds would be confirmatory. selected_idea left null for CP2 (conductor human checkpoint).
+
+#### Verified Facts
+- Unanimous #1: **Autopsy of a Dead Project** — weighted 8.61, Gate-3 25/25. Substitution test PASSES (remove TabPFN → degrades to a git-stats page → TabPFN is load-bearing core, not a bolt-on). Zero dead-demo risk (git API + 1 TabPFN call + 1 Groq call; Render stays tiny).
+- #2 Ofrenda/Voicekeeper 7.35 — HIGH divergence 2.40 (MEDIUM #1 "soul" vs GRAVEDIGGER last "local-Ollama>512MB dead-demo, value invisible on screen").
+- #3 The Necromancer 7.18; #4 Haunted Dependency 6.83.
+- Killed: F Haunted Repo (herd collision, un-fixable); H2 Autopsy+Resurrect (two-product scope for a 1-day solo build).
+
+#### Assumptions
+Autopsy's "death-mode" labels (abandoned/pivoted/completed/burned-out) are derivable from git-history features (commit cadence decay, bus-factor, issue/PR half-life) — to be validated at build when the feature table is built.
+
+#### Blockers for Downstream
+TabPFN access path (hosted tabpfn-client key vs local weights w/ browser license-accept) must be resolved at build. Groq key still needed.
+
+#### Key Decisions
+Recommend Autopsy of a Dead Project as the tri-track grand-slam (Overall + Render + TabPFN). Open-weight core = Groq-hosted Llama/Qwen for the coroner/eulogy narration; TabPFN = the forensic death-mode classifier. CP2 pending Dami's pick.
+
+#### For Next Skill
+If Autopsy confirmed at CP2 → forge scopes: (1) paste a public GitHub repo URL → fetch git/commit history, (2) build a feature table, (3) TabPFN classifies death-mode + confidence, (4) Groq open-weight model narrates a "coroner's report / eulogy" that types out, (5) shareable death-certificate card (cover-image + demo-video material). Keep it ONE page, one paste-field, live on Render Starter. Post hook/title candidate: "I performed an autopsy on my dead side-projects. An open-weight AI told me how they died."
