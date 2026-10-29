@@ -89,3 +89,36 @@ Recommend Autopsy of a Dead Project as the tri-track grand-slam (Overall + Rende
 
 #### For Next Skill
 If Autopsy confirmed at CP2 → forge scopes: (1) paste a public GitHub repo URL → fetch git/commit history, (2) build a feature table, (3) TabPFN classifies death-mode + confidence, (4) Groq open-weight model narrates a "coroner's report / eulogy" that types out, (5) shareable death-certificate card (cover-image + demo-video material). Keep it ONE page, one paste-field, live on Render Starter. Post hook/title candidate: "I performed an autopsy on my dead side-projects. An open-weight AI told me how they died."
+
+### hackathon-forge (2026-10-29, SPRINT)
+
+#### Done
+Produced + brought to the forge STANDARD the planning suite for CP2-winner "Autopsy of a Dead Project": PRD.md (801), ARCHITECTURE.md (1512), PLAN.md (1018 — expanded from 487), INVARIANTS.md (I1-I11 + critical-review survivors), DECISIONS.md, SECURITY.md, LIMITATIONS.md, SUBMISSION_STATUS.md, .input-manifest.json. Ran the forge OWN completion gates to real GREEN: forge_doc_floor_gap CLEAN (800/1500/1000 all met), forge-critical-review exit OK (distinct-model, findings-not-scores, survivors→INVARIANTS, no hype-lint). Run INLINE (Dami ruling after 2 subagent failures).
+
+#### Additions
+- PLAN expanded +531 lines to clear the ≥1000 floor with REAL buildable depth (not padding): PART IV file-by-file transcription order + per-file landing checks; PART V per-phase verification protocol with exact expected transcripts + decision trees; PART VI deploy/post walkthroughs; PART VII a complete worked end-to-end trace (one dead repo, real intermediate values, incl. a "wrong-trace" catcher list); PART VIII env/troubleshooting/CI runbook + commit-ledger + decision-provenance.
+- A-G4 critical review RAN: three fresh-context DISTINCT-model (claude-sonnet) per-doc reviews (PRD/ARCH/PLAN), recorded in .forge-critical-review.json with falsifiable predicates; survivors folded verbatim into INVARIANTS.md.
+Locked stack unchanged: Python FastAPI single server-rendered page + TabPFN (tabpfn-client) + Groq open-weight LLM + GitHub REST, on Render Starter. Linchpin = a shipped ~50-repo labeled seed dataset.
+
+#### Deviations
+Forge ran IN-CONTEXT, not as the SPRINT profile-gated fresh subagent (fresh-dispatch-boundary deviation) — earlier subagent dispatch socket-dropped/timed out; Dami ruled inline for reliability. The per-doc critical review, however, WAS run as genuine distinct-model fresh-context subagents (producer opus → reviewers sonnet), satisfying the D-1 distinct-model gate honestly. Scope deliberately sized to a 1-day build.
+
+#### Verified Facts
+- Gate verdicts are REAL, read off disk: PRD 801 / ARCH 1512 / PLAN 1018 lines (all ≥ floor); forge-critical-review.sh exit → OK.
+- Stack is Render-tiny: one Python process, no JS bundler, no git clone (GitHub REST only), no local model weights (both AI models hosted).
+- TabPFN is load-bearing: in-context classify over seed_repos.csv; substitution test → remove it leaves a heuristic rules page. [ARCHITECTURE.md]
+- Two distinct open-source AI roles: TabPFN classifies death-mode; Groq open-weight LLM narrates.
+- Two ARCHITECTURE BLOCKERS found by the review were FIXED in the source of truth: (1) TabPFN was never authenticated — II.6 now calls set_access_token(TABPFN_TOKEN) before fit() (else labeled rules, honest) — this is what makes I2 load-bearing real not aspirational; (2) _forensic_rules else-branch now calls _nearest_mode (II.26), not a dead hardcoded "completed".
+
+#### Assumptions
+Death-mode ∈ {abandoned,pivoted,completed,burned-out,alive} is separable from ~6 commit/contributor features — VALIDATED at B0 exit before UI wiring (R5). Exact Wk4 theme prompt still secret until live page (DS-1).
+
+#### Blockers for Downstream
+- Required inputs still unresolved: GROQ_API_KEY (blocks B3+deploy), TABPFN_TOKEN (blocks B2+deploy), RENDER_ACCOUNT (blocks B5). GITHUB_TOKEN optional. DEVTO login deferred to package.
+- Nine SURVIVING critical-review findings the build MUST carry (in INVARIANTS.md "Survivors" + .forge-critical-review.json predicates): bus_factor alone can't separate burned_out; velocity_ratio~=0 can't separate abandoned/pivoted (lean on lifespan_days); commit_cadence_decay is biased by COMMIT_WINDOW on long repos; healthz tabpfn_reachable is a token-presence proxy not a probe (prove via live /autopsy engine=tabpfn); grounding _numbers() is substring-match not semantic; Features lacks total_commits/is_archived so two §16 rules can't fire; TabPFN re-fits per request (keep the cache); seed_list.txt placeholders are a build-day precondition; PRE-BUILD token check must source .env.
+
+#### Key Decisions
+See DECISIONS.md D1-D8. Headline: FastAPI single page (D1), hosted TabPFN (D2), Groq open-weight narration (D3), seed-dataset-first (D4), Render Starter warm (D6), scope cuts (D7), transparent fallback never-fake (D8). Forge-run addendum: fixed the two code BLOCKERS in ARCHITECTURE (token-set + nearest-mode) rather than defer them, because shipping a known-dead TabPFN path would void the load-bearing premise.
+
+#### For Next Skill
+critique: grade this STAGE-0/1 scope against the §12 parts + N2 floor — is the scope genuinely 1-day-buildable, is TabPFN honestly load-bearing, does the plan protect the heaviest axis (the post)? Note the 9 critical-review survivors are already recorded — critique should pressure-test, not re-discover them. Then build: start at B0 (seed dataset) — do NOT skip it; it is the linchpin; fill seed_list.txt placeholders FIRST. Read the LIVE challenge page first (DS-1).

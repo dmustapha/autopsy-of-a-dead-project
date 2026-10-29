@@ -7,3 +7,6 @@
 2026-10-28T21:08:31Z | intel | COMPLETE | intel | gate=pass verdict=pass
 2026-10-28T23:42:47Z | warroom | START | warroom | Dispatching warroom
 2026-10-29T00:10:17Z | warroom | COMPLETE | warroom | gate=pass verdict=pass
+2026-10-29T02:07:52Z | forge | START | forge | Dispatching forge
+2026-10-29T05:33:30Z | hackathon-forge | COMPLETE | phase_4_5_critical_review | forge brought to standard: PLAN 487->1018, doc-floor CLEAN, A-G4 distinct-model critical review OK, 2 ARCH blockers fixed, 9 survivors->INVARIANTS
+2026-10-29T05:53:49Z | forge | COMPLETE | forge | gate=pass verdict=pass_with_blockers (franchise skeleton not fully scaffolded at C0 (2.3 P1); entry-gate completeness checklist not recorded (N-17))

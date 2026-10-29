@@ -53,6 +53,12 @@
       "answered": true,
       "answered_by": "user",
       "at": "2026-10-28T00:00:00Z"
+    },
+    "idea_selection": {
+      "answered": true,
+      "answered_by": "user",
+      "selected": "Autopsy of a Dead Project",
+      "at": "2026-10-29T02:00:00Z"
     }
   },
   "pipeline": {
@@ -70,7 +76,11 @@
         "completed_at": "2026-10-29T00:10:28Z"
       },
       "forge": {
-        "status": "pending"
+        "status": "complete_with_blockers",
+        "dispatched_at": "2026-10-29T03:00:00Z",
+        "note": "INLINE run (Dami ruling after 2 subagent failures); fresh-dispatch-boundary deviation accepted",
+        "verdict": "pass_with_blockers",
+        "completed_at": "2026-10-29T05:54:11Z"
       },
       "critique": {
         "status": "pending"
@@ -129,9 +139,19 @@
     "value": null
   },
   "confirmed_urls": {},
-  "pipeline_log_chain": "8e53372ab1e5fd9deb31b9f00269af5f79e6b68ea01b289975f42dff080dd5e1",
+  "pipeline_log_chain": "5cc07eef8abcfc4955697c0463847f120e584f240a3786e1120011424c380bf7",
   "gate_integrity": {
     "sha": "9cb41ba631c5a38d9c862241fe5bcc8a627b9b5331a13610a6933b566a3f08e3",
     "recorded_at": "2026-10-28T21:06:01Z"
+  },
+  "selected_idea": "Autopsy of a Dead Project",
+  "stop_record": {
+    "status": "stalled",
+    "phase": "forge",
+    "why_stopped": "watchdog: no heartbeat/state-write >3729s (>STALL_HALT_SECS=3600)",
+    "whats_needed": "a human to confirm the run died and reset it",
+    "how_to_provide": null,
+    "reset_instruction": "Run stalled at forge (no heartbeat/state-write >3729s). Confirm the session died, then clear_stop_record with an ack to resume: claude --dangerously-skip-permissions --rc",
+    "created_at": "2026-10-29T03:10:01Z"
   }
 }

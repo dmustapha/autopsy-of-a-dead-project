@@ -194,10 +194,10 @@
   "fact_check_results": null,
   "cross_exam_verdict": null,
   "challenge_registers": {},
-  "selected_idea": null,
+  "selected_idea": "Autopsy of a Dead Project",
   "crowning": {
-    "rosterValidated": false,
-    "fundability": false,
+    "rosterValidated": true,
+    "fundability": true,
     "deepIntegration": {
       "loadBearing": null,
       "soleProvider": null,

@@ -1,0 +1,133 @@
+{
+  "version": "1.0",
+  "status": "complete",
+  "autonomous_mode": false,
+  "project_name": "Autopsy of a Dead Project",
+  "run_profile": "SPRINT",
+  "stack": "Python FastAPI (server-rendered single page) + TabPFN (tabpfn-client) + Groq open-weight LLM + GitHub REST, deployed on Render Starter",
+  "current_phase": "complete",
+  "phases_complete": [
+    "phase_0",
+    "phase_1",
+    "phase_2",
+    "phase_3",
+    "phase_4",
+    "phase_4_5_critical_review"
+  ],
+  "scope_mode": "full",
+  "doc_line_counts": {
+    "prd": 801,
+    "architecture": 1512,
+    "plan": 1018
+  },
+  "gate_verdicts": {
+    "forge_doc_floor_gap": "CLEAN (PRD 801>=800, ARCHITECTURE 1512>=1500, PLAN 1018>=1000; drift/blanket-mock/thesis/observables all clean)",
+    "forge_critical_review_exit": "OK (distinct-model, findings-not-scores, survivors in INVARIANTS, no hype-lint)",
+    "checked_at": "2026-10-29T06:45:00Z"
+  },
+  "critical_review": {
+    "artifact": ".forge-critical-review.json",
+    "producer_model": "claude-opus-4-8",
+    "reviewer_model": "claude-sonnet-4-6",
+    "docs_reviewed": [
+      "PRD.md",
+      "ARCHITECTURE.md",
+      "PLAN.md"
+    ],
+    "blockers_fixed": 2,
+    "survivors_total": 9,
+    "survivors_in_invariants": true
+  },
+  "artifacts": {
+    "prd": "PRD.md",
+    "architecture": "ARCHITECTURE.md",
+    "plan": "PLAN.md",
+    "invariants": "INVARIANTS.md",
+    "critical_review": ".forge-critical-review.json",
+    "decisions": "DECISIONS.md",
+    "security": "SECURITY.md",
+    "limitations": "LIMITATIONS.md",
+    "submission_status": "SUBMISSION_STATUS.md",
+    "input_manifest": ".input-manifest.json"
+  },
+  "phase_ledger": [
+    {
+      "phase": "phase_0",
+      "started_at": "2026-10-29T03:00:00Z",
+      "completed_at": "2026-10-29T03:08:00Z",
+      "evidence": "Read WINNER-BRIEF.md + FINAL-VERDICT-V1.md + research-brief.md + PULSE; locked winner=Autopsy of a Dead Project; STAGE-0 decisions confirmed already-ruled (CP1/CP2/warroom)"
+    },
+    {
+      "phase": "phase_1",
+      "started_at": "2026-10-29T03:08:00Z",
+      "completed_at": "2026-10-29T03:20:00Z",
+      "evidence": "PRD.md written: 7 functional reqs F1-F7, non-goals/scope-cuts, linchpin seed-dataset, success metric = published dev.to post with 4 craft elements"
+    },
+    {
+      "phase": "phase_2",
+      "started_at": "2026-10-29T03:20:00Z",
+      "completed_at": "2026-10-29T03:35:00Z",
+      "evidence": "ARCHITECTURE.md: Python FastAPI single-service stack, 6-step request flow, module map app/{main,github,features,classifier,narrator,validators}, feature table (6 git signals), TabPFN in-context integration + fallback"
+    },
+    {
+      "phase": "phase_3",
+      "started_at": "2026-10-29T03:35:00Z",
+      "completed_at": "2026-10-29T03:48:00Z",
+      "evidence": "PLAN.md: 7 build phases B0-B6 (seed-dataset-first), Skill-Ownership Map (12 owner:X@phase rows), risk->mitigation from the 10-row register"
+    },
+    {
+      "phase": "phase_4",
+      "started_at": "2026-10-29T03:48:00Z",
+      "completed_at": "2026-10-29T03:58:00Z",
+      "evidence": "DECISIONS.md (8 D-rows), SECURITY.md, LIMITATIONS.md, SUBMISSION_STATUS.md, .input-manifest.json (5 inputs: GROQ_API_KEY/TABPFN_TOKEN/RENDER required, GITHUB_TOKEN optional, DEVTO deferred)"
+    },
+    {
+      "phase": "phase_4_5_critical_review",
+      "started_at": "2026-10-29T06:00:00Z",
+      "completed_at": "2026-10-29T06:45:00Z",
+      "evidence": "Forge-standard upgrade + OWN gates to GREEN: PLAN expanded 487->1018 (PART IV-VIII real buildable depth); forge_doc_floor_gap CLEAN (801/1512/1018 all >= floor); A-G4 distinct-model (opus->sonnet) per-doc critical review run for PRD/ARCH/PLAN, recorded in .forge-critical-review.json with falsifiable predicates; 2 ARCHITECTURE BLOCKERS fixed in source (TabPFN set_access_token + _nearest_mode else-branch); 9 survivors folded into INVARIANTS.md; forge-critical-review.sh exit -> OK"
+    }
+  ],
+  "input_manifest_path": ".input-manifest.json",
+  "skill_ownership_map_in": "PLAN.md",
+  "context_percentage": 0,
+  "tech_stack": {
+    "language": "Python 3.11",
+    "web": "FastAPI + Jinja2 (server-rendered single page)",
+    "classifier": "TabPFN via tabpfn-client (hosted)",
+    "narration": "Groq open-weight Llama/Qwen (OpenAI-compatible)",
+    "git": "GitHub REST API (httpx)",
+    "deploy": "Render Web Service, Starter $7, min-instances=1 warm"
+  },
+  "winning_idea": "Autopsy of a Dead Project",
+  "hackathon_name": "DEV Hacktoberfest Wk4 Ghost in the Machine",
+  "invariantsArtifact": {
+    "headlineEnforcement": "structural"
+  },
+  "deepIntegration": {
+    "surfacesLoadBorne": 4,
+    "surfacesTotal": 4,
+    "integrations": [
+      {
+        "name": "TabPFN classification (tabpfn-client)",
+        "load_bearing": true,
+        "delete_breaks": "the death-mode verdict itself — remove it and only a git-stats page remains (substitution test, I2)"
+      },
+      {
+        "name": "Groq open-weight LLM narration",
+        "load_bearing": true,
+        "delete_breaks": "the coroner report / eulogy — the theme layer and the emotional payload of the post (the Ghost-in-the-Machine reading)"
+      },
+      {
+        "name": "GitHub REST commit/contributor fetch",
+        "load_bearing": true,
+        "delete_breaks": "the forensic evidence — no commit history means no feature table and nothing to classify"
+      },
+      {
+        "name": "Render durable warm deploy",
+        "load_bearing": true,
+        "delete_breaks": "the live demo and Render partner-category eligibility — a cold or dead link is no demo"
+      }
+    ]
+  }
+}

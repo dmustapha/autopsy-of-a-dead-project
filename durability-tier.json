@@ -1,0 +1,14 @@
+{
+  "persistenceClass": "stateless",
+  "judgingWindowHours": 168,
+  "platform": "Render",
+  "plan": "Starter",
+  "ephemeralFs": true,
+  "sleepsOnIdle": false,
+  "persistentStore": "none",
+  "costMonthlyUsd": 7,
+  "spendApproved": false,
+  "consciousChoice": true,
+  "keepWarm": { "heartbeatUrl": "https://<service>.onrender.com/healthz", "intervalMin": 10 },
+  "justification": "The app is STATELESS: the only persistent artifact is the hand-labeled ~50-repo seed dataset, which ships in the repo as a committed CSV build artifact (seed_dataset.csv) — not runtime-written. Per-request state (a repo's feature table, TabPFN verdict, Groq narration) is computed on the fly and cached only in an in-process LRU for the demo repos; losing the cache on restart costs one recompute, never data. A STATELESS app on bar-A needs only no-spin-to-zero. Render Starter $7/mo is always-on (no 15-min free-tier spin-down that would hang a judge's click during the Nov-2 judging window — the dl-1 LEASH vector), ephemeral fs is acceptable because nothing durable is written at runtime, and a 10-min heartbeat to /healthz keeps it warm as belt-and-braces. $25/mo 2GB tier is NOT needed because the open-weight model runs on Groq (hosted) and TabPFN runs on tabpfn-client (hosted) — no local weights to host, so 512MB is ample. spendApproved stays false until deploy (the TIER-CHOICE is a decision; actual paid provisioning is gated at deploy behind Dami's spend approval)."
+}

@@ -6,5 +6,9 @@
   "warroom": {
     "verdict": "pass",
     "sig": "bdf8b88f37fd5bc169b4ea9a9ab3bc5f5af23beef5b1bf3870dbd3cacb89e909"
+  },
+  "forge": {
+    "verdict": "pass_with_blockers",
+    "sig": "c16851dc210cb4637f731e4c9ce9df41e7ec2db3de00f9d766b3be97e1f731cb"
   }
 }
