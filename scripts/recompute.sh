@@ -17,7 +17,7 @@ echo "=== CLAIM: seed-dataset (48 rows, 5 balanced classes) ==="
 SEED_OUT=$("$VENV" -c "
 import pandas as pd, json, sys
 d = pd.read_csv('data/seed_repos.csv')
-result = {'rows': len(d), 'classes': dict(d['death_mode'].value_counts().sort_index())}
+result = {'rows': int(len(d)), 'classes': {str(k): int(v) for k, v in d['death_mode'].value_counts().sort_index().items()}}
 print(json.dumps(result))
 ")
 EXPECTED_ROWS=48

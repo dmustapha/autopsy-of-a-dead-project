@@ -1,15 +1,9 @@
 === CLAIM: seed-dataset (48 rows, 5 balanced classes) ===
-Traceback (most recent call last):
-  File "<string>", line 5, in <module>
-  File "/Users/MAC/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/json/__init__.py", line 231, in dumps
-    return _default_encoder.encode(obj)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/MAC/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/json/encoder.py", line 200, in encode
-    chunks = self.iterencode(o, _one_shot=True)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/Users/MAC/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/json/encoder.py", line 258, in iterencode
-    return _iterencode(o, 0)
-           ^^^^^^^^^^^^^^^^^
-  File "/Users/MAC/.local/share/uv/python/cpython-3.11.14-macos-aarch64-none/lib/python3.11/json/encoder.py", line 180, in default
-    raise TypeError(f'Object of type {o.__class__.__name__} '
-TypeError: Object of type int64 is not JSON serializable
+  OK: 48 rows — {"rows": 48, "classes": {"abandoned": 10, "alive": 10, "burned_out": 9, "completed": 9, "pivoted": 10}}
+=== CLAIM: test-suite-green (14 cases) ===
+  OK: ..............                                                           [100%]
+14 passed in 0.30s
+=== CLAIM: honest-engine-badge (rules fallback labeled correctly) ===
+  OK: fallback engine=rules
+
+RECOMPUTE PASS — zero drift on all verifiable claims.
