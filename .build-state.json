@@ -18,7 +18,13 @@
     "chance": "20%",
     "worst_confusion_pair": "abandoned<->completed (9)",
     "seed_rows": 48,
-    "class_balance": {"alive": 10, "abandoned": 10, "pivoted": 10, "completed": 9, "burned_out": 9}
+    "class_balance": {
+      "alive": 10,
+      "abandoned": 10,
+      "pivoted": 10,
+      "completed": 9,
+      "burned_out": 9
+    }
   },
   "tabpfn_token_live_test": {
     "auth": "OK (set_access_token accepted; token valid, len 53)",
@@ -36,42 +42,135 @@
     "evidence": "bower/bower -> features(745d since commit, bus_factor 1) -> verdict abandoned engine=rules -> grounded templated eulogy -> AutopsyResult JSON; /healthz 200 ready<2s; bad input 422; 404 repo friendly 422; no uncaught 500."
   },
   "phases": {
-    "B0": {"name": "Seed dataset (linchpin)", "gate": "V.B0", "status": "pass_with_blockers", "note": "CSV + 5 classes + balance met; LOO unmeasurable (503) -> rules-primary fallback (ADR-007)."},
-    "B1": {"name": "Feature extractor", "gate": "V.B1", "status": "pass", "note": "12 tests green; github.py 301-redirect fix (DEV-001); real-repo row verified."},
-    "B2": {"name": "TabPFN classifier", "gate": "V.B2", "status": "pass_with_blockers", "note": "shape test green; clearly-alive->alive, clearly-dead->abandoned via rules; engine=tabpfn UNTESTED (503, DEV-002)."},
-    "B3": {"name": "Gemma narration", "gate": "V.B3", "status": "pass_with_blockers", "note": "grounding test green (99999 rejected); narrator wired to Ollama/Gemma (DEV-003); live Gemma deferred to deploy (DEV-004)."},
-    "B4": {"name": "Web UI + local loop", "gate": "V.B4", "status": "pass", "note": "full local e2e loop proven; prewarm made non-blocking (DEV-005); rate limiter wired; error matrix holds (no 500)."},
-    "B5": {"name": "Deploy artifacts (Oracle)", "gate": "V.B5", "status": "artifacts_only", "note": "systemd unit + nginx conf + RUNBOOK + CI workflow committed; NO remote provisioning (conductor deploy phase owns the live V.B5 run)."},
-    "B6": {"name": "Evidence + claims", "gate": "V.B6", "status": "pass", "note": "claims.json 8 verified / 2 pending (screenshots=design, live-url=deploy); NOTES.md 6 blocks; EX_* set."}
+    "B0": {
+      "name": "Seed dataset (linchpin)",
+      "gate": "V.B0",
+      "status": "pass_with_blockers",
+      "note": "CSV + 5 classes + balance met; LOO unmeasurable (503) -> rules-primary fallback (ADR-007)."
+    },
+    "B1": {
+      "name": "Feature extractor",
+      "gate": "V.B1",
+      "status": "pass",
+      "note": "12 tests green; github.py 301-redirect fix (DEV-001); real-repo row verified."
+    },
+    "B2": {
+      "name": "TabPFN classifier",
+      "gate": "V.B2",
+      "status": "pass_with_blockers",
+      "note": "shape test green; clearly-alive->alive, clearly-dead->abandoned via rules; engine=tabpfn UNTESTED (503, DEV-002)."
+    },
+    "B3": {
+      "name": "Gemma narration",
+      "gate": "V.B3",
+      "status": "pass_with_blockers",
+      "note": "grounding test green (99999 rejected); narrator wired to Ollama/Gemma (DEV-003); live Gemma deferred to deploy (DEV-004)."
+    },
+    "B4": {
+      "name": "Web UI + local loop",
+      "gate": "V.B4",
+      "status": "pass",
+      "note": "full local e2e loop proven; prewarm made non-blocking (DEV-005); rate limiter wired; error matrix holds (no 500)."
+    },
+    "B5": {
+      "name": "Deploy artifacts (Oracle)",
+      "gate": "V.B5",
+      "status": "artifacts_only",
+      "note": "systemd unit + nginx conf + RUNBOOK + CI workflow committed; NO remote provisioning (conductor deploy phase owns the live V.B5 run)."
+    },
+    "B6": {
+      "name": "Evidence + claims",
+      "gate": "V.B6",
+      "status": "pass",
+      "note": "claims.json 8 verified / 2 pending (screenshots=design, live-url=deploy); NOTES.md 6 blocks; EX_* set."
+    }
   },
   "blockers": [
-    {"id": "DEV-002", "class": "UNTESTED", "what": "TabPFN happy path (engine=tabpfn) + real LOO separability unproven", "why": "Prior Labs HTTP 503 service outage", "resolve_at": "deploy/livetest when service returns"},
-    {"id": "DEV-004", "class": "UNTESTED", "what": "Gemma-via-Ollama narration unproven locally", "why": "no Ollama daemon on build host", "resolve_at": "Oracle deploy (Ollama co-located)"}
+    {
+      "id": "DEV-002",
+      "class": "UNTESTED",
+      "what": "TabPFN happy path (engine=tabpfn) + real LOO separability unproven",
+      "why": "Prior Labs HTTP 503 service outage",
+      "resolve_at": "deploy/livetest when service returns"
+    },
+    {
+      "id": "DEV-004",
+      "class": "UNTESTED",
+      "what": "Gemma-via-Ollama narration unproven locally",
+      "why": "no Ollama daemon on build host",
+      "resolve_at": "Oracle deploy (Ollama co-located)"
+    }
   ],
   "deviations": [
-    {"id": "DEV-001", "class": "COSMETIC", "step": "B0/B1", "desc": "github.py: added follow_redirects=True to recover 301-redirected (renamed) repos"},
-    {"id": "DEV-002", "class": "UNTESTED", "step": "B2", "desc": "TabPFN 503 -> classify() returns engine=rules; happy path unexercised"},
-    {"id": "DEV-003", "class": "DEGRADED", "step": "B3", "desc": "narrator _client() defaults to Ollama/Gemma + reads LLM_API_KEY (FINAL STACK/PART III.1), superseding raw II.7 Groq defaults"},
-    {"id": "DEV-004", "class": "UNTESTED", "step": "B3", "desc": "no local Ollama -> templated fallback renders; Gemma narration deferred to deploy"},
-    {"id": "DEV-005", "class": "DEGRADED", "step": "B4", "desc": "prewarm moved from blocking @startup await to asyncio.create_task (fire-and-forget) so a slow/failing upstream can never block server readiness"}
+    {
+      "id": "DEV-001",
+      "class": "COSMETIC",
+      "step": "B0/B1",
+      "desc": "github.py: added follow_redirects=True to recover 301-redirected (renamed) repos"
+    },
+    {
+      "id": "DEV-002",
+      "class": "UNTESTED",
+      "step": "B2",
+      "desc": "TabPFN 503 -> classify() returns engine=rules; happy path unexercised"
+    },
+    {
+      "id": "DEV-003",
+      "class": "DEGRADED",
+      "step": "B3",
+      "desc": "narrator _client() defaults to Ollama/Gemma + reads LLM_API_KEY (FINAL STACK/PART III.1), superseding raw II.7 Groq defaults"
+    },
+    {
+      "id": "DEV-004",
+      "class": "UNTESTED",
+      "step": "B3",
+      "desc": "no local Ollama -> templated fallback renders; Gemma narration deferred to deploy"
+    },
+    {
+      "id": "DEV-005",
+      "class": "DEGRADED",
+      "step": "B4",
+      "desc": "prewarm moved from blocking @startup await to asyncio.create_task (fire-and-forget) so a slow/failing upstream can never block server readiness"
+    }
   ],
   "deviationCount": 5,
   "untestedDeviationCount": 2,
   "knownRiskCount": 4,
-  "phaseExecutors": {"B0": "inline", "B1": "inline", "B2": "inline", "B3": "inline", "B4": "inline", "B5": "inline", "B6": "inline"},
+  "phaseExecutors": {
+    "B0": "inline",
+    "B1": "inline",
+    "B2": "inline",
+    "B3": "inline",
+    "B4": "inline",
+    "B5": "inline",
+    "B6": "inline"
+  },
   "contractAddresses": {},
   "invariantsConsumed": true,
   "ciScaffolded": true,
   "ciSkipReason": "",
   "security_gate": {
-    "ran": ["secret-in-client scan", "repo secret-literal scan", "IDOR/authz surface review", "replay/value-moving POST review"],
+    "ran": [
+      "secret-in-client scan",
+      "repo secret-literal scan",
+      "IDOR/authz surface review",
+      "replay/value-moving POST review"
+    ],
     "findings": [],
     "p0": 0,
     "note": "Web/API project: no per-user object-id routes (only /autopsy with repo_url -> no IDOR), no value-moving POSTs (read-only analysis -> no replay need), no secrets in client bundle (classify/narrate server-side), .env gitignored, .env.example empty of secrets (I10 holds)."
   },
   "deliverables_claimed": [
-    {"id": "certificate_screenshots", "status": "pending", "owner": "design"},
-    {"id": "live_deploy", "status": "pending", "owner": "deploy"}
+    {
+      "id": "certificate_screenshots",
+      "status": "pending",
+      "owner": "design"
+    },
+    {
+      "id": "live_deploy",
+      "status": "pending",
+      "owner": "deploy"
+    }
   ],
   "artifacts": {
     "report_path": "/Users/MAC/dev-ghost/BUILD-REPORT.md",
@@ -82,19 +181,80 @@
     "notes": "/Users/MAC/dev-ghost/data/NOTES.md",
     "claims": "/Users/MAC/dev-ghost/claims.json",
     "deploy_runbook": "/Users/MAC/dev-ghost/deploy/RUNBOOK.md",
-    "app": ["app/schemas.py", "app/validators.py", "app/github.py", "app/features.py", "app/classifier.py", "app/narrator.py", "app/cache.py", "app/ratelimit.py", "app/main.py", "app/templates/index.html", "app/static/app.js", "app/static/card.css"],
-    "tests": ["tests/test_validators.py", "tests/test_features.py", "tests/test_classifier_shape.py", "tests/test_narration_grounding.py"]
+    "app": [
+      "app/schemas.py",
+      "app/validators.py",
+      "app/github.py",
+      "app/features.py",
+      "app/classifier.py",
+      "app/narrator.py",
+      "app/cache.py",
+      "app/ratelimit.py",
+      "app/main.py",
+      "app/templates/index.html",
+      "app/static/app.js",
+      "app/static/card.css"
+    ],
+    "tests": [
+      "tests/test_validators.py",
+      "tests/test_features.py",
+      "tests/test_classifier_shape.py",
+      "tests/test_narration_grounding.py"
+    ]
   },
   "timestamp": "2026-10-29T08:10:00Z",
   "context_percentage": 20,
-  "inputs_opened": ["ARCHITECTURE.md","PLAN.md","PRD.md","INVARIANTS.md","POST-DRAFT.md","HANDOFF.md","PULSE.md"],
+  "inputs_opened": [
+    "ARCHITECTURE.md",
+    "PLAN.md",
+    "PRD.md",
+    "INVARIANTS.md",
+    "POST-DRAFT.md",
+    "HANDOFF.md",
+    "PULSE.md"
+  ],
   "phase_ledger": [
-    {"phase": "B0 — Seed dataset (linchpin)", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "CSV + 5 classes + balance met; LOO unmeasurable (503) -> rules-primary fallback (ADR-007)."},
-    {"phase": "B1 — Feature extractor", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "12 tests green; github.py 301-redirect fix (DEV-001); real-repo row verified."},
-    {"phase": "B2 — TabPFN classifier", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "shape test green; clearly-alive->alive, clearly-dead->abandoned via rules; engine=tabpfn UNTESTED (503, DEV-002)."},
-    {"phase": "B3 — Gemma narration", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "grounding test green (99999 rejected); narrator wired to Ollama/Gemma (DEV-003); live Gemma deferred to deploy (DEV-004)."},
-    {"phase": "B4 — Web UI + local loop", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "full local e2e loop proven; prewarm made non-blocking (DEV-005); rate limiter wired; error matrix holds (no 500)."},
-    {"phase": "B5 — Deploy artifacts (Oracle)", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "systemd unit + nginx conf + RUNBOOK + CI workflow committed; NO remote provisioning (conductor deploy phase owns the live V.B5 run)."},
-    {"phase": "B6 — Evidence + claims", "started_at": "2026-10-29T08:10:00Z", "completed_at": "2026-10-29T08:10:00Z", "evidence": "claims.json 8 verified / 2 pending (screenshots=design, live-url=deploy); NOTES.md 6 blocks; EX_* set."}
+    {
+      "phase": "B0 — Seed dataset (linchpin)",
+      "started_at": "2026-10-29T07:00:00Z",
+      "completed_at": "2026-10-29T07:10:00Z",
+      "evidence": "CSV + 5 classes + balance met; LOO unmeasurable (503) -> rules-primary fallback (ADR-007)."
+    },
+    {
+      "phase": "B1 — Feature extractor",
+      "started_at": "2026-10-29T07:10:00Z",
+      "completed_at": "2026-10-29T07:20:00Z",
+      "evidence": "12 tests green; github.py 301-redirect fix (DEV-001); real-repo row verified."
+    },
+    {
+      "phase": "B2 — TabPFN classifier",
+      "started_at": "2026-10-29T07:20:00Z",
+      "completed_at": "2026-10-29T07:35:00Z",
+      "evidence": "shape test green; clearly-alive->alive, clearly-dead->abandoned via rules; engine=tabpfn UNTESTED (503, DEV-002)."
+    },
+    {
+      "phase": "B3 — Gemma narration",
+      "started_at": "2026-10-29T07:35:00Z",
+      "completed_at": "2026-10-29T07:50:00Z",
+      "evidence": "grounding test green (99999 rejected); narrator wired to Ollama/Gemma (DEV-003); live Gemma deferred to deploy (DEV-004)."
+    },
+    {
+      "phase": "B4 — Web UI + local loop",
+      "started_at": "2026-10-29T07:50:00Z",
+      "completed_at": "2026-10-29T08:00:00Z",
+      "evidence": "full local e2e loop proven; prewarm made non-blocking (DEV-005); rate limiter wired; error matrix holds (no 500)."
+    },
+    {
+      "phase": "B5 — Deploy artifacts (Oracle)",
+      "started_at": "2026-10-29T08:00:00Z",
+      "completed_at": "2026-10-29T08:05:00Z",
+      "evidence": "systemd unit + nginx conf + RUNBOOK + CI workflow committed; NO remote provisioning (conductor deploy phase owns the live V.B5 run)."
+    },
+    {
+      "phase": "B6 — Evidence + claims",
+      "started_at": "2026-10-29T08:05:00Z",
+      "completed_at": "2026-10-29T08:10:00Z",
+      "evidence": "claims.json 8 verified / 2 pending (screenshots=design, live-url=deploy); NOTES.md 6 blocks; EX_* set."
+    }
   ]
 }
