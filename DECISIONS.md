@@ -70,3 +70,18 @@
 - **Decision:** Narration is served by **0G Compute Router** (`https://router-api.0g.ai/v1`) using the open-weight model **`deepseek-v4-flash`** (verified end-to-end). `narrator.py` is unchanged — only `LLM_BASE_URL`/`LLM_MODEL`/key env differ. Groq (`openai/gpt-oss-120b`) is the documented fallback.
 - **Rejected:** Groq as primary (generic cloud, a weaker open-source narrative, required a fresh key); Oracle self-hosted Ollama (more setup than value given 0G already works); any closed model on the 0G router (claude-* are proxied there but violate the open-source-core rule — deliberately avoided).
 - **Consequences:** Stronger "decentralized open-weight AI" story for the post; no new signup; the Render service stays tiny (just an HTTP call). Honesty: 0G TEE-verifiability is opt-in per provider — we do NOT claim attested inference unless a TeeML provider is explicitly used. TabPFN remains the unambiguous open-weight core.
+
+## ADR-005a — Deploy on Oracle Cloud (supersedes ADR-005 Render; Dami ruling 2026-10-29)
+- **Status:** Accepted
+- **Context:** We own an authenticated Oracle Always-Free VM (oci CLI v3.95 + config). Dami chose to host on infra we control rather than Render.
+- **Decision:** The live app is hosted on **Oracle Cloud (Always-Free VM)** — full control, no spin-down, no PaaS RAM ceiling, can co-host services. Deploy via the VM (uvicorn behind nginx/caddy + a systemd unit or docker), not render.yaml.
+- **Consequence (explicit):** FORFEITS the "Best Use of Render" $200 partner category. **Prize targeting drops to Overall ($250) + Best Use of TabPFN ($200)** — two tracks, not three. ARCHITECTURE render.yaml is now superseded by an Oracle deploy runbook (to be written at B5). The durable-tier concern (dl-1) is moot — our VM does not spin down.
+- **Rejected:** Render (would keep the $200 but Dami prefers owned infra); the hybrid Render-primary (not chosen).
+
+## ADR-005b — Host EVERYTHING on Oracle Always-Free; narration = Gemma via Ollama (supersedes ADR-003a inference + ADR-005a/the DO pick; Dami ruling 2026-10-29 "$0, no card")
+- **Status:** Accepted (final)
+- **Context:** Dami's hard constraint: zero out-of-pocket cost AND no credit card on file. DigitalOcean's free credit needs a card → excluded. Render's warm/promo tier is uncertain on cards; its 512MB can't run Gemma anyway.
+- **Decision:** Host the FastAPI app AND run **Gemma (open weights) via Ollama** both on the **Oracle Always-Free VM** we already own + have authenticated (oci v3.95). Narration calls Oracle-local Ollama (`/v1/chat/completions`, OpenAI-compatible) — `narrator.py` unchanged, just LLM_BASE_URL→Ollama + LLM_MODEL=gemma2 (use `gemma2:2b` for CPU speed, cache narration). TabPFN classifier via its free token (the $200 core). 0G/deepseek becomes an optional fallback, not primary.
+- **Prize targeting (final):** Overall ($250) + Best Use of TabPFN ($200) + Best Use of Gemma ($200) = **$650 potential, $0 cost**. We FORGO the hosting category (Render/DigitalOcean) — it is the one $200 that isn't reliably free/no-card.
+- **Rejected:** DigitalOcean (card for the credit — Dami's hard no); Render (card risk + can't run Gemma); 0G/deepseek as primary (earns no category); Tinker (fine-tuning, bolt-on, heavy); Arduino (hardware, N/A).
+- **Consequences:** One free box runs everything (no spin-down). Gemma-on-our-own-server is ALSO the strongest open-source narrative ("open weights, self-hosted, offline-capable, zero paid APIs"). Build adds: provision Oracle + install Ollama + pull gemma2:2b + expose the app (nginx/caddy + systemd, or a tunnel). render.yaml (ARCH II.13) is superseded by an Oracle deploy runbook (B5).

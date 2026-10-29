@@ -12,9 +12,11 @@
 - [ ] Cover image + ≥1 table + first-person number-in-title
 - [ ] Live Render URL
 
-## Partner categories
-- [ ] Best Use of Render — live durable Starter deploy, warm through judging
-- [ ] Best Use of TabPFN — load-bearing classification core + the seed-dataset story
+## Partner categories (FINAL — $0/no-card plan, ADR-005b)
+- [ ] Best Use of TabPFN ($200) — load-bearing classification core + the seed-dataset story
+- [ ] Best Use of Gemma ($200) — Gemma (open weights) via Ollama on Oracle writes the coroner narration
+- [x] Render/DigitalOcean hosting ($200) — FORGONE (not reliably free/no-card); app hosted on Oracle Always-Free
+- Target total: Overall $250 + TabPFN $200 + Gemma $200 = $650 potential, $0 cost
 
 ## Build gate before publish
 - [ ] App loop works live on Render (<2s warm)

@@ -22,3 +22,4 @@
 2026-10-29T04:25:01Z WATCHDOG: Pipeline 'unknown' stale >4499s. Last phase: forge. Resume: claude --dangerously-skip-permissions --rc
 2026-10-29T04:55:00Z WATCHDOG: Pipeline 'unknown' stale >1621s. Last phase: forge. Resume: claude --dangerously-skip-permissions --rc
 2026-10-29T05:25:00Z WATCHDOG: Pipeline 'unknown' stale >3421s. Last phase: forge. Resume: claude --dangerously-skip-permissions --rc
+2026-10-29T06:40:01Z WATCHDOG: Pipeline 'unknown' stale >1015s. Last phase: unknown. Resume: claude --dangerously-skip-permissions --rc

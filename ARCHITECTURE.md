@@ -30,8 +30,8 @@ implementation spec the build phase (B0–B6) consumes directly.
 | Frontend | Tailwind (CDN) + ~40 lines vanilla JS | Typing animation + a single fetch; a framework would add a build step for zero gain |
 | Git data | GitHub REST API via `httpx` (async) | No clone, no git binary, no disk — `/commits` + `/contributors` + repo meta suffice |
 | Classifier | TabPFN via `tabpfn-client` (hosted) | Load-bearing core; hosted avoids the local-weights browser license-accept + GPU/large tier |
-| Narration | Groq (`openai` SDK, `base_url=https://api.groq.com/openai/v1`), model `llama-3.3-70b-versatile` | Open-weight, ~85ms TTFB, free, OpenAI-compatible; swappable to `qwen-2.5-*` |
-| Deploy | Render Web Service, Starter $7/mo, `min instances = 1` (warm) | dl-1: free tier spins down at 15 min idle → a dead link during the Nov-2 judging week |
+| Narration | **Gemma (open weights) via Ollama** (`openai` SDK, `base_url=http://localhost:11434/v1`, model `gemma2:2b`), self-hosted on Oracle — **no API key** | ADR-005b: open weights = $0, keyless, "runs on my own server, offline"; wins Best-Use-of-Gemma $200. 0G/Groq are env-swappable fallbacks. |
+| Deploy | **Oracle Always-Free VM** (uvicorn + nginx/caddy + systemd; Ollama co-located) | ADR-005b: owned infra, $0/no-card, no spin-down. Supersedes the Render plan + II.13 render.yaml — see PART III deploy addendum. |
 
 ---
 
@@ -156,7 +156,11 @@ velocity_ratio<0.1 → abandoned`). Returned with `engine="rules"` so the UI and
 
 ```python
 from openai import OpenAI
-client = OpenAI(base_url="https://api.groq.com/openai/v1", api_key=os.environ["GROQ_API_KEY"])
+client = OpenAI(
+    base_url=os.environ.get("LLM_BASE_URL", "http://localhost:11434/v1"),   # Gemma via Ollama (default; keyless)
+    api_key=os.environ.get("LLM_API_KEY", "ollama"),                         # placeholder for Ollama; set per-fallback for 0G/Groq
+)
+MODEL = os.environ.get("LLM_MODEL", "gemma2:2b")
 
 SYSTEM = """You are a forensic coroner for software projects. Write a short (120–200 word)
 coroner's report / eulogy. Spooky, literary, Día-de-los-Muertos reverence — but EVERY factual
@@ -460,11 +464,13 @@ The card is the post's hero image. Reference structure (Tailwind utility classes
 
 | Var | Required | Default | Purpose |
 |---|---|---|---|
-| `GROQ_API_KEY` | yes | — | open-weight narration |
-| `TABPFN_TOKEN` | yes | — | hosted TabPFN classification |
+| `LLM_BASE_URL` | no | `http://localhost:11434/v1` | narration endpoint — **Ollama (Gemma) default, keyless** |
+| `LLM_MODEL` | no | `gemma2:2b` | narration model (Gemma, open weights) |
+| `LLM_API_KEY` | no | `ollama` | placeholder for Ollama; real key only for a hosted fallback |
+| `TABPFN_TOKEN` | yes | — | hosted TabPFN classification (the $200 core) |
 | `GITHUB_TOKEN` | no | unauth | higher GitHub rate limit |
-| `LLM_BASE_URL` | no | Groq | swap to Ollama for local mode |
-| `LLM_MODEL` | no | `llama-3.3-70b-versatile` | narration model id |
+| `ZERO_G_COMPUTE_API_KEY` | fallback | — | only if LLM_BASE_URL→0G (`deepseek-v4-flash`) |
+| `GROQ_API_KEY` | fallback | — | only if LLM_BASE_URL→Groq (`openai/gpt-oss-120b`) |
 | `COMMIT_WINDOW` | no | 1000 | max commits fetched for huge repos |
 | `CACHE_TTL` | no | 3600 | seconds |
 
@@ -1534,3 +1540,60 @@ def rate_limit(request: Request) -> None:
 ```
 Wire in `main.py`: `@app.post("/autopsy")` handler calls `rate_limit(request)` first (add `request: Request`
 to the signature). In-process (no Redis — keeps Render-tiny); bounds Groq/TabPFN quota-burn during judging.
+
+---
+
+# PART III — DEPLOY ADDENDUM: Oracle + Ollama/Gemma (AUTHORITATIVE; supersedes II.13 render.yaml and any Groq/0G narration default)
+
+**Decision ADR-005b:** host EVERYTHING on the Oracle Always-Free VM we own; narration = **Gemma (open weights) via Ollama**, co-located. $0, no card, no spin-down, keyless narration. Target categories: Overall + TabPFN + Gemma (= $650). The Render category + `render.yaml` (II.13) are NOT used.
+
+## III.1 Narration config (final)
+`narrator.py` reads `LLM_BASE_URL` (default `http://localhost:11434/v1`), `LLM_MODEL` (default `gemma2:2b`), `LLM_API_KEY` (default `ollama`, a placeholder Ollama ignores). No code change from II.7 beyond the env-driven client (II.7 client block updated). Gemma is a non-reasoning model, so the earlier reasoning-model `max_tokens` caveat (deepseek) does NOT apply — `max_tokens=320` is fine. Keep the grounding check + templated fallback.
+
+## III.2 Oracle deploy runbook (replaces B5)
+On the Oracle Always-Free VM (Ubuntu; reach it via the `oci` CLI / SSH already configured):
+```bash
+# 1. system deps
+sudo apt-get update && sudo apt-get install -y python3-venv nginx
+# 2. Ollama + Gemma (open weights, no key)
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull gemma2:2b                  # ~1.6GB; CPU-fine for short eulogies. (gemma2:9b if the box has RAM.)
+# ollama serves OpenAI-compatible at http://localhost:11434/v1 via `ollama serve` (systemd unit below)
+# 3. app
+git clone <repo> /opt/autopsy && cd /opt/autopsy
+python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
+# 4. env (/opt/autopsy/.env): TABPFN_TOKEN=..., LLM_BASE_URL=http://localhost:11434/v1, LLM_MODEL=gemma2:2b, LLM_API_KEY=ollama, GITHUB_TOKEN=(optional)
+```
+systemd units:
+```ini
+# /etc/systemd/system/ollama.service  (the installer usually creates this; ensure enabled)
+# /etc/systemd/system/autopsy.service
+[Unit]
+Description=Autopsy of a Dead Project
+After=network.target ollama.service
+[Service]
+WorkingDirectory=/opt/autopsy
+EnvironmentFile=/opt/autopsy/.env
+ExecStart=/opt/autopsy/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000
+Restart=always
+[Install]
+WantedBy=multi-user.target
+```
+nginx reverse proxy (TLS via certbot, or caddy for auto-TLS):
+```nginx
+server {
+  listen 80; server_name <host-or-ip>;
+  location / { proxy_pass http://127.0.0.1:8000; proxy_set_header Host $host; proxy_set_header X-Real-IP $remote_addr; }
+}
+```
+Oracle security list / `iptables`: open 80/443 ingress. (Oracle instances default-deny; this is the classic gotcha — open the port in BOTH the OCI security list AND the instance firewall.)
+Verify: `curl https://<host>/healthz` → `{ok:true, seed_rows:~50}`. No spin-down → no warm-ping needed (II.25 moot).
+
+## III.3 Prize-claim mapping (final)
+- **TabPFN $200:** classifier core (ARCH II.6) with `set_access_token(TABPFN_TOKEN)`.
+- **Gemma $200:** narration served by Gemma via Ollama (this addendum) — genuine, load-bearing (it writes every eulogy).
+- **Overall $250:** the post.
+- Hosting category ($200): FORGONE (Oracle isn't a sponsor; chosen for $0/no-card).
+
+## III.4 What this does NOT change
+The concept, the user loop, the feature table, TabPFN classification, the certificate card, the tests, the seed dataset — all identical. Only the narration endpoint (→ Ollama/Gemma) and the deploy target (→ Oracle) change. `render.yaml` (II.13) is dead; do not create it.
