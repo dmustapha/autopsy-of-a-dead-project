@@ -1510,3 +1510,27 @@ Every functional requirement and the honesty invariants trace to a concrete, cop
 - `TTLCache` (II.8) — the in-process demo-safety / quota cache.
 - `_forensic_rules` / `_nearest_mode` (II.6, II.26) — the labeled non-AI fallback path.
 - `narrate` / `_template` (II.7) — open-weight narration + grounded fallback.
+
+## II.38 Per-IP rate limiter (`app/ratelimit.py`) — closes the SECURITY plan↔code gap (critique E-3)
+SECURITY.md + PLAN promise a per-IP soft rate limit on `/autopsy`; this is its code (wired in B4).
+```python
+from __future__ import annotations
+import time
+from collections import defaultdict
+from fastapi import Request, HTTPException
+
+_HITS: dict[str, list[float]] = defaultdict(list)
+_WINDOW = 60.0      # seconds
+_MAX = 10           # requests / IP / window
+
+def rate_limit(request: Request) -> None:
+    ip = request.client.host if request.client else "unknown"
+    now = time.time()
+    hits = [t for t in _HITS[ip] if now - t < _WINDOW]
+    if len(hits) >= _MAX:
+        raise HTTPException(status_code=429, detail="The crypt is busy — too many autopsies. Try again in a minute.")
+    hits.append(now)
+    _HITS[ip] = hits
+```
+Wire in `main.py`: `@app.post("/autopsy")` handler calls `rate_limit(request)` first (add `request: Request`
+to the signature). In-process (no Redis — keeps Render-tiny); bounds Groq/TabPFN quota-burn during judging.

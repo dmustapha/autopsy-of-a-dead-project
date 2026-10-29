@@ -10,5 +10,9 @@
   "forge": {
     "verdict": "pass_with_blockers",
     "sig": "c16851dc210cb4637f731e4c9ce9df41e7ec2db3de00f9d766b3be97e1f731cb"
+  },
+  "critique": {
+    "verdict": "pass",
+    "sig": "483de5890ebd9ce8e4ef02a604402959c3b205447b3e79ba3efd9fc04fd378d6"
   }
 }

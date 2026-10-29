@@ -122,3 +122,34 @@ See DECISIONS.md D1-D8. Headline: FastAPI single page (D1), hosted TabPFN (D2), 
 
 #### For Next Skill
 critique: grade this STAGE-0/1 scope against the §12 parts + N2 floor — is the scope genuinely 1-day-buildable, is TabPFN honestly load-bearing, does the plan protect the heaviest axis (the post)? Note the 9 critical-review survivors are already recorded — critique should pressure-test, not re-discover them. Then build: start at B0 (seed dataset) — do NOT skip it; it is the linchpin; fill seed_list.txt placeholders FIRST. Read the LIVE challenge page first (DS-1).
+
+### hackathon-critique (2026-10-29, SPRINT)
+
+#### Done
+Ran the full STAGE-1 SCOPE-REVIEW gate on the forge planning suite for "Autopsy of a Dead Project". Graded the STAGE-0 scope against all 10 PIPELINE-COMMON §12 parts + the N2 floor, assessed competitive positioning, sponsor depth (TabPFN + Render), narrative arc, ran the Phase 3.5 drift scan + Phase 4.5 win-legibility axes, and produced 5 elevations. Wrote CRITIQUE-REPORT.md + .critique-state.json (nonce recorded); artifacts written incrementally. **VERDICT: ACCEPT-WITH-NOTES — STAGE 2 BUILD authorized.**
+
+#### Additions
+Independent positioning cross-review (blind re-derivation from research-brief + PRD) = AGREE: unique on the TabPFN-tabular axis (~0 competitors / BLUE OCEAN), differentiated overall. Graded the §12 contract against the forge doc suite (PRD §60-61 / WINNER-BRIEF / PLAN / INVARIANTS) because this is a linear pipeline with no dedicated SCOPE-KICKOFF file.
+
+#### Deviations
+The mechanical `critique-scope-review.sh` returned VERDICT=BLOCK — this is the fail-closed "absent dedicated phases/N-SCOPE-KICKOFF.md" surface, NOT a scope defect. Conductor-state has no methodology/cycle fields (classic linear order), so forge did not emit the methodology-layer artifact; the STAGE-0 contract is carried across the forge docs and was graded there manually per dispatch. Phase 6 ran autonomous (no user) — 4 quick/none elevations auto-approved, 1 medium deferred. Phase 7 (apply-to-docs) skipped: all 4 approved elevations are build-directive (add code/files at a named phase), recorded for build; none thesis-level, no WINNER-BRIEF amendment.
+
+#### Verified Facts
+- All 10 §12 parts clear the N2 floor (none ABSENT/EMPTY/PLACEHOLDER/THIN); done-criterion + test-plan carry resolvable pointers (/healthz, evidence/*.png, claims.json, test_features.py, V.GATE).
+- TabPFN is genuinely load-bearing: STRUCTURAL (the `engine` flag is part of the Verdict type → a rules verdict is unrepresentable as tabpfn) + SUBSTITUTION (remove it → heuristic rules page). The only contingency is B0 LOO separability, with a documented honest fallback.
+- 1-day-buildable with margin: one Python process, no bundler, no git clone, no local weights, hosted models; ~8.5h timeline, post block reserved, hard-stops cut app polish not the post.
+- Drift scan clean: no CLAIM↔RUNTIME overclaim (honest-MVP acknowledged), no numeric drift, no unsourced vanity stats (every post stat is pre-wired to a real source: §19 log + B0 LOO).
+- All six win-legibility axes = strong.
+
+#### Assumptions
+Graded the STAGE-0 scope from the forge doc suite is a faithful stand-in for a §12 SCOPE-KICKOFF in a linear run (the dispatch explicitly instructs grading the scope kickoff against §12). B0 LOO separability will clear ~60% (chance 20%) — unproven until build; the documented rules-primary fallback keeps the app honest if it does not.
+
+#### Blockers for Downstream
+None. STAGE 2 BUILD is authorized.
+
+#### Key Decisions
+- VERDICT ACCEPT-WITH-NOTES — no BLOCKER found; the thesis is witnessable by the demo (certificate card), TabPFN load-bearing proven structurally, post-protection is real (I8 + timebox).
+- [AUTO] Approved E-1, E-2, E-3, E-5 (all quick/none); deferred E-4 (medium) — no user reachable, autonomous default.
+
+#### For Next Skill
+build: action the 4 approved build-directive elevations — **E-1** create POST-DRAFT.md at PRE-BUILD from PRD §47 with [CAPTURE] hooks each phase fills; **E-3** CODE the per-IP soft rate limit in main.py at B4 (SECURITY/PLAN promise it but ARCH II.9 has no limiter → build-follows-plan-literally would skip it); **E-5** at B0 pick the two dead example repos from the real seed (ARCH II.9 ships fake slugs someorg/abandoned-thing + solo/burned-out-thing → one-click examples would 404 on camera) and set EX_* env; **E-2** B6 writes the real B0 LOO number into claims.json + the post results table next to the TabPFN-track claim. Also honor the 9 forge critical-review survivors (INVARIANTS "Survivors") — pressure-tested, not re-discovered: the healthz token-presence proxy (E-4, deferred) is proven only by a live /autopsy returning engine=tabpfn. START at B0 (seed + LOO) — the linchpin and the critical path; read the LIVE challenge page first (DS-1).

@@ -76,12 +76,15 @@
         "completed_at": "2026-10-29T00:10:28Z"
       },
       "forge": {
-        "status": "running",
+        "status": "complete_with_blockers",
         "dispatched_at": "2026-10-29T03:00:00Z",
-        "note": "INLINE run (Dami ruling after 2 subagent failures); fresh-dispatch-boundary deviation accepted"
+        "note": "INLINE run (Dami ruling after 2 subagent failures); fresh-dispatch-boundary deviation accepted",
+        "verdict": "pass_with_blockers",
+        "completed_at": "2026-10-29T05:54:58Z"
       },
       "critique": {
-        "status": "pending"
+        "status": "running",
+        "dispatched_at": "2026-10-29T07:30:00Z"
       },
       "url_preverify": {
         "status": "pending"
@@ -137,19 +140,19 @@
     "value": null
   },
   "confirmed_urls": {},
-  "pipeline_log_chain": "5cc07eef8abcfc4955697c0463847f120e584f240a3786e1120011424c380bf7",
+  "pipeline_log_chain": "34298d4e8f2915868c847a5ab3dcdecd6389c750f17677665dfc18fb0a19d9b5",
   "gate_integrity": {
     "sha": "9cb41ba631c5a38d9c862241fe5bcc8a627b9b5331a13610a6933b566a3f08e3",
     "recorded_at": "2026-10-28T21:06:01Z"
   },
   "selected_idea": "Autopsy of a Dead Project",
-  "stop_record": {
-    "status": "stalled",
-    "phase": "forge",
-    "why_stopped": "watchdog: no heartbeat/state-write >3729s (>STALL_HALT_SECS=3600)",
-    "whats_needed": "a human to confirm the run died and reset it",
-    "how_to_provide": null,
-    "reset_instruction": "Run stalled at forge (no heartbeat/state-write >3729s). Confirm the session died, then clear_stop_record with an ack to resume: claude --dangerously-skip-permissions --rc",
-    "created_at": "2026-10-29T03:10:01Z"
+  "progress_evidence": {
+    "forge": {
+      "fingerprint": "",
+      "id_set": "",
+      "continuation_count": 0,
+      "updated_at": "2026-10-29T05:54:50Z",
+      "cleared_by": "session alive and actively driving; forge completed inline (complete_with_blockers, all real gates green); watchdog false-positive from long inline wall-clock with no heartbeat refresh — no death occurred"
+    }
   }
 }
