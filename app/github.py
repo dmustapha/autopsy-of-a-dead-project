@@ -141,4 +141,15 @@ async def fetch_repo(owner: str, repo: str) -> RepoData:
             "closed_issues_count": closed_issues,
             "release_count": release_count,
             "last_release_at": last_release_at,
+            # New Tier B signals (already in the /repos/{owner}/{repo} response —
+            # no extra API call). Honesty invariant: absent → honest empty.
+            "forks_count": meta.get("forks_count"),
+            "watchers_count": meta.get("watchers_count"),
+            "topics": meta.get("topics") or [],
+            "size": meta.get("size"),
+            "has_wiki": bool(meta.get("has_wiki")),
+            "has_pages": bool(meta.get("has_pages")),
+            "fork": bool(meta.get("fork")),
+            "license_present": bool((meta.get("license") or {}).get("spdx_id")),
+            "description": meta.get("description"),
         })
