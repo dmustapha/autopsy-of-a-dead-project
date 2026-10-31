@@ -4,6 +4,8 @@
 .venv
 __pycache__/
 *.pyc
+.pytest_cache/
+.DS_Store
 
 # ── pipeline internals (never ship in the product repo) ──
 *-state.json
@@ -24,3 +26,56 @@ pipeline-log.md
 PULSE.md
 quality/
 autopsy/
+.forge-draft-inline/
+research/
+warroom/
+config.json
+intel-state.json
+.codebase-manifest.md
+.craft-law.json
+.crossmodel-events.jsonl
+.design-*.json
+.dispatch-nonce.json
+.env-proof.json
+.forge-critical-review.json
+.law12-feasibility.json
+.no-repo-waiver
+.verdict-sig.json*
+.watchdog-last-alert
+*.bak
+*.pre-prune.bak
+
+# ── build-process reports (kept locally, not shipped) ──
+BUILD-REPORT.md
+BUILD-RESULTS.md
+CRITIQUE-REPORT.md
+DEBUG-REPORT.md
+DESIGN-FORGE-RESULTS.md
+DESIGN-HANDOFF.md
+DESIGN_BRIEF.md
+PLAN.md
+PRD.md
+POST-DRAFT.md
+POST.md
+ROUTE-ARCHITECTURE.md
+SCORECARD.md
+SELECTION.md
+STRESS-RESULTS.md
+STRESS-TEST-PLAN.md
+STRESS-TEST-REPORT.md
+SUBMISSION-CHECKLIST.md
+SUBMISSION_STATUS.md
+VERIFY-REPORT.md
+WIRE-REPORT.md
+docs/DEPTH-UPGRADE-PLAN.md
+docs/ui-revamp-before-after.md
+ai/
+tests/ablation/
+data/build_seed.log
+evidence/design-qa/
+evidence/wire/.agent_nonce
+
+# ── more pipeline internals ──
+debug-results/
+provider-preflight.json
+durability-tier.json

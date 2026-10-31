@@ -1,0 +1,18 @@
+{
+  "bower-death": {
+    "certLen": 1175,
+    "badges": [
+      "OPEN-WEIGHT · LOCAL-CAPABLE",
+      "CLASSIFIED BY TABPFN",
+      "NARRATED BY DEEPSEEK-V4.1-FLASH · 0G COMPUTE (OPEN WEIGHTS)"
+    ]
+  },
+  "fastapi-life": {
+    "certLen": 1187,
+    "badges": [
+      "OPEN-WEIGHT · LOCAL-CAPABLE",
+      "CLASSIFIED BY TABPFN",
+      "NARRATED BY DEEPSEEK-V4.1-FLASH · 0G COMPUTE (OPEN WEIGHTS)"
+    ]
+  }
+}

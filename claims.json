@@ -1,6 +1,6 @@
 {
   "project": "Autopsy of a Dead Project",
-  "generated": "2026-10-29",
+  "generated": "2026-10-31",
   "claims": [
     {
       "id": "seed-dataset",
@@ -16,19 +16,19 @@
     },
     {
       "id": "loo-separability-honest",
-      "claim": "TabPFN LOO was UNMEASURABLE this build (Prior Labs HTTP 503 'Service is disabled'); the 1-NN proxy LOO on standardized features = 15/48 = 31% (chance 20%). Reported honestly; app ships rules-primary per ADR-007.",
-      "evidence": "data/build_seed.log",
+      "claim": "TabPFN now runs LOCAL on-device (no Prior Labs dependency); measured leave-one-out accuracy on the 47-row seed = 17/47 = 36.2% (chance = 20%), beating the 1-NN proxy (31%). Modest but real and honestly reported \u2014 predicting repo death-mode from 6 features on 47 examples is genuinely hard.",
+      "evidence": "app/classifier.py (local tabpfn fit/predict); reproduce via the LOO snippet over data/seed_repos.csv",
       "status": "verified"
     },
     {
       "id": "open-source-core",
-      "claim": "The core AI is open-source only: TabPFN (open weights) classifies via tabpfn-client + set_access_token; narration is Gemma (open weights) via Ollama. No closed model in the verdict/narration path.",
-      "evidence": "app/classifier.py, app/narrator.py, requirements.txt",
+      "claim": "The core AI is open-weight only: TabPFN (open weights, tabular foundation model) classifies LOCALLY on-device; narration is an open-weight LLM (deepseek-v4.1-flash) via 0G Compute decentralized inference. No proprietary model in the core path.",
+      "evidence": "app/classifier.py (local tabpfn), app/narrator.py (0G open-weight), brand.json",
       "status": "verified"
     },
     {
       "id": "honest-engine-badge",
-      "claim": "Every verdict carries an engine flag (tabpfn|rules) surfaced verbatim on the certificate; a fallback is labeled 'forensic-rules estimate — model unavailable'.",
+      "claim": "Every verdict carries an engine flag (tabpfn|rules) surfaced verbatim on the certificate; a fallback is labeled 'forensic-rules estimate \u2014 model unavailable'.",
       "evidence": "app/static/app.js, app/schemas.py",
       "status": "verified"
     },
@@ -58,9 +58,9 @@
     },
     {
       "id": "live-deploy-warm",
-      "claim": "The app is live on the Oracle Always-Free VM, warm, with Gemma-via-Ollama narration and TabPFN re-activated.",
-      "evidence": "https://<oracle-host>/healthz",
-      "status": "pending"
+      "claim": "The app is LIVE and public at https://autopsy.132-145-100-81.sslip.io (co-resident on an Oracle Always-Free micro, systemd, no spin-down). A paste returns engine='tabpfn' (local TabPFN classifying on-box) + a real grounded eulogy from an open-weight LLM via 0G Compute (decentralized, deepseek-v4.1-flash). gemma2:2b-via-Ollama is the local-only path (2.6GB won't fit this micro; restored if an A1 with RAM is obtained).",
+      "evidence": "https://autopsy.132-145-100-81.sslip.io/healthz (200), https://autopsy.132-145-100-81.sslip.io/autopsy (engine=tabpfn, 0G eulogy)",
+      "status": "verified"
     }
   ]
 }

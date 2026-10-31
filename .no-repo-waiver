@@ -1,4 +1,0 @@
-No origin remote by design during the pipeline run.
-This is a local progressive pipeline repo. Per Dami's pipeline-push-timing ruling, the
-origin remote is added and the push happens at the deploy/package phase, after the ENTIRE
-pipeline fix is done — not per-phase. Do not treat the missing origin as a build blocker.
