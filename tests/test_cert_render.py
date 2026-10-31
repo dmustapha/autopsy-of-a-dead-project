@@ -23,11 +23,19 @@ def test_appjs_surfaces_summary_and_content_badge():
     assert "What this project was" in src, \
         "app.js must emit the label 'What this project was' inside the render() template"
 
-    # (c) emits a content-read badge — references narration_engine AND "evidence read by" or "read by"
+    # (c) emits a content-read badge — references narration_engine AND "evidence read by"
     assert "narration_engine" in src, \
         "app.js must reference d.narration_engine for the content-read badge"
-    assert ("evidence read by" in src or "read by" in src), \
-        "app.js must emit 'evidence read by' (or 'read by') text in the content-read badge"
+    assert "evidence read by" in src, \
+        "app.js must emit 'evidence read by' text in the content-read badge"
+
+    # (c2) doubling-fix: the badge must split narration_engine to strip any existing suffix before appending "· 0G Compute"
+    assert '.split("·")' in src or ".split('·')" in src, \
+        "app.js must split narration_engine on '·' to extract the model name and prevent the '0G Compute' suffix doubling"
+
+    # (c3) offline guard is present in the badge context
+    assert "llm_offline" in src, \
+        "app.js must guard the content-read badge with the llm_offline check"
 
     # (d) null-guards project_summary with a truthy ternary
     assert "d.project_summary ?" in src, \

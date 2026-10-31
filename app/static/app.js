@@ -228,8 +228,10 @@ function render(d){
      </div>` : "";
 
   // content-read badge — shown only when the adjudicator actually ran (not templated/offline)
+  // d.narration_engine may already contain "· 0G Compute"; extract model name only to avoid doubling the suffix
+  const readModel = (d.narration_engine || "LLM").split("·")[0].trim();
   const contentBadgeHTML = (!isTemplated && d.llm_hint && !d.llm_hint.llm_offline) ? `
-     <span class="badge nar-live"><span class="d"></span>evidence read by ${esc(d.narration_engine || "LLM")} &middot; 0G Compute</span>` : "";
+     <span class="badge nar-live"><span class="d"></span>evidence read by ${esc(readModel)} &middot; 0G Compute</span>` : "";
 
   // cohort — forensic context: how this fate compares to its nearest neighbours (mode-aware verb, null-safe)
   let cohortHTML = "";
