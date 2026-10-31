@@ -11,6 +11,13 @@ self-falsification/ablation honesty battery (the essay's credibility).
 | **P1 — sampled** | `/examples`, `/healthz`, caching, GitHub error kinds | ≥3 riskiest classes | covered (404/ratelimit/network-fail) |
 | **P2 — smoke** | static page render, logo serving | happy path | card renders both states (design qa) |
 
+## Debug Handoff Coverage
+Every `.debug-state.json` `delegationHandoff[]` entry owned by `stress_test` maps to a test class here.
+
+| Debug handoff (owner: stress_test) | Mapped test class | Result |
+|---|---|---|
+| "classifier + grounding could be decorative (pass while no-op'd)" — debug added register-binding + invariant tests; stress must run the no-op ablation | **Phase 8.5 no-op ablation** — no-op `_grounded` → fabrication test goes RED; no-op engine-label → honesty test goes RED (`tests/ablation/*.log`) + 2 self-falsification tests | ✅ PROVEN load-bearing |
+
 ## Test Matrix — `/autopsy` (P0, exhaustive)
 | Class | Input | Expected |
 |---|---|---|

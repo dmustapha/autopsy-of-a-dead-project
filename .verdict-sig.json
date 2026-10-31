@@ -38,5 +38,9 @@
   "design_forge": {
     "verdict": "pass_with_blockers",
     "sig": "2bda2f2df08b1e8121813ed200aa65d3d4076ac414edc050a17a507550156ce1"
+  },
+  "stress_test": {
+    "verdict": "pass_with_blockers",
+    "sig": "d4c6ea1e8f1fa7ee8b04e3fa2807117c149c13b06503c18a6256d12081c81c66"
   }
 }

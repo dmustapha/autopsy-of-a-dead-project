@@ -2,14 +2,15 @@
 
 | Phase | Verdict | Reason | State status | Updated |
 |---|---|---|---|---|
-| intel | pass | — | complete | 2026-10-31T14:54:46Z |
-| warroom | pass | — | complete | 2026-10-31T14:54:46Z |
-| forge | pass_with_blockers | franchise skeleton not fully scaffolded at C0 (2.3 P1); entry-gate completeness checklist not recorded (N-17) | complete | 2026-10-31T14:54:52Z |
-| critique | pass | — | complete | 2026-10-31T14:54:52Z |
-| build | pass | — | complete | 2026-10-31T14:54:52Z |
-| debug | pass_with_blockers | no lens neighbor-behavior contracts (N-35 experiment) | complete | 2026-10-31T14:54:52Z |
-| wire | pass_with_blockers | wire=WIRED-WITH-DEGRADATION | WIRED-WITH-DEGRADATION | 2026-10-31T14:54:52Z |
-| verify_milestone | pass_with_blockers | claims ledger block missing (Step 0.7) | complete | 2026-10-31T14:54:52Z |
-| design | pass | — | complete | 2026-10-31T14:54:52Z |
-| design_forge | pass | — | complete | 2026-10-31T14:54:52Z |
-| verify_preflight | fail | deadline gate missing from preflight state (Step 0.0 mandatory) | complete | 2026-10-31T14:54:52Z |
+| intel | pass | — | complete | 2026-10-31T15:03:19Z |
+| warroom | pass | — | complete | 2026-10-31T15:03:19Z |
+| forge | pass_with_blockers | franchise skeleton not fully scaffolded at C0 (2.3 P1); entry-gate completeness checklist not recorded (N-17) | complete | 2026-10-31T15:03:25Z |
+| critique | pass | — | complete | 2026-10-31T15:03:25Z |
+| build | pass | — | complete | 2026-10-31T15:03:25Z |
+| debug | pass_with_blockers | no lens neighbor-behavior contracts (N-35 experiment) | complete | 2026-10-31T15:03:25Z |
+| wire | pass_with_blockers | wire=WIRED-WITH-DEGRADATION | WIRED-WITH-DEGRADATION | 2026-10-31T15:03:25Z |
+| verify_milestone | pass_with_blockers | claims ledger block missing (Step 0.7) | complete | 2026-10-31T15:03:25Z |
+| design | pass | — | complete | 2026-10-31T15:03:25Z |
+| design_forge | pass | — | complete | 2026-10-31T15:03:25Z |
+| stress_test | pass | — | complete | 2026-10-31T15:03:25Z |
+| verify_preflight | fail | deadline gate missing from preflight state (Step 0.0 mandatory) | complete | 2026-10-31T15:03:25Z |
