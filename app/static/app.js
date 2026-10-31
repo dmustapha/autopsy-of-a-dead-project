@@ -220,6 +220,17 @@ function render(d){
        <p class="lw-quote">&ldquo;${esc(d.death_note)}&rdquo;</p>
      </div>` : "";
 
+  // project summary — "What this project was" (only when project_summary present; null-safe for old-shape results)
+  const summaryHTML = d.project_summary ? `
+     <div class="project-summary">
+       <div class="ps-kicker">What this project was</div>
+       <p class="ps-text">${esc(d.project_summary)}</p>
+     </div>` : "";
+
+  // content-read badge — shown only when the adjudicator actually ran (not templated/offline)
+  const contentBadgeHTML = (!isTemplated && d.llm_hint && !d.llm_hint.llm_offline) ? `
+     <span class="badge nar-live"><span class="d"></span>evidence read by ${esc(d.narration_engine || "LLM")} &middot; 0G Compute</span>` : "";
+
   // cohort — forensic context: how this fate compares to its nearest neighbours (mode-aware verb, null-safe)
   let cohortHTML = "";
   if(d.cohort && d.cohort.cohort_size){
@@ -262,11 +273,14 @@ function render(d){
 
      ${lastWordsHTML}
 
+     ${summaryHTML}
+
      <blockquote class="coroner" id="coroner"></blockquote>
 
      <div class="cert-foot">
        <span class="badge ${engClass}"><span class="d"></span>${ENGLABEL[engine]}</span>
        <span class="badge ${narClass}"><span class="d"></span>${narLabel}</span>
+       ${contentBadgeHTML}
        <span class="spacer"></span>
        <span class="cid">specimen ${certNo}</span>
      </div>

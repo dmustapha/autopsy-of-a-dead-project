@@ -202,6 +202,14 @@ button.cta:disabled{opacity:.55; cursor:default}
 .last-words .lw-quote{font-family:var(--serif); font-style:italic; font-size:15px; line-height:1.62;
   color:rgba(236,229,214,.78)}
 
+/* project summary — "What this project was" (sibling of last-words; shown only when present) */
+.project-summary{margin:22px 0 4px; padding:13px 16px; border:1px solid var(--hair);
+  border-radius:var(--r-md); background:rgba(12,11,9,.35)}
+.project-summary .ps-kicker{font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:rgba(236,229,214,.4); margin-bottom:7px}
+.project-summary .ps-text{font-family:var(--serif); font-size:15px; line-height:1.62;
+  color:rgba(236,229,214,.78)}
+
 /* coroner eulogy */
 .coroner{margin:22px 0 4px; border-left:2px solid var(--amber); padding:4px 0 4px 18px;
   font-family:var(--serif); font-style:italic; font-size:16px; line-height:1.68;
