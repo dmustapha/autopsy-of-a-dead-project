@@ -60,7 +60,7 @@ The grounding is enforced, not hoped for: any number in the eulogy must bind to 
 
 ## Live URL and latency
 
-**https://autopsy.132-145-100-81.sslip.io** (`/`, `/healthz`, `/examples`, `/autopsy` all return 200).
+Live: https://autopsy.132-145-100-81.sslip.io (`/`, `/healthz`, `/examples`, `/autopsy` all return 200).
 
 Honest latency on the small Oracle box:
 
