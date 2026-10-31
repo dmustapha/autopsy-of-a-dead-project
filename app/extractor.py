@@ -14,7 +14,9 @@ SYSTEM = (
     '{"death_signals": [up to 4 verbatim short quotes that hint why the project stopped], '
     '"classification_hint": one of "abandoned"|"pivoted"|"completed"|"burned_out"|"none", '
     '"hint_confidence": one of "high"|"medium"|"low", '
-    '"evidence_quote": a single short verbatim quote that best supports the hint, or ""}. '
+    '"evidence_quote": a single short verbatim quote that best supports the hint, or "", '
+    '"project_summary": a single factual line describing what this project was or did, '
+    'STRICTLY from the README/description — no invention; use "" if nothing supports it}. '
     "If nothing supports a hint, use classification_hint=\"none\" and hint_confidence=\"low\"."
 )
 
@@ -23,6 +25,7 @@ _OFFLINE = {
     "hint_confidence": "low",
     "death_signals": [],
     "evidence_quote": "",
+    "project_summary": "",
     "llm_offline": True,
 }
 
@@ -37,11 +40,13 @@ def _normalize(raw: dict) -> dict:
     conf = raw.get("hint_confidence")
     signals = raw.get("death_signals")
     quote = raw.get("evidence_quote")
+    summary = raw.get("project_summary")
     return {
         "classification_hint": hint if hint in _VALID_HINTS else "none",
         "hint_confidence": conf if conf in _VALID_CONF else "low",
         "death_signals": [str(s)[:200] for s in signals][:4] if isinstance(signals, list) else [],
         "evidence_quote": str(quote)[:200] if isinstance(quote, str) else "",
+        "project_summary": str(summary)[:300] if isinstance(summary, str) else "",
         "llm_offline": False,
     }
 
@@ -63,7 +68,7 @@ def extract_death_note(messages: list[str], readme: str | None) -> dict:
         client = _client()
         model = os.environ.get("LLM_MODEL", "gemma2:2b")
         resp = client.chat.completions.create(
-            model=model, temperature=0, max_tokens=400,  # 400 (not 200): gemma2:2b was truncating the JSON object mid-output -> silent parse-fail -> false offline
+            model=model, temperature=0, max_tokens=int(os.environ.get("LLM_MAX_TOKENS", "400")),
             response_format={"type": "json_object"},
             messages=[{"role": "system", "content": SYSTEM},
                       {"role": "user", "content": user}])
