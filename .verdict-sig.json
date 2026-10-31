@@ -14,5 +14,25 @@
   "critique": {
     "verdict": "pass",
     "sig": "483de5890ebd9ce8e4ef02a604402959c3b205447b3e79ba3efd9fc04fd378d6"
+  },
+  "build": {
+    "verdict": "pass_with_blockers",
+    "sig": "fd32d4964e32cc1a1cc85d932537c239d6160f3eec8e06062b9118959f0afc85"
+  },
+  "debug": {
+    "verdict": "pass_with_blockers",
+    "sig": "ed14622a786391d89f5d80cd4377df6d8adf395d6d6e42205948da8778051974"
+  },
+  "wire": {
+    "verdict": "pass_with_blockers",
+    "sig": "420e15d5f360545eb69549b633c9adc366a9d96baeedd1844464425c14f7ed25"
+  },
+  "verify_milestone": {
+    "verdict": "pass_with_blockers",
+    "sig": "559569832e2cee6a42cb9805f71ae504488b89ad33c5bf600777b51cd41ab11b"
+  },
+  "design": {
+    "verdict": "pass_with_blockers",
+    "sig": "f3a8427de265a0e11fb85636640c80721d5c20bb4dd3823ae6b1feb167afc82e"
   }
 }

@@ -1,0 +1,18 @@
+{
+  "integration": "GitHub REST API",
+  "entry_point": "app/github.py::fetch_repo",
+  "credential": "GITHUB_TOKEN (optional — absent; ran on the 60/hr unauth limit)",
+  "live_fetches": [
+    {"slug": "bower/bower", "ok": true, "ms": 7848, "commits": 1000, "contributors": 100, "stars": 14896, "lang": "JavaScript", "created": "2012-09-07", "role": "EX_ABANDONED"},
+    {"slug": "sindresorhus/caprine", "ok": true, "ms": 7550, "commits": 1000, "contributors": 100, "stars": 7407, "lang": "TypeScript", "created": "2015-09-16", "role": "EX_BURNED candidate"},
+    {"slug": "fastapi/fastapi", "ok": true, "ms": 6422, "commits": 1000, "contributors": 100, "stars": 104261, "lang": "Python", "created": "2018-12-08", "role": "EX_ALIVE"},
+    {"slug": "reactjs/redux", "ok": true, "ms": 12365, "stars": 61440, "lang": "TypeScript", "created": "2015-05-29", "role": "ORG-MOVED — reactjs/redux 301-redirects to reduxjs/redux; the canonical redux data (61440 stars, created 2015-05-29) came through, proving follow_redirects=True chased the 301"}
+  ],
+  "error_kinds": {
+    "rate_limited_403": {"proven": "LIVE (organic)", "detail": "the 5th consecutive call tripped the unauthenticated 60/hr limit — RepoError kind='rate_limited' raised from the real 403 path", "ms": 475},
+    "not_found_404": {"proven": "real code via httpx.MockTransport (rate-limit exhausted the live path)", "detail": "404 -> RepoError kind='not_found'"},
+    "empty_409": {"proven": "real code via httpx.MockTransport", "detail": "commits endpoint 409 -> RepoError kind='empty'"},
+    "redirect_301_follow": {"proven": "real code via httpx.MockTransport + LIVE redux fetch", "detail": "301 Location to a different repo path was followed to a 200 (resolved old/old -> new/new, stars=999); corroborated live by the reactjs/redux fetch"}
+  },
+  "verdict": "PASS — proven live end-to-end; all four error/redirect branches verified through the real fetch_repo code"
+}

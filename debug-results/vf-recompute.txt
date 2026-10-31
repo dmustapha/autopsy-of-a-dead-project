@@ -1,0 +1,4 @@
+VF-1 seed rows: 48
+VF-1 balance: {'abandoned': 10, 'alive': 10, 'burned_out': 9, 'completed': 9, 'pivoted': 10}
+VF-2 1-NN LOO separability: 15/48 = 0.3125 (31.2%), chance(uniform)=0.200
+VF-3 fabricated 99999 rejected: True (fell back to template: True )

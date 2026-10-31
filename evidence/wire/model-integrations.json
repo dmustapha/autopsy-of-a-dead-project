@@ -1,0 +1,17 @@
+{
+  "tabpfn": {
+    "entry_point": "app/classifier.py::classify (tabpfn_client.set_access_token + TabPFNClassifier.fit/predict_proba)",
+    "credential": "TABPFN_TOKEN (staged in .env; len 53; prefix tabpfn_…)",
+    "auth_proof": {"call": "set_access_token(TABPFN_TOKEN)", "result": "SUCCESS", "ms": 1545, "meaning": "token is VALID and Prior Labs auth service is UP — the only remaining deploy-time variable is inference-service availability"},
+    "inference_probe": {"call": "real classify() on a live 'abandoned' feature vector", "engine_returned": "rules", "http": "503 on fit", "ms": 1393, "logged_failure": "evidence/wire/tabpfn-inference-503.log", "meaning": "inference endpoint still 503 (build-day DEV-002 persists); labeled rules fallback fired honestly — no silent fake-tabpfn"},
+    "disposition": "DEPLOY-GATED deep integration (DEV-002). Auth PROVEN; engine='tabpfn' + real leave-one-out number are deploy/livetest-owned. NOT reported WIRED-on-fallback."
+  },
+  "gemma_ollama": {
+    "entry_point": "app/narrator.py::narrate (openai SDK -> Ollama OpenAI-compatible endpoint)",
+    "contract": {"LLM_BASE_URL": "http://localhost:11434/v1", "LLM_MODEL": "gemma2:2b", "LLM_API_KEY": "ollama (placeholder — Gemma is KEYLESS)"},
+    "local_daemon_listening_11434": false,
+    "fallback_proof": {"call": "real narrate() with no daemon", "result": "labeled template fallback", "ms": 1269, "text_head": "Here lies bower/bower, last seen 2017-03-01 … (Generated without the language model.)", "meaning": "no silent fake-Gemma; the templated close labels itself"},
+    "grounding_guard": {"accepts_true_numbers": true, "rejects_fabricated_99999_and_530_maintainers": true, "function": "app/narrator.py::_grounded + _numbers + _metric_values", "meaning": "anti-hallucination guard is load-bearing NOW — proven independent of the live model"},
+    "disposition": "DEPLOY-GATED deep integration (DEV-004). Contract documented; a real Gemma eulogy on the Oracle box (daemon present) is deploy/livetest-owned. NOT reported WIRED-on-fallback."
+  }
+}

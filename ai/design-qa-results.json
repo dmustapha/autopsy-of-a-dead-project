@@ -1,0 +1,80 @@
+{
+  "ts": "2026-10-31T14:07:00.658Z",
+  "states": {
+    "death": {
+      "len": 1018,
+      "badges": [
+        "OPEN-WEIGHT · LOCAL-CAPABLE",
+        "CLASSIFIED BY TABPFN",
+        "TEMPLATED CORONER · LLM OFFLINE"
+      ],
+      "title": "Every repository that stops is a ghost in the machine.",
+      "sample": "TIME OF DEATH · 2024-10-13\nSEALED\nOFFICE OF THE REPOSITORY CORONER\nCERTIFICATE OF DEATH\nNo. A2B347\nfiled 2026-10-31\nDECEASED\nbower/bower\nAbandoned\n49%\nCERTAINTY\nDIFFERENTIAL · THE OTHER DEATHS CONSIDERED\nAbandoned\n49%\nBurned Out\n23%\nCompleted\n21%\nPivoted\n5%\nAlive\n1%\nDied like 2 of 5 similar repos — hover to see the cohort\nFORENSIC EVIDENCE\nDAYS SINCE LAST COMMIT\t748\nCOMMIT-CADENCE SLOPE\t-0.24\nLIFE",
+      "numC": {
+        "color": "rgba(236, 229, 214, 0.66)"
+      },
+      "causeC": {
+        "color": "rgb(201, 98, 63)",
+        "text": "Abandoned"
+      }
+    },
+    "life": {
+      "len": 964,
+      "badges": [
+        "OPEN-WEIGHT · LOCAL-CAPABLE",
+        "CLASSIFIED BY TABPFN",
+        "NARRATED BY GEMMA (OPEN WEIGHTS)"
+      ],
+      "title": "Every repository that stops is a ghost in the machine.",
+      "sample": "STILL BEATING · 2026-10-31\nSEALED\nOFFICE OF THE REPOSITORY CORONER\nCERTIFICATE OF LIFE\nNo. A29FFC\nfiled 2026-10-31\nSUBJECT\nfastapi/fastapi\nAlive\n59%\nCERTAINTY\nDIFFERENTIAL · THE OTHER DEATHS CONSIDERED\nAlive\n59%\nAbandoned\n15%\nBurned Out\n12%\nCompleted\n10%\nPivoted\n3%\nResembles 2 of 5 similar repos — hover to see the cohort\nFORENSIC EVIDENCE\nDAYS SINCE LAST COMMIT\t0\nCOMMIT-CADENCE SLOPE\t10.76\nLIFESPA",
+      "numC": {
+        "color": "rgba(236, 229, 214, 0.66)"
+      },
+      "causeC": {
+        "color": "rgb(143, 179, 57)",
+        "text": "Alive"
+      }
+    }
+  },
+  "atmosphere": {
+    "bodyBg": "rgb(12, 11, 9)",
+    "lamp": true,
+    "underglow": true,
+    "dust": true,
+    "vignette": true,
+    "warmNearBlack": true
+  },
+  "contrast": {
+    "paper_on_ground": 15.69,
+    "amber_eyebrow_on_ground": 8.28
+  },
+  "mobile375": {
+    "scrollW": 375,
+    "clientW": 375,
+    "certVisible": true,
+    "certW": 325,
+    "noHorizontalOverflow": true
+  },
+  "badges": {
+    "observed": [
+      "OPEN-WEIGHT · LOCAL-CAPABLE",
+      "CLASSIFIED BY TABPFN",
+      "TEMPLATED CORONER · LLM OFFLINE",
+      "NARRATED BY GEMMA (OPEN WEIGHTS)"
+    ],
+    "hasEngineBadge": true,
+    "hasNarrationBadge": true
+  },
+  "issues": [],
+  "summary": {
+    "deathRendered": true,
+    "lifeRendered": true,
+    "warmNearBlack": true,
+    "oneGlow": true,
+    "gridDustPresent": true,
+    "engineBadge": true,
+    "narrationBadge": true,
+    "contrastAA_paper": true,
+    "mobile375OK": true
+  }
+}

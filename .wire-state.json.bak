@@ -1,0 +1,142 @@
+{
+  "status": "WIRED-WITH-DEGRADATION",
+  "working_dir": "/Users/MAC/dev-ghost",
+  "autonomous_mode": true,
+  "context_percentage": 34,
+  "timestamp": "2026-10-30T01:29:48Z",
+  "run_profile": "SPRINT",
+  "project_type": "full-stack",
+
+  "topology": {
+    "components": [
+      { "name": "web", "type": "backend", "entryPoint": "app/main.py" },
+      { "name": "github-client", "type": "service", "entryPoint": "app/github.py" },
+      { "name": "classifier", "type": "service", "entryPoint": "app/classifier.py" },
+      { "name": "narrator", "type": "service", "entryPoint": "app/narrator.py" },
+      { "name": "features", "type": "service", "entryPoint": "app/features.py" },
+      { "name": "card-ui", "type": "frontend", "entryPoint": "app/templates/index.html" }
+    ],
+    "connections": [
+      { "from": "github-client", "to": "GitHub REST API", "type": "api-call", "credentialEnvVar": "GITHUB_TOKEN", "status": "PASS", "priority": "critical" },
+      { "from": "classifier", "to": "TabPFN (Prior Labs hosted)", "type": "api-call", "credentialEnvVar": "TABPFN_TOKEN", "status": "PARTIAL", "priority": "critical" },
+      { "from": "narrator", "to": "Gemma via Ollama", "type": "api-call", "credentialEnvVar": "LLM_API_KEY", "status": "PARTIAL", "priority": "critical" },
+      { "from": "web", "to": "github-client", "type": "sdk", "credentialEnvVar": null, "status": "PASS", "priority": "critical" },
+      { "from": "web", "to": "classifier", "type": "sdk", "credentialEnvVar": null, "status": "PASS", "priority": "critical" },
+      { "from": "web", "to": "narrator", "type": "sdk", "credentialEnvVar": null, "status": "PASS", "priority": "critical" }
+    ],
+    "totalComponents": 6,
+    "totalConnections": 6
+  },
+
+  "credentials": {
+    "total": 4,
+    "resolved": 3,
+    "unresolved": 0,
+    "mockFlagsActive": 0,
+    "unresolvedList": [],
+    "mockFlags": []
+  },
+
+  "integrationResults": {
+    "total": 3,
+    "passed": 1,
+    "partial": 2,
+    "failed": 0,
+    "skipped": 0,
+    "results": [
+      { "connectionId": "github-client→GitHub REST API", "result": "PASS", "elapsed_ms": 12365, "error": null, "notes": "LIVE: 4 real repos fetched (bower/bower, sindresorhus/caprine, fastapi/fastapi, reactjs/redux). reactjs/redux 301-redirects to reduxjs/redux and the canonical redux data (61440 stars, created 2015-05-29) came through — proves follow_redirects=True chased the 301. rate_limited(403) hit organically on the 5th call; not_found(404)/empty(409)/301-follow branches re-proven through the real fetch_repo via httpx.MockTransport. Evidence: evidence/wire/github-integration.json" },
+      { "connectionId": "classifier→TabPFN (Prior Labs hosted)", "result": "PARTIAL", "elapsed_ms": 1545, "error": "inference fit -> HTTP 503 (Prior Labs inference endpoint still degraded, build-day DEV-002)", "notes": "set_access_token(TABPFN_TOKEN) SUCCESS in 1545ms — token VALID, auth service UP. Real classify() then hit 503 on fit and fell to the LABELED rules fallback (engine='rules') — no silent fake-tabpfn. Only remaining deploy-time variable = inference-service availability. DEPLOY-GATED (DEV-002). Evidence: evidence/wire/model-integrations.json + evidence/wire/tabpfn-inference-503.log" },
+      { "connectionId": "narrator→Gemma via Ollama", "result": "PARTIAL", "elapsed_ms": 1269, "error": "no local Ollama daemon listening on 127.0.0.1:11434 (DEV-004, deploy-gated by design)", "notes": "Contract documented (LLM_BASE_URL=http://localhost:11434/v1, LLM_MODEL=gemma2:2b, LLM_API_KEY=ollama keyless). narrate() with no daemon falls to the LABELED template ('Generated without the language model.') — no silent fake-Gemma. Grounding guard (_grounded/_numbers) proven load-bearing NOW: accepts true numbers, rejects fabricated 99999/530-maintainers. Live Gemma eulogy is deploy/livetest-owned. DEPLOY-GATED (DEV-004). Evidence: evidence/wire/model-integrations.json" }
+    ]
+  },
+
+  "blockers": [
+    { "type": "connection-failed", "connection": "classifier→TabPFN (Prior Labs hosted)", "detail": "DEV-002: TabPFN auth PROVEN (set_access_token SUCCESS) but the Prior Labs INFERENCE endpoint returns 503 (same as build day). The app runs on the labeled rules fallback locally. engine='tabpfn' + the real leave-one-out separability number are NOT yet proven.", "recovery_hint": "DEPLOY-OWNED: at the Oracle deploy, re-attempt fit/predict. If Prior Labs has recovered, capture a live card with engine='tabpfn' + measure the real LOO number (closes DEV-002). If still 503, surface to Dami as a prize-level call — never silently ship on fallback." },
+    { "type": "connection-failed", "connection": "narrator→Gemma via Ollama", "detail": "DEV-004: no local Ollama daemon, so a real Gemma eulogy cannot be produced locally. narrate() falls to the labeled template honestly. The Gemma $200 category needs a genuine Gemma eulogy on the live box.", "recovery_hint": "DEPLOY-OWNED: on the Oracle VM, install Ollama, pull gemma2:2b, point LLM_BASE_URL at http://localhost:11434/v1, and verify a real (non-templated) grounded eulogy renders (closes DEV-004)." }
+  ],
+
+  "sentinel_hits": [],
+
+  "deep_integration": {
+    "status": "DEPLOY-GATED",
+    "policy_note": "SPRINT run_profile normally makes a not-yet-DEEP claimed integration a blocking shallow finding (di_shallow_gap). OVERRIDE (ratified, surfaced loudly): per docs/context/ADAPTATION-PLAYBOOK.md §wire + the Dami ruling 2026-10-30 + debug's deploy-ownership handoff + BUILD-VERIFIED.md ('DEV-002/DEV-004 are UNTESTED-by-design, closed at DEPLOY'), TabPFN and Gemma are DEPLOY-GATED deep integrations, not decorative. Their live DEEP proof is OWNED by the deploy phase that creates the live surface. The CRIT catchers (decorative/fake detectors) are CLEAN because no criterion is falsely marked proven. Verdict = WIRED-WITH-DEGRADATION; the obligation is carried as deploy-owned blockers DEV-002/DEV-004. No integration is reported WIRED over its labeled fallback.",
+    "integrations": [
+      {
+        "name": "TabPFN (Prior Labs hosted)",
+        "sponsor_primitive": "TabPFN tabular foundation-model classifier",
+        "status": "DEPLOY-GATED",
+        "deploy_gated": true,
+        "load_bearing":   { "proven": false, "named_core_feature": "the death-mode verdict + posterior confidence on the certificate card", "delete_smoke_test": "tests (no-op ablation is stress_test-owned)", "fallback_path": "app/classifier.py::_forensic_rules (ALWAYS labeled engine='rules')", "note": "By design the verdict comes from TabPFN's posterior when the service is up; the labeled rules fallback is an HONESTY feature, not a decorative fake. Live load-bearing proof is deploy-gated (DEV-002)." },
+        "sole_provider":  { "proven": false, "security_property": "open-weight tabular classification of the death mode", "non_sponsor_code_path": "app/classifier.py::_forensic_rules", "note": "Live, engine='tabpfn' is the sole producer of the verdict; a non-sponsor fallback path exists for honesty under outage. Deploy-gated." },
+        "multi_party":    { "proven": false, "proof_artifact": null, "signers": [], "note": "N/A for this project (no chain / multi-signer binding)." },
+        "live_tested":    { "proven": false, "evidence_artifact": "evidence/wire/model-integrations.json", "tx_hashes": [], "live_proof": null, "note": "Auth proven live (set_access_token SUCCESS, 1545ms); inference endpoint 503. engine='tabpfn' + real LOO are deploy/livetest-owned (DEV-002)." },
+        "fail_closed":    { "proven": true, "fault_injection": "live inference 503 on fit + TABPFN_TOKEN-unset path", "logged_failure": "evidence/wire/tabpfn-inference-503.log", "silent_success": false, "note": "Proven NOW: the 503 produced a durable logged failure AND the system fell to a labeled rules verdict — it never silently claimed engine='tabpfn'." },
+        "non_custodial":  { "proven": false, "boundary": "N/A", "adversarial_drill": null, "crossing_reverts": false, "note": "N/A for this project." },
+        "browser_network_proof": { "proven": false, "ui_reachable": false, "user_action": "paste a repo URL into the card UI", "live_call_captured": false, "request_url": "https://api.priorlabs.ai", "note": "App not deployed/running; UI-reachable live-call proof is deploy/livetest-owned (BT-5)." }
+      },
+      {
+        "name": "Gemma via Ollama",
+        "sponsor_primitive": "Gemma open-weights LLM (gemma2:2b) via Ollama",
+        "status": "DEPLOY-GATED",
+        "deploy_gated": true,
+        "load_bearing":   { "proven": false, "named_core_feature": "the coroner's-report / eulogy narration on the card", "delete_smoke_test": "tests (no-op ablation is stress_test-owned)", "fallback_path": "app/narrator.py::_template (labels itself 'Generated without the language model.')", "note": "By design the eulogy comes from Gemma's weights when the daemon is present; the labeled template fallback is an honesty feature. Live load-bearing proof is deploy-gated (DEV-004)." },
+        "sole_provider":  { "proven": false, "security_property": "open-weight natural-language narration", "non_sponsor_code_path": "app/narrator.py::_template", "note": "Live, Gemma is the sole producer of the eulogy; labeled template exists for honesty under outage. Deploy-gated." },
+        "multi_party":    { "proven": false, "proof_artifact": null, "signers": [], "note": "N/A." },
+        "live_tested":    { "proven": false, "evidence_artifact": "evidence/wire/model-integrations.json", "tx_hashes": [], "live_proof": null, "note": "No local daemon (DEV-004). Contract documented; a real grounded Gemma eulogy on the Oracle box is deploy/livetest-owned." },
+        "fail_closed":    { "proven": true, "fault_injection": "no Ollama daemon on 11434 + the _grounded anti-hallucination guard", "logged_failure": "evidence/wire/model-integrations.json", "silent_success": false, "note": "Proven NOW: with no daemon, narrate() returns the LABELED template (never a silent fake-Gemma); independently, _grounded rejects a fabricated 99999/530-maintainers lie and accepts only evidence-backed numbers." },
+        "non_custodial":  { "proven": false, "boundary": "N/A", "adversarial_drill": null, "crossing_reverts": false, "note": "N/A." },
+        "browser_network_proof": { "proven": false, "ui_reachable": false, "user_action": "paste a repo URL into the card UI", "live_call_captured": false, "request_url": "http://localhost:11434/v1/chat/completions", "note": "App not deployed/running; deploy/livetest-owned (BT-5)." }
+      }
+    ],
+    "findings": [],
+    "crit_catchers_result": "CLEAN — wire_deep_integration_gap emits ZERO CRIT-1..6/BT-5 findings (no decorative/fake integration; no criterion falsely marked proven)",
+    "shallow_policy_findings": [
+      { "integration": "TabPFN (Prior Labs hosted)", "rule": "di_shallow_gap", "raw": "SHALLOW TabPFN: integration CLAIMED but not proven DEEP (status=DEPLOY-GATED) — under a SPRINT run a decorative/shallow integration is a blocking finding", "disposition": "RATIFIED OVERRIDE → deploy-owned blocker DEV-002 (see policy_note). Not a wire-BLOCKED; live DEEP proof is owned by the deploy phase." },
+      { "integration": "Gemma via Ollama", "rule": "di_shallow_gap", "raw": "SHALLOW Gemma: integration CLAIMED but not proven DEEP (status=DEPLOY-GATED) — under a SPRINT run a decorative/shallow integration is a blocking finding", "disposition": "RATIFIED OVERRIDE → deploy-owned blocker DEV-004 (see policy_note). Not a wire-BLOCKED; live DEEP proof is owned by the deploy phase." }
+    ]
+  },
+
+  "fix_attempts": [],
+
+  "phase": {
+    "discovery": "complete",
+    "credentials": "complete",
+    "dependencies": "complete",
+    "integration": "complete",
+    "fix_retest": "complete",
+    "privacy_audit": "skipped",
+    "isolation_test": "skipped",
+    "async_latency": "skipped",
+    "deep_integration": "complete",
+    "report": "complete"
+  },
+
+  "report_path": "/Users/MAC/dev-ghost/WIRE-REPORT.md",
+
+  "phase_ledger": [
+    { "phase": "discovery", "started_at": "2026-10-30T01:20:00Z", "completed_at": "2026-10-30T01:22:00Z", "evidence": "Mapped 6 components / 6 connections from app/*.py; 3 external integrations identified: GitHub REST API, TabPFN (Prior Labs), Gemma via Ollama. No Integration Map section in ARCHITECTURE.md — discovery-mode." },
+    { "phase": "credentials", "started_at": "2026-10-30T01:22:00Z", "completed_at": "2026-10-30T01:23:00Z", "evidence": "Audited .env: TABPFN_TOKEN present (len 53), LLM_API_KEY=ollama (keyless placeholder, non-decorative), GITHUB_TOKEN absent (optional). .env gitignored/untracked. No mock flags. env-proof/secret gate CLEAN (real git ls-files sweep, no hot tracked secrets)." },
+    { "phase": "dependencies", "started_at": "2026-10-30T01:23:00Z", "completed_at": "2026-10-30T01:23:30Z", "evidence": "Test order: GitHub REST API (leaf, live) -> classifier/TabPFN -> narrator/Gemma -> web composition. External services tested before the FastAPI composition layer." },
+    { "phase": "integration", "started_at": "2026-10-30T01:23:30Z", "completed_at": "2026-10-30T01:27:00Z", "evidence": "GitHub PASS live (4 real repos incl org-moved reactjs/redux 301-follow; 404/empty/rate-limit/301 branches proven). TabPFN auth SUCCESS (1545ms) + inference 503 -> labeled rules fallback. Gemma: no daemon -> labeled template fallback; grounding guard proven load-bearing." },
+    { "phase": "fix_retest", "started_at": "2026-10-30T01:27:00Z", "completed_at": "2026-10-30T01:27:10Z", "evidence": "No wiring or code bugs found — integration code is correct; the only open items are deploy-gated service/daemon availability (DEV-002/DEV-004). No fix attempts required." },
+    { "phase": "privacy_audit", "started_at": "2026-10-30T01:27:10Z", "completed_at": "2026-10-30T01:27:10Z", "evidence": "SKIPPED: trigger-absent (no FHE/ZK keywords, no PII mirror, no multi-tenant isolation surface — single keyless public-data app)." },
+    { "phase": "isolation_test", "started_at": "2026-10-30T01:27:10Z", "completed_at": "2026-10-30T01:27:10Z", "evidence": "SKIPPED: trigger-absent (no per-instance account isolation, no cross-account state — stateless per-request fit, no user accounts)." },
+    { "phase": "async_latency", "started_at": "2026-10-30T01:27:10Z", "completed_at": "2026-10-30T01:27:10Z", "evidence": "SKIPPED: trigger-absent (no long-running async job queue / webhook callback chain to latency-test; /autopsy is a single synchronous request)." },
+    { "phase": "deep_integration", "started_at": "2026-10-30T01:27:10Z", "completed_at": "2026-10-30T01:29:00Z", "evidence": "Re-aimed 6-criteria proof at TabPFN + Gemma (non-chain). CRIT catchers CLEAN (no decorative/fake). fail_closed PROVEN now for both (labeled fallbacks, logged failures, grounding guard). load-bearing/sole-provider/live-tested/BT-5 honestly DEPLOY-GATED (DEV-002/DEV-004). SPRINT shallow-policy overridden per the ratified playbook; obligation carried as deploy-owned blockers." },
+    { "phase": "report", "started_at": "2026-10-30T01:29:00Z", "completed_at": "2026-10-30T01:29:48Z", "evidence": "WIRE-REPORT.md + .wire-state.json + PULSE ## wire section written; .env-proof.json authored and env-proof/secret gate CLEAN; ajv-validated." }
+  ],
+
+  "inputs_opened": [
+    { "path": "docs/context/ADAPTATION-PLAYBOOK.md", "lines": 607, "sha8": "c44c0945" },
+    { "path": "docs/context/HANDOFF.md", "lines": 50, "sha8": "bb00232f" },
+    { "path": "docs/context/BUILD-VERIFIED.md", "lines": 30, "sha8": "81a49d11" },
+    { "path": "docs/context/NEXT-BEAT-WIRE.md", "lines": 40, "sha8": "63c04acd" }
+  ],
+
+  "provenance": {
+    "agent_nonce": "44481a4fb398a64219b4aa8e",
+    "phase": "wire",
+    "mode": "fresh",
+    "dispatched_by": "hackathon-conductor"
+  }
+}

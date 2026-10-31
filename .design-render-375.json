@@ -1,0 +1,14 @@
+{
+  "ts": "2026-10-31T14:08:31Z",
+  "viewport": {
+    "width": 375,
+    "height": 844
+  },
+  "scrollW": 375,
+  "clientW": 375,
+  "no_horizontal_overflow": true,
+  "certificate_visible": true,
+  "certificate_width": 325,
+  "screenshot": "evidence/design-qa/mobile-375.png",
+  "pass": true
+}

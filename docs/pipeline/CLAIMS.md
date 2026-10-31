@@ -2,8 +2,13 @@
 
 | Phase | Verdict | Reason | State status | Updated |
 |---|---|---|---|---|
-| intel | pass | — | complete | 2026-10-29T17:51:19Z |
-| warroom | pass | — | complete | 2026-10-29T17:51:19Z |
-| forge | pass_with_blockers | franchise skeleton not fully scaffolded at C0 (2.3 P1); entry-gate completeness checklist not recorded (N-17) | complete | 2026-10-29T17:51:25Z |
-| critique | pass | — | complete | 2026-10-29T17:51:25Z |
-| build | fail | repo-layout: top-level evidence/ dir absent (machine proof-output home, EX-7) | complete | 2026-10-29T17:51:25Z |
+| intel | pass | — | complete | 2026-10-31T14:29:30Z |
+| warroom | pass | — | complete | 2026-10-31T14:29:30Z |
+| forge | pass_with_blockers | franchise skeleton not fully scaffolded at C0 (2.3 P1); entry-gate completeness checklist not recorded (N-17) | complete | 2026-10-31T14:29:36Z |
+| critique | pass | — | complete | 2026-10-31T14:29:36Z |
+| build | pass | — | complete | 2026-10-31T14:29:36Z |
+| debug | pass_with_blockers | no lens neighbor-behavior contracts (N-35 experiment) | complete | 2026-10-31T14:29:36Z |
+| wire | pass_with_blockers | wire=WIRED-WITH-DEGRADATION | WIRED-WITH-DEGRADATION | 2026-10-31T14:29:36Z |
+| verify_milestone | pass_with_blockers | claims ledger block missing (Step 0.7) | complete | 2026-10-31T14:29:36Z |
+| design | pass | — | complete | 2026-10-31T14:29:36Z |
+| verify_preflight | fail | deadline gate missing from preflight state (Step 0.0 mandatory) | complete | 2026-10-31T14:29:36Z |

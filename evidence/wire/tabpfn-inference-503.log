@@ -1,0 +1,11 @@
+# TabPFN inference-service availability probe (wire phase) — logged_failure evidence for crit-5 (fail-closed)
+# Command: real app.classifier.classify() with a live "abandoned" feature vector, TABPFN_TOKEN staged.
+ERROR:tabpfn_client.client:Fail to call fit, response status: 503
+RESULT engine=rules mode=abandoned confidence=0.4 elapsed_ms=1393
+INTERPRETATION: Prior Labs auth service UP (set_access_token SUCCESS 1545ms) but the INFERENCE
+endpoint (fit) returned 503 — same degradation as build-day DEV-002. The classifier caught the
+503 and returned the LABELED rules fallback (engine="rules"). No silent fake-tabpfn executed.
+This is genuine fail-closed behavior: the failure is visible (logged above) AND the unsafe
+"pretend it is tabpfn" path never ran. The ONLY remaining deploy-time variable is inference-service
+availability; DEV-002 closes at DEPLOY (authoritative live card + real leave-one-out number) or is
+surfaced to Dami as a prize-level call.

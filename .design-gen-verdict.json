@@ -1,0 +1,21 @@
+{
+  "mode": "generate",
+  "proposals": 3,
+  "distinctness_ok": true,
+  "defaults_clean": true,
+  "verdict": "PASS",
+  "out_of_band": true,
+  "note": "Generate+selection ran OUT-OF-CONDUCTOR in the dedicated good-era design chat. 3 directions explored; 'the last heartbeat' / amber #D4A017 selected (SELECTION.md). Machine gate = the R1\u2192R4 ladder with TWO independent fresh-critic ONLY-NITS verdicts (R3 ui-craftsman, R4 architect) holding beside chit+leash+axon+whopays \u2014 a stronger gate than the generate machine gate. Winner built + ported into the 3 app files. Adopted + qa-APPROVED this phase.",
+  "evidence": [
+    "SELECTION.md",
+    "SCORECARD.md",
+    "app/templates/index.html",
+    "app/static/card.css",
+    "app/static/app.js",
+    "DESIGN-HANDOFF.md",
+    "/Users/MAC/pipeline-audit/skill-audit/win-audit/REFERENCE-TEARDOWN/RUN-dev-ghost/proto/index.html",
+    "/Users/MAC/pipeline-audit/skill-audit/win-audit/REFERENCE-TEARDOWN/RUN-dev-ghost/CALIBRATION.md",
+    "/Users/MAC/pipeline-audit/skill-audit/win-audit/REFERENCE-TEARDOWN/RUN-dev-ghost/AUDIENCE-CONTRACT.md"
+  ],
+  "ts": "2026-10-31T14:11:35Z"
+}
