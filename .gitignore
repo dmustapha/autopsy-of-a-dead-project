@@ -79,3 +79,8 @@ evidence/wire/.agent_nonce
 debug-results/
 provider-preflight.json
 durability-tier.json
+
+# gate artifacts
+.route-manifest.json
+.ship-check.json
+docs/pipeline/SHIP-CHECK-LOG.md
