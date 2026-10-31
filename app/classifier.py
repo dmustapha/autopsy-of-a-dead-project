@@ -9,7 +9,14 @@ SEED_PATH = os.environ.get("SEED_PATH", "data/seed_repos.csv")
 
 @functools.lru_cache(maxsize=1)
 def _seed() -> pd.DataFrame:
-    return pd.read_csv(SEED_PATH)
+    df = pd.read_csv(SEED_PATH)
+    # Forward-compat: fill any FEATURE_ORDER columns not yet in the seed with 0.0.
+    # Task 3 adds Tier-C columns; until then the 1-NN / TabPFN still operate on
+    # the existing columns and treat the new ones as neutral (0.0 = honest empty).
+    for col in FEATURE_ORDER:
+        if col not in df.columns:
+            df[col] = 0.0
+    return df
 
 
 TIE_ZONE = 0.25   # max(probs) - 2nd-max below this = the adjudicator's window

@@ -1,6 +1,8 @@
+import math
 from datetime import datetime, timezone, timedelta
 from app.github import RepoData
 from app.features import build_features, NO_RELEASE_RECENCY
+from app.schemas import FEATURE_ORDER
 
 def _commit(days_ago, author, message="chore: update"):
     d = (datetime.now(timezone.utc) - timedelta(days=days_ago)).isoformat()
@@ -62,3 +64,51 @@ def test_tier_b_missing_meta_imputes_not_crash():
     assert f.is_archived_flag == 0.0              # absent archived -> not archived
     assert f.release_recency_days >= 0.0          # imputed from seed median
     assert m.release_count is None               # honest: not fetched
+
+
+# ---- Tier C: log-popularity / topics / readme / flags / language-freq ----
+
+def _repo_c(meta, readme=None):
+    commits = [_commit(400, "a"), _commit(500, "a"), _commit(600, "b")]
+    return RepoData(owner="o", repo="r", commits=commits, contributors=[], meta=meta, readme=readme)
+
+def test_build_features_emits_full_enriched_vector():
+    readme = "x" * 300
+    meta = {
+        "stars": 100, "forks_count": 10, "watchers_count": 50,
+        "topics": ["a", "b"], "size": 200,
+        "has_wiki": True, "has_pages": False, "fork": False,
+        "license_present": True, "description": "x",
+    }
+    f, _ = build_features(_repo_c(meta, readme=readme))
+
+    assert f.log_stars == round(math.log1p(100), 4)
+    assert f.log_forks == round(math.log1p(10), 4)
+    assert f.log_watchers == round(math.log1p(50), 4)
+    assert f.topics_count == 2.0
+    assert f.readme_size == 300.0
+    assert f.description_present == 1.0
+    assert f.license_present == 1.0
+    assert f.has_wiki == 1.0
+    assert f.has_pages == 0.0
+    assert f.is_fork == 0.0
+    # primary_language_freq: seed has no primary_language col yet -> honest 0.0 (guard fires)
+    assert isinstance(f.primary_language_freq, float)
+
+    # Full vector has no None entries
+    vector = [getattr(f, k) for k in FEATURE_ORDER]
+    assert len(vector) == len(FEATURE_ORDER)
+    assert all(v is not None for v in vector)
+
+
+def test_enriched_features_empty_inputs_are_zero_not_crash():
+    # No topics/license/description, readme=None -> honest 0.0, never crash
+    f, _ = build_features(_repo_c({}, readme=None))
+    assert f.topics_count == 0.0
+    assert f.readme_size == 0.0
+    assert f.description_present == 0.0
+    assert f.license_present == 0.0
+    # Full vector still full-length, no None entries
+    vector = [getattr(f, k) for k in FEATURE_ORDER]
+    assert len(vector) == len(FEATURE_ORDER)
+    assert all(v is not None for v in vector)

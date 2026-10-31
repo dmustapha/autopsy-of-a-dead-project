@@ -31,6 +31,19 @@ class Features(BaseModel):
     release_recency_days: float = 0.0
     has_releases: float = 0.0
     open_issue_ratio: float = 0.0
+    # Tier C — log-popularity / topics / readme / flags / language-freq.
+    # All default 0.0: honest empty, and keeps existing Features(...) fixtures intact.
+    log_stars: float = 0.0
+    log_forks: float = 0.0
+    log_watchers: float = 0.0
+    topics_count: float = 0.0
+    readme_size: float = 0.0
+    description_present: float = 0.0
+    license_present: float = 0.0
+    has_wiki: float = 0.0
+    has_pages: float = 0.0
+    is_fork: float = 0.0
+    primary_language_freq: float = 0.0
 
 class Verdict(BaseModel):
     mode: DeathMode
@@ -56,4 +69,8 @@ FEATURE_ORDER = [
     "contributor_count", "bus_factor", "velocity_ratio",
     # Tier B — same order as the appended CSV columns.
     "is_archived_flag", "release_recency_days", "has_releases", "open_issue_ratio",
+    # Tier C — same order as Fields declaration above / Task-3 CSV columns.
+    "log_stars", "log_forks", "log_watchers", "topics_count", "readme_size",
+    "description_present", "license_present", "has_wiki", "has_pages", "is_fork",
+    "primary_language_freq",
 ]

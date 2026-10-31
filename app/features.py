@@ -1,5 +1,6 @@
 from __future__ import annotations
 import functools
+import math
 from datetime import datetime, timezone
 from collections import Counter
 import numpy as np
@@ -41,6 +42,53 @@ def _seed_medians() -> dict[str, float]:
     df = pd.read_csv(path)
     cols = ["is_archived_flag", "release_recency_days", "has_releases", "open_issue_ratio"]
     return {c: float(df[c].median()) for c in cols if c in df.columns}
+
+
+@functools.lru_cache(maxsize=1)
+def _language_freq() -> dict[str, float]:
+    # Fraction of seed rows per primary_language — used to frequency-encode
+    # a repo's language at serve time (train==serve: same function, same seed).
+    # Guard: if the seed is missing/empty OR lacks the primary_language column
+    # (Task 3 adds it), return {} so every lookup yields honest 0.0.
+    import os, pandas as pd
+    path = os.environ.get("SEED_PATH", "data/seed_repos.csv")
+    try:
+        df = pd.read_csv(path)
+    except Exception:
+        return {}
+    if "primary_language" not in df.columns or df.empty:
+        return {}
+    counts = df["primary_language"].value_counts(normalize=True)
+    return dict(counts)
+
+
+def _tier_c(data: RepoData) -> dict[str, float]:
+    meta = data.meta
+    log_stars    = round(math.log1p(meta.get("stars") or 0), 4)
+    log_forks    = round(math.log1p(meta.get("forks_count") or 0), 4)
+    log_watchers = round(math.log1p(meta.get("watchers_count") or 0), 4)
+    topics_count = float(len(meta.get("topics") or []))
+    readme_size  = float(len(data.readme or ""))
+    description_present = 1.0 if (meta.get("description") or "").strip() else 0.0
+    license_present     = 1.0 if meta.get("license_present") else 0.0
+    has_wiki  = 1.0 if meta.get("has_wiki") else 0.0
+    has_pages = 1.0 if meta.get("has_pages") else 0.0
+    is_fork   = 1.0 if meta.get("fork") else 0.0
+    freq = _language_freq()
+    primary_language_freq = float(freq.get(meta.get("primary_language"), 0.0))
+    return {
+        "log_stars": log_stars,
+        "log_forks": log_forks,
+        "log_watchers": log_watchers,
+        "topics_count": topics_count,
+        "readme_size": readme_size,
+        "description_present": description_present,
+        "license_present": license_present,
+        "has_wiki": has_wiki,
+        "has_pages": has_pages,
+        "is_fork": is_fork,
+        "primary_language_freq": primary_language_freq,
+    }
 
 
 def _median(col: str, default: float) -> float:
@@ -132,6 +180,7 @@ def build_features(data: RepoData) -> tuple[Features, RepoMeta]:
     velocity_ratio = float(recent / lifetime_rate_per_90) if lifetime_rate_per_90 > 0 else 0.0
 
     tb = _tier_b(data, now)
+    tc = _tier_c(data)
     feats = Features(
         days_since_last_commit=float(days_since_last),
         commit_cadence_decay=round(slope, 3),
@@ -140,6 +189,7 @@ def build_features(data: RepoData) -> tuple[Features, RepoMeta]:
         bus_factor=bus_factor,
         velocity_ratio=round(velocity_ratio, 3),
         **tb,
+        **tc,
     )
     meta = RepoMeta(
         stars=data.meta.get("stars", 0),
