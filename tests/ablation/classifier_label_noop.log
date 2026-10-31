@@ -1,0 +1,4 @@
+tests/falsify/test_falsify_honesty.py:15: AssertionError
+=========================== short test summary info ============================
+FAILED tests/falsify/test_falsify_honesty.py::test_claim_engine_badge_is_honest_on_fallback
+1 failed in 0.36s

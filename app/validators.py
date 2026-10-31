@@ -6,6 +6,7 @@ class BadRepoURL(ValueError):
     """Raised when the input is not a parseable public GitHub repo reference."""
 
 _SLUG = re.compile(r"^[A-Za-z0-9_.-]+$")
+_HAS_ALNUM = re.compile(r"[A-Za-z0-9]")
 
 def parse_repo_url(raw: str) -> tuple[str, str]:
     """Accept full URL, github.com/owner/repo, or bare owner/repo. Return (owner, repo).
@@ -30,5 +31,10 @@ def parse_repo_url(raw: str) -> tuple[str, str]:
     if repo.endswith(".git"):
         repo = repo[:-4]
     if owner.lower() == "gist" or not _SLUG.match(owner) or not _SLUG.match(repo):
+        raise BadRepoURL("invalid owner/repo")
+    # reject path-traversal / dot-only slugs: GitHub owners/repos must carry an
+    # alphanumeric and can't be "."/".." (these slipped past _SLUG, which allows ".")
+    if not (_HAS_ALNUM.search(owner) and _HAS_ALNUM.search(repo)) \
+       or owner in (".", "..") or repo in (".", ".."):
         raise BadRepoURL("invalid owner/repo")
     return owner, repo
