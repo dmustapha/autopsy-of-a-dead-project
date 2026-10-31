@@ -82,5 +82,6 @@ durability-tier.json
 
 # gate artifacts
 .route-manifest.json
+.feature-coverage.json
 .ship-check.json
 docs/pipeline/SHIP-CHECK-LOG.md

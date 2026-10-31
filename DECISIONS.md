@@ -67,7 +67,7 @@
 ## ADR-003a — Inference served by 0G Compute (supersedes the Groq default in ADR-003)
 - **Status:** Accepted (2026-10-29, Dami-steered)
 - **Context:** We already own a working 0G Compute key (`ZERO_G_COMPUTE_API_KEY`), and 0G Compute is an OpenAI-compatible decentralized inference network serving open-weight models.
-- **Decision:** Narration is served by **0G Compute Router** (`https://router-api.0g.ai/v1`) using the open-weight model **`deepseek-v4-flash`** (verified end-to-end). `narrator.py` is unchanged — only `LLM_BASE_URL`/`LLM_MODEL`/key env differ. Groq (`openai/gpt-oss-120b`) is the documented fallback.
+- **Decision:** Narration is served by the **0G Compute Router**, OpenAI-compatible base `router-api.0g.ai/v1` (an API base reached by `POST /chat/completions`, not a browsable URL: a bare GET returns 404 by design), using the open-weight model **`deepseek-v4-flash`** (verified end-to-end). `narrator.py` is unchanged — only `LLM_BASE_URL`/`LLM_MODEL`/key env differ. Groq (`openai/gpt-oss-120b`) is the documented fallback.
 - **Rejected:** Groq as primary (generic cloud, a weaker open-source narrative, required a fresh key); Oracle self-hosted Ollama (more setup than value given 0G already works); any closed model on the 0G router (claude-* are proxied there but violate the open-source-core rule — deliberately avoided).
 - **Consequences:** Stronger "decentralized open-weight AI" story for the post; no new signup; the Render service stays tiny (just an HTTP call). Honesty: 0G TEE-verifiability is opt-in per provider — we do NOT claim attested inference unless a TeeML provider is explicitly used. TabPFN remains the unambiguous open-weight core.
 

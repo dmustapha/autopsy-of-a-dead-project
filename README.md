@@ -52,7 +52,7 @@ Modest but real: predicting a repo's death-mode from six features on 47 examples
 
 ### Narration engine: 0G Compute decentralized LLM
 
-The eulogy is written by **`deepseek-v4.1-flash`**, an open-weight model served over the **0G Compute** decentralized compute network via `https://router-api.0g.ai/v1`. The certificate card carries an honest badge: *"narrated by deepseek-v4.1-flash · 0G Compute (open weights)."*
+The eulogy is written by **`deepseek-v4.1-flash`**, an open-weight model served over the **0G Compute** decentralized compute network. Narration calls `POST /chat/completions` against the OpenAI-compatible router base at `router-api.0g.ai/v1` (an API base, not a browsable page: a bare GET to it correctly returns 404; authenticated POST is what carries the eulogy, proven live end-to-end). The certificate card carries an honest badge: *"narrated by deepseek-v4.1-flash · 0G Compute (open weights)."*
 
 A local Gemma-via-Ollama path exists in the code as a keyless fallback, but it was capacity-blocked on the small deployment box, so **0G Compute is the live narrator**, not Gemma. A templated, self-labeled fallback ("Generated without the language model.") covers the case where no LLM is reachable, so the app never fabricates prose.
 
