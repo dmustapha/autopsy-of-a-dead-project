@@ -71,6 +71,16 @@ def _death_note(hint: dict) -> str | None:
     return quote or None
 
 
+def _project_summary(hint: dict) -> str | None:
+    # Factual "what this project was" line from the adjudicator. Honest empty on offline.
+    # NOT confidence-gated: unlike _death_note, a factual summary is valid even for a
+    # 'none'/'low' hint (an alive repo still has a real description).
+    if hint.get("llm_offline"):
+        return None
+    summary = (hint.get("project_summary") or "").strip()
+    return summary or None
+
+
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
     return templates.TemplateResponse("index.html", {"request": request, "examples": EXAMPLES})
@@ -120,7 +130,8 @@ async def autopsy(req: AutopsyRequest, request: Request):
     result = AutopsyResult(owner=owner, repo=repo, meta=meta, features=features,
                            verdict=verdict, narration=narration, narration_engine=_narration_engine(narration),
                            certificate_id=_cert_id(owner, repo),
-                           death_note=death_note, llm_hint=hint, cohort=nearest_cohort(features))
+                           death_note=death_note, project_summary=_project_summary(hint),
+                           llm_hint=hint, cohort=nearest_cohort(features))
     cache.set(owner, repo, result)
     return result
 
@@ -137,7 +148,8 @@ async def _prewarm_one(ex: dict) -> None:
             cache.set(owner, repo, AutopsyResult(owner=owner, repo=repo, meta=meta,
                       features=feats, verdict=v, narration=n, narration_engine=_narration_engine(n),
                       certificate_id=_cert_id(owner, repo),
-                      death_note=_death_note(hint), llm_hint=hint, cohort=nearest_cohort(feats)))
+                      death_note=_death_note(hint), project_summary=_project_summary(hint),
+                      llm_hint=hint, cohort=nearest_cohort(feats)))
     except Exception:
         pass  # pre-warm is best-effort; never blocks startup
 
