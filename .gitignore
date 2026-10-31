@@ -85,3 +85,5 @@ durability-tier.json
 .feature-coverage.json
 .ship-check.json
 docs/pipeline/SHIP-CHECK-LOG.md
+DEPLOY-RESULTS.md
+deploy-RESULTS.md
