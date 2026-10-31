@@ -6,30 +6,57 @@
   <title>Autopsy of a Dead Project</title>
   <meta property="og:title" content="Autopsy of a Dead Project"/>
   <meta property="og:image" content="/static/og.png"/>
-  <meta name="description" content="Paste a GitHub repo. An open-source AI performs an autopsy and reads the coroner's report."/>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="description" content="Paste a GitHub repo. An open-weight AI performs a forensic autopsy and reads the coroner's report. You leave with a death certificate."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/static/card.css"/>
 </head>
-<body class="bg-[#0b0b10] text-stone-200 min-h-screen">
-  <header class="max-w-2xl mx-auto px-6 pt-16 text-center">
-    <h1 class="text-4xl font-semibold tracking-tight">Autopsy of a Dead Project</h1>
-    <p class="mt-3 text-stone-400">Every repository that stops is a ghost in the machine. Paste one; we'll perform the autopsy.</p>
-  </header>
-  <main class="max-w-2xl mx-auto px-6 mt-10">
-    <form id="autopsy" class="flex gap-2">
-      <input id="repo" name="repo" required placeholder="owner/repo or a github.com URL"
-             class="flex-1 rounded-lg bg-stone-900 border border-stone-700 px-4 py-3"/>
-      <button class="rounded-lg bg-amber-700 hover:bg-amber-600 px-5 py-3 font-medium">Perform the autopsy</button>
-    </form>
-    <section id="examples" class="mt-4 text-sm text-stone-400 flex gap-3 flex-wrap"></section>
-    <section id="loading" hidden class="mt-10 text-center text-stone-400 animate-pulse">exhuming the commit history…</section>
-    <section id="error" hidden class="mt-6 rounded-lg border border-red-900 bg-red-950/40 px-4 py-3 text-red-200"></section>
-    <article id="certificate" hidden aria-live="polite" class="certificate mt-10"></article>
-  </main>
-  <footer class="max-w-2xl mx-auto px-6 py-16 text-center text-xs text-stone-500">
-    Core AI is open-source: TabPFN (open weights) classifies; an open-weight LLM narrates.
-    A fully-local mode runs on Ollama with zero closed dependencies.
-  </footer>
+<body>
+  <div class="field" aria-hidden="true">
+    <div class="grid"></div><div class="grid fine"></div>
+    <div class="lamp"></div><div class="underglow"></div><canvas id="dust"></canvas><div class="vignette"></div>
+  </div>
+
+  <div class="bar">
+    <div class="logo">
+      <svg width="26" height="14" viewBox="0 0 26 14"><path d="M0 7 H7 l1.5 -5 l2 10 l2 -8 l1.5 3 H26"
+        fill="none" stroke="#D4A017" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      AUTOPSY
+    </div>
+    <div class="spacer"></div>
+    <span class="pill"><span class="dot"></span>OPEN-WEIGHT · LOCAL-CAPABLE</span>
+  </div>
+
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">Forensic pathology for dead software</div>
+      <h1>Every repository that stops is <em>a ghost in the machine.</em></h1>
+      <p class="lede">Paste one. A tabular foundation model performs the autopsy; an open-weight
+        coroner reads the report. You leave with a death certificate.</p>
+      <div class="heart"><canvas id="heroHeart"></canvas></div>
+      <div class="slab">
+        <span>Awaiting specimen</span><span><b>6</b> forensic signals</span>
+        <span>TabPFN + Gemma</span><span>&lt;<b>15</b>s to verdict</span>
+      </div>
+      <form id="autopsy">
+        <input id="repo" name="repo" required autocomplete="off"
+               placeholder="owner/repo  ·  or a github.com URL"/>
+        <button class="cta" type="submit">Perform the autopsy</button>
+      </form>
+      <section id="examples" class="examples"></section>
+    </section>
+
+    <section id="loading" class="loading" hidden><span class="ldot"></span>exhuming the commit history…</section>
+    <section id="error" class="errbox" hidden></section>
+    <article id="cert" class="certificate" hidden aria-live="polite"></article>
+
+    <footer class="doc">
+      Core AI is open-weight end to end: TabPFN classifies; an open-weight LLM narrates.<br>
+      A fully-local mode runs on Ollama with zero closed dependencies.
+    </footer>
+  </div>
+
   <script src="/static/app.js"></script>
 </body>
 </html>

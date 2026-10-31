@@ -10,8 +10,9 @@ from .schemas import AutopsyRequest, AutopsyResult
 from .validators import parse_repo_url, BadRepoURL
 from .github import fetch_repo, RepoError
 from .features import build_features
-from .classifier import classify, _seed
+from .classifier import classify, _seed, nearest_cohort
 from .narrator import narrate
+from .extractor import extract_death_note
 from .cache import cache
 from .ratelimit import rate_limit
 
@@ -29,6 +30,27 @@ EXAMPLES = [
 
 def _cert_id(owner: str, repo: str) -> str:
     return hashlib.sha256(f"{owner}/{repo}".encode()).hexdigest()[:6]
+
+
+def _adjudicate_evidence(data) -> dict:
+    # Tier A: run the LLM adjudicator over commit messages + README. Honesty invariant —
+    # offline/parse-fail returns the labeled "none" guard (llm_offline=True); callers must
+    # NOT tie-break or populate death_note from an offline hint.
+    messages = [c.get("message", "") for c in data.commits[:20]]
+    return extract_death_note(messages, data.readme)
+
+
+def _death_note(hint: dict) -> str | None:
+    # Only a live hint with at least MEDIUM confidence AND a quote earns a death_note.
+    # A low/none-confidence quote is too weak to become a certificate finding — it would
+    # read as fabricated authority. Never fabricated; offline -> None.
+    # (Distinct from the classifier adjudicator, which stays HIGH-only for an override.)
+    if hint.get("llm_offline"):
+        return None
+    if hint.get("hint_confidence") not in ("high", "medium"):
+        return None
+    quote = (hint.get("evidence_quote") or "").strip()
+    return quote or None
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -71,10 +93,13 @@ async def autopsy(req: AutopsyRequest, request: Request):
         features, meta = build_features(data)
     except ValueError:
         raise HTTPException(status_code=422, detail="No body to examine - too little commit history.")
-    verdict = classify(features)
-    narration = narrate(owner, repo, verdict, features, meta)
+    hint = _adjudicate_evidence(data)
+    verdict = classify(features, hint)
+    death_note = _death_note(hint)
+    narration = narrate(owner, repo, verdict, features, meta, hint.get("evidence_quote", ""))
     result = AutopsyResult(owner=owner, repo=repo, meta=meta, features=features,
-                           verdict=verdict, narration=narration, certificate_id=_cert_id(owner, repo))
+                           verdict=verdict, narration=narration, certificate_id=_cert_id(owner, repo),
+                           death_note=death_note, llm_hint=hint, cohort=nearest_cohort(features))
     cache.set(owner, repo, result)
     return result
 
@@ -85,10 +110,12 @@ async def _prewarm_one(ex: dict) -> None:
         if not cache.get(owner, repo):
             data = await fetch_repo(owner, repo)
             feats, meta = build_features(data)
-            v = classify(feats)
-            n = narrate(owner, repo, v, feats, meta)
+            hint = _adjudicate_evidence(data)
+            v = classify(feats, hint)
+            n = narrate(owner, repo, v, feats, meta, hint.get("evidence_quote", ""))
             cache.set(owner, repo, AutopsyResult(owner=owner, repo=repo, meta=meta,
-                      features=feats, verdict=v, narration=n, certificate_id=_cert_id(owner, repo)))
+                      features=feats, verdict=v, narration=n, certificate_id=_cert_id(owner, repo),
+                      death_note=_death_note(hint), llm_hint=hint, cohort=nearest_cohort(feats)))
     except Exception:
         pass  # pre-warm is best-effort; never blocks startup
 
