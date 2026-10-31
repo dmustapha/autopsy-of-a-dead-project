@@ -40,6 +40,24 @@ def _adjudicate_evidence(data) -> dict:
     return extract_death_note(messages, data.readme)
 
 
+def _narration_engine(narration: str) -> str:
+    # Honest narration badge: the REAL model + provider that wrote the eulogy, derived from env.
+    # Never hard-code a model the deploy isn't using (the whole thesis is honest engine labels).
+    if "without the language model" in narration:
+        return "templated · LLM offline"
+    model = os.environ.get("LLM_MODEL", "gemma2:2b")
+    base = os.environ.get("LLM_BASE_URL", "")
+    if "0g.ai" in base:
+        prov = "0G Compute"
+    elif "11434" in base or "localhost" in base:
+        prov = "Ollama (local)"
+    elif "groq" in base:
+        prov = "Groq"
+    else:
+        prov = "open-weight"
+    return f"{model} · {prov}"
+
+
 def _death_note(hint: dict) -> str | None:
     # Only a live hint with at least MEDIUM confidence AND a quote earns a death_note.
     # A low/none-confidence quote is too weak to become a certificate finding — it would
@@ -100,7 +118,8 @@ async def autopsy(req: AutopsyRequest, request: Request):
     death_note = _death_note(hint)
     narration = await asyncio.to_thread(narrate, owner, repo, verdict, features, meta, hint.get("evidence_quote", ""))
     result = AutopsyResult(owner=owner, repo=repo, meta=meta, features=features,
-                           verdict=verdict, narration=narration, certificate_id=_cert_id(owner, repo),
+                           verdict=verdict, narration=narration, narration_engine=_narration_engine(narration),
+                           certificate_id=_cert_id(owner, repo),
                            death_note=death_note, llm_hint=hint, cohort=nearest_cohort(features))
     cache.set(owner, repo, result)
     return result
@@ -116,7 +135,8 @@ async def _prewarm_one(ex: dict) -> None:
             v = await asyncio.to_thread(classify, feats, hint)
             n = await asyncio.to_thread(narrate, owner, repo, v, feats, meta, hint.get("evidence_quote", ""))
             cache.set(owner, repo, AutopsyResult(owner=owner, repo=repo, meta=meta,
-                      features=feats, verdict=v, narration=n, certificate_id=_cert_id(owner, repo),
+                      features=feats, verdict=v, narration=n, narration_engine=_narration_engine(n),
+                      certificate_id=_cert_id(owner, repo),
                       death_note=_death_note(hint), llm_hint=hint, cohort=nearest_cohort(feats)))
     except Exception:
         pass  # pre-warm is best-effort; never blocks startup

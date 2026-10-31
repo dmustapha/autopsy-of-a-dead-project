@@ -207,7 +207,7 @@ function render(d){
   const bornLast = (born || last) ? `${born || "—"} → ${last || "—"}` : "unknown";
 
   const engClass = ENGCLASS[engine] || "eng-rules";
-  const narLabel = isTemplated ? "templated coroner · LLM offline" : "narrated by Gemma (open weights)";
+  const narLabel = isTemplated ? "templated coroner · LLM offline" : ("narrated by " + (d.narration_engine || "Gemma") + " (open weights)");
   const narClass = isTemplated ? "nar-fallback" : "nar-live";
   const certNo = d.certificate_id ? esc(d.certificate_id).toUpperCase() : "—";
 

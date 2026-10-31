@@ -45,6 +45,7 @@ class AutopsyResult(BaseModel):
     features: Features | None = None
     verdict: Verdict
     narration: str
+    narration_engine: str = ""   # the real model+provider that wrote the eulogy (honest badge)
     certificate_id: str
     death_note: str | None = None
     llm_hint: dict | None = None
