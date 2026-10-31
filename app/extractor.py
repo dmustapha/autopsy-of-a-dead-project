@@ -47,6 +47,11 @@ def _normalize(raw: dict) -> dict:
 
 
 def extract_death_note(messages: list[str], readme: str | None) -> dict:
+    # Optional Tier-A LLM adjudicator. On a resource-tight deploy its extra LLM round-trip
+    # doubles autopsy latency for a hint the TabPFN classifier does not require; skip it when
+    # EXTRACTOR_LLM_DISABLE=1 (returns the labeled-offline hint — same as a failed call).
+    if os.environ.get("EXTRACTOR_LLM_DISABLE") == "1":
+        return dict(_OFFLINE)
     msg_block = "\n".join(f"- {m}" for m in messages[:20] if m)
     readme_block = (readme or "")[:2000]
     user = (
