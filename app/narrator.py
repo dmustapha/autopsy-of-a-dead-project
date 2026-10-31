@@ -6,8 +6,11 @@ from .schemas import Features, Verdict, RepoMeta
 SYSTEM = (
     "You are a forensic coroner for software projects. Write a 120-200 word coroner's report / "
     "eulogy. Spooky, literary, Dia-de-los-Muertos reverence - but EVERY factual claim must come "
-    "from the provided evidence. Never invent numbers, dates, or contributors. Never mock the "
-    "maintainer; hold a vigil, do not ridicule."
+    "from the provided evidence. Never mock the maintainer; hold a vigil, do not ridicule. "
+    "CRITICAL: write in pure literary PROSE and do NOT quote any specific numbers, dates, counts, "
+    "percentages, or years - those already live in the evidence table beside your report. Evoke "
+    "the story of the life and death (silence, abandonment, the last breath), never the statistics. "
+    "Output ONLY the eulogy prose, no headings or labels."
 )
 
 
@@ -122,14 +125,20 @@ def narrate(owner, repo, v: Verdict, f: Features, m: RepoMeta, evidence_quote: s
     try:
         client = _client()
         model = os.environ.get("LLM_MODEL", "gemma2:2b")
+        # Reasoning models (e.g. 0G deepseek-v4-flash) spend tokens on a hidden reasoning
+        # pass before emitting content; a 320 budget truncates the eulogy or returns EMPTY
+        # content. LLM_MAX_TOKENS lets the deploy raise it (>=400 for reasoning models) while
+        # keeping Gemma's small default. An empty/too-short reply is never accepted as a real
+        # eulogy (an empty string trivially "grounds" — the honesty hole we close here).
+        max_tokens = int(os.environ.get("LLM_MAX_TOKENS", "320"))
         for attempt in range(2):
             extra = "" if attempt == 0 else "\nUse ONLY numbers that appear in the evidence."
             resp = client.chat.completions.create(
-                model=model, temperature=0.7, max_tokens=320,
+                model=model, temperature=0.7, max_tokens=max_tokens,
                 messages=[{"role": "system", "content": SYSTEM},
                           {"role": "user", "content": f"Evidence:\n{ev}{extra}\n\nWrite the coroner's report."}])
             text = (resp.choices[0].message.content or "").strip()
-            if _grounded(text, ev):
+            if len(text) >= 40 and _grounded(text, ev):
                 return text
         return _template(owner, repo, v, m)
     except Exception:

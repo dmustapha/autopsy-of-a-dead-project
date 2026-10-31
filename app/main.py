@@ -1,5 +1,5 @@
 from __future__ import annotations
-import os, hashlib
+import os, hashlib, asyncio
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -93,10 +93,12 @@ async def autopsy(req: AutopsyRequest, request: Request):
         features, meta = build_features(data)
     except ValueError:
         raise HTTPException(status_code=422, detail="No body to examine - too little commit history.")
-    hint = _adjudicate_evidence(data)
-    verdict = classify(features, hint)
+    # Blocking calls (LLM HTTP + torch) run in a threadpool so the single event loop
+    # stays responsive (healthz/other requests) during a ~16-30s narration.
+    hint = await asyncio.to_thread(_adjudicate_evidence, data)
+    verdict = await asyncio.to_thread(classify, features, hint)
     death_note = _death_note(hint)
-    narration = narrate(owner, repo, verdict, features, meta, hint.get("evidence_quote", ""))
+    narration = await asyncio.to_thread(narrate, owner, repo, verdict, features, meta, hint.get("evidence_quote", ""))
     result = AutopsyResult(owner=owner, repo=repo, meta=meta, features=features,
                            verdict=verdict, narration=narration, certificate_id=_cert_id(owner, repo),
                            death_note=death_note, llm_hint=hint, cohort=nearest_cohort(features))
@@ -110,9 +112,9 @@ async def _prewarm_one(ex: dict) -> None:
         if not cache.get(owner, repo):
             data = await fetch_repo(owner, repo)
             feats, meta = build_features(data)
-            hint = _adjudicate_evidence(data)
-            v = classify(feats, hint)
-            n = narrate(owner, repo, v, feats, meta, hint.get("evidence_quote", ""))
+            hint = await asyncio.to_thread(_adjudicate_evidence, data)
+            v = await asyncio.to_thread(classify, feats, hint)
+            n = await asyncio.to_thread(narrate, owner, repo, v, feats, meta, hint.get("evidence_quote", ""))
             cache.set(owner, repo, AutopsyResult(owner=owner, repo=repo, meta=meta,
                       features=feats, verdict=v, narration=n, certificate_id=_cert_id(owner, repo),
                       death_note=_death_note(hint), llm_hint=hint, cohort=nearest_cohort(feats)))
