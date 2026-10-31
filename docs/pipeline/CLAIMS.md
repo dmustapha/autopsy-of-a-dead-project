@@ -2,16 +2,16 @@
 
 | Phase | Verdict | Reason | State status | Updated |
 |---|---|---|---|---|
-| intel | pass | — | complete | 2026-10-31T20:29:43Z |
-| warroom | pass | — | complete | 2026-10-31T20:29:44Z |
-| forge | pass_with_blockers | franchise skeleton not fully scaffolded at C0 (2.3 P1); entry-gate completeness checklist not recorded (N-17) | complete | 2026-10-31T20:29:50Z |
-| critique | pass | — | complete | 2026-10-31T20:29:50Z |
-| build | pass | — | complete | 2026-10-31T20:29:50Z |
-| debug | pass_with_blockers | no lens neighbor-behavior contracts (N-35 experiment) | complete | 2026-10-31T20:29:50Z |
-| wire | pass_with_blockers | wire=WIRED-WITH-DEGRADATION | WIRED-WITH-DEGRADATION | 2026-10-31T20:29:50Z |
-| verify_milestone | pass_with_blockers | claims ledger block missing (Step 0.7) | complete | 2026-10-31T20:29:50Z |
-| design | pass | — | complete | 2026-10-31T20:29:50Z |
-| design_forge | pass | — | complete | 2026-10-31T20:29:50Z |
-| stress_test | pass | — | complete | 2026-10-31T20:29:50Z |
-| deploy | pass | — | complete | 2026-10-31T20:29:50Z |
-| verify_preflight | fail | deadline gate missing from preflight state (Step 0.0 mandatory) | complete | 2026-10-31T20:29:50Z |
+| intel | pass | — | complete | 2026-10-31T20:30:54Z |
+| warroom | pass | — | complete | 2026-10-31T20:30:55Z |
+| forge | pass_with_blockers | franchise skeleton not fully scaffolded at C0 (2.3 P1); entry-gate completeness checklist not recorded (N-17) | complete | 2026-10-31T20:31:00Z |
+| critique | pass | — | complete | 2026-10-31T20:31:00Z |
+| build | pass | — | complete | 2026-10-31T20:31:00Z |
+| debug | pass_with_blockers | no lens neighbor-behavior contracts (N-35 experiment) | complete | 2026-10-31T20:31:00Z |
+| wire | pass_with_blockers | wire=WIRED-WITH-DEGRADATION | WIRED-WITH-DEGRADATION | 2026-10-31T20:31:00Z |
+| verify_milestone | pass_with_blockers | claims ledger block missing (Step 0.7) | complete | 2026-10-31T20:31:00Z |
+| design | pass | — | complete | 2026-10-31T20:31:01Z |
+| design_forge | pass | — | complete | 2026-10-31T20:31:01Z |
+| stress_test | pass | — | complete | 2026-10-31T20:31:01Z |
+| deploy | pass | — | complete | 2026-10-31T20:31:01Z |
+| verify_preflight | fail | deadline gate missing from preflight state (Step 0.0 mandatory) | complete | 2026-10-31T20:31:01Z |
