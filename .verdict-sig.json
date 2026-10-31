@@ -34,5 +34,9 @@
   "design": {
     "verdict": "pass_with_blockers",
     "sig": "f3a8427de265a0e11fb85636640c80721d5c20bb4dd3823ae6b1feb167afc82e"
+  },
+  "design_forge": {
+    "verdict": "pass_with_blockers",
+    "sig": "2bda2f2df08b1e8121813ed200aa65d3d4076ac414edc050a17a507550156ce1"
   }
 }

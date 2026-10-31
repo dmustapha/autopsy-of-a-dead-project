@@ -6,6 +6,7 @@
   --hair:rgba(236,229,214,.09); --hair-2:rgba(236,229,214,.14);
   --mono:"IBM Plex Mono",ui-monospace,monospace;
   --serif:"Spectral",Georgia,serif;
+  --r-sm:2px; --r-md:11px; --r-lg:16px; --r-pill:999px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-font-smoothing:antialiased}
@@ -47,7 +48,7 @@ body{
 .logo svg{display:block}
 .bar .spacer{flex:1}
 .pill{font-family:var(--mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase;
-  color:rgba(236,229,214,.6); border:1px solid var(--hair); border-radius:999px; padding:5px 11px;
+  color:rgba(236,229,214,.6); border:1px solid var(--hair); border-radius:var(--r-pill); padding:5px 11px;
   display:inline-flex; align-items:center; gap:7px; background:rgba(21,18,14,.6)}
 .dot{width:6px; height:6px; border-radius:50%; background:var(--green); box-shadow:0 0 8px var(--green)}
 
@@ -73,11 +74,14 @@ h1 em{font-style:italic; color:rgba(236,229,214,.6)}
 /* ---- form ---- */
 form{display:flex; gap:10px; max-width:560px; margin:24px auto 0}
 input{flex:1; background:var(--surface1); border:1px solid var(--hair-2); color:var(--paper);
-  font-family:var(--mono); font-size:14px; padding:14px 16px; border-radius:11px; outline:none}
+  font-family:var(--mono); font-size:14px; padding:14px 16px; border-radius:var(--r-md); outline:none}
 input:focus{border-color:rgba(212,160,23,.5); box-shadow:0 0 0 3px rgba(212,160,23,.1)}
 input::placeholder{color:rgba(236,229,214,.32)}
+/* a11y: keyboard focus affordance for every interactive element (design_forge refine, CF-4) */
+a:focus-visible,button:focus-visible,input:focus-visible,[tabindex]:focus-visible{
+  outline:2px solid var(--amber); outline-offset:2px}
 button.cta{background:var(--amber); color:var(--ink); border:none; font-family:var(--mono);
-  font-weight:600; font-size:13px; letter-spacing:.04em; padding:0 22px; border-radius:11px;
+  font-weight:600; font-size:13px; letter-spacing:.04em; padding:0 22px; border-radius:var(--r-md);
   cursor:pointer; transition:background .15s}
 button.cta:hover{background:var(--amber-hi)}
 button.cta:disabled{opacity:.55; cursor:default}
@@ -97,12 +101,12 @@ button.cta:disabled{opacity:.55; cursor:default}
 @keyframes lpulse{0%,100%{opacity:.3; transform:scale(.8)}50%{opacity:1; transform:scale(1.15)}}
 .errbox{max-width:560px; margin:28px auto 0; border:1px solid rgba(201,98,63,.4);
   background:rgba(201,98,63,.08); color:#e0a893; font-family:var(--serif); font-size:15px;
-  padding:14px 18px; border-radius:11px; text-align:center}
+  padding:14px 18px; border-radius:var(--r-md); text-align:center}
 
 /* ---- certificate ---- */
 .certificate{margin:42px auto 0; max-width:620px; position:relative; background:
    linear-gradient(180deg,var(--surface2),var(--surface1));
-  border:1px solid var(--hair-2); border-radius:16px; padding:0; overflow:hidden;
+  border:1px solid var(--hair-2); border-radius:var(--r-lg); padding:0; overflow:hidden;
   box-shadow:0 1px 0 rgba(236,229,214,.05) inset, 0 40px 90px -40px rgba(0,0,0,.8),
   0 0 70px -30px rgba(212,160,23,.18)}
 .cert-watermark{position:absolute; inset:0; z-index:0; pointer-events:none; opacity:.5}
@@ -186,13 +190,13 @@ button.cta:disabled{opacity:.55; cursor:default}
 .evidence tr.driver{background:linear-gradient(90deg,rgba(212,160,23,.07),transparent 70%)}
 .evidence tr.driver th{color:var(--paper); position:relative}
 .evidence tr.driver th::before{content:""; position:absolute; left:0; top:50%; transform:translateY(-50%);
-  width:3px; height:15px; background:var(--amber); border-radius:2px; box-shadow:0 0 6px rgba(212,160,23,.5)}
+  width:3px; height:15px; background:var(--amber); border-radius:var(--r-sm); box-shadow:0 0 6px rgba(212,160,23,.5)}
 .evidence tr.driver td{color:var(--amber-hi)}
 .evidence tr th:first-child{padding-left:14px}
 
 /* last words — the deceased's OWN recovered quote (boxed, distinct from the left-ruled eulogy) */
 .last-words{margin:22px 0 4px; padding:13px 16px; border:1px solid var(--hair);
-  border-radius:11px; background:rgba(12,11,9,.35)}
+  border-radius:var(--r-md); background:rgba(12,11,9,.35)}
 .last-words .lw-kicker{font-family:var(--mono); font-size:9.5px; letter-spacing:.2em; text-transform:uppercase;
   color:rgba(236,229,214,.4); margin-bottom:7px}
 .last-words .lw-quote{font-family:var(--serif); font-style:italic; font-size:15px; line-height:1.62;
@@ -207,7 +211,7 @@ button.cta:disabled{opacity:.55; cursor:default}
 .cert-foot{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-top:24px;
   padding-top:18px; border-top:1px solid var(--hair)}
 .badge{font-family:var(--mono); font-size:10px; letter-spacing:.1em; text-transform:uppercase;
-  padding:6px 11px; border-radius:999px; border:1px solid var(--hair-2); display:inline-flex;
+  padding:6px 11px; border-radius:var(--r-pill); border:1px solid var(--hair-2); display:inline-flex;
   align-items:center; gap:7px; color:rgba(236,229,214,.7)}
 .badge .d{width:6px; height:6px; border-radius:50%}
 .badge.eng-tabpfn .d{background:var(--green); box-shadow:0 0 7px var(--green)}

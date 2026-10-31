@@ -1,0 +1,43 @@
+{
+  "name": "Autopsy of a Dead Project",
+  "tagline": "Paste a GitHub repo. An open-weight AI performs a forensic autopsy and reads the coroner's report. You leave with a death certificate.",
+  "colorMode": "dark-only",
+  "brandColor": "#D4A017",
+  "accent": "#D4A017",
+  "ink": ["#0c0b09", "#15120e", "#1b1711", "#221c14", "#13110d"],
+  "semantic": {
+    "success": "#8FB339",
+    "warning": "#d98324",
+    "danger": "#c9623f"
+  },
+  "fonts": {
+    "display": "Spectral",
+    "body": "Spectral",
+    "mono": "IBM Plex Mono"
+  },
+  "radii": { "sm": 2, "md": 11, "lg": 16, "xl": 999 },
+  "shadowPhilosophy": "pure-glow",
+  "signatureElement": "the flatline — a per-mode pulse trace that runs, decays, flattens, and gets a seal stamp",
+  "logoPath": "public/logo.svg",
+  "signatureObject": {
+    "name": "the flatline (last heartbeat)",
+    "thesis": "a repository has vital signs; when it dies they flatline — the whole app is a vital-signs monitor at a morgue bench, so the signature PERFORMS the verb 'classify how it died' instead of charting it",
+    "perSurface": {
+      "landing": "hero flatline breathing live above the single repo input (coroner's bench, skeptical→trusting)",
+      "console": "certificate flatline that flattens per death-mode and gets a wax seal stamp — the document identity, distinct from the live landing pulse"
+    }
+  },
+  "invariantPhrase": "Every verdict carries an honest engine badge.",
+  "statusLegend": [
+    { "color": "#8FB339", "token": "alive", "meaning": "repo still breathing — CERTIFICATE OF LIFE" },
+    { "color": "#c9623f", "token": "abandoned", "meaning": "development stopped with no graceful end" },
+    { "color": "#d98324", "token": "burned_out", "meaning": "maintainer fatigue / slowing to a halt" },
+    { "color": "#6fa8c9", "token": "pivoted", "meaning": "project changed identity or was superseded" },
+    { "color": "#6f9f7a", "token": "completed", "meaning": "finished its job — intentional rest" },
+    { "color": "rgba(236,229,214,.72)", "token": "insufficient_history", "meaning": "too little to examine — no body" },
+    { "color": "#D4A017", "token": "engine=tabpfn", "meaning": "verdict from the real TabPFN posterior (CLASSIFIED BY TABPFN)" },
+    { "color": "rgba(236,229,214,.6)", "token": "engine=rules", "meaning": "labeled forensic-rules fallback (rules (fallback))" },
+    { "color": "#8FB339", "token": "narration=gemma", "meaning": "real Gemma-via-Ollama eulogy (NARRATED BY GEMMA)" },
+    { "color": "rgba(236,229,214,.5)", "token": "narration=templated", "meaning": "labeled template (TEMPLATED CORONER · LLM OFFLINE)" }
+  ]
+}

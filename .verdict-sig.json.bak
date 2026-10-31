@@ -30,5 +30,9 @@
   "verify_milestone": {
     "verdict": "pass_with_blockers",
     "sig": "559569832e2cee6a42cb9805f71ae504488b89ad33c5bf600777b51cd41ab11b"
+  },
+  "design": {
+    "verdict": "pass_with_blockers",
+    "sig": "f3a8427de265a0e11fb85636640c80721d5c20bb4dd3823ae6b1feb167afc82e"
   }
 }
