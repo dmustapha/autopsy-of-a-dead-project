@@ -50,6 +50,15 @@ def main():
     if bad_modes:
         violations.append(f"Non-training death_mode values found: {bad_modes}")
 
+    # (f) No duplicate feature vectors (redirect-aliased repos produce byte-identical rows)
+    if present_feat_cols:
+        dup_mask = df.duplicated(subset=FEATURE_ORDER)
+        if dup_mask.any():
+            violations.append(
+                f"Duplicate feature vectors ({int(dup_mask.sum())} rows): "
+                f"{df[dup_mask]['owner_repo'].tolist()}"
+            )
+
     if violations:
         print("FAIL — seed validation violations:")
         for v in violations:

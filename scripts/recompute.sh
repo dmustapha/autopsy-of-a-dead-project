@@ -13,14 +13,14 @@ if [[ ! -x "$VENV" ]]; then
   exit 1
 fi
 
-echo "=== CLAIM: seed-dataset (106 rows, 5 balanced classes) ==="
+echo "=== CLAIM: seed-dataset (117 rows, 5 balanced classes) ==="
 SEED_OUT=$("$VENV" -c "
 import pandas as pd, json, sys
 d = pd.read_csv('data/seed_repos.csv')
 result = {'rows': int(len(d)), 'classes': {str(k): int(v) for k, v in d['death_mode'].value_counts().sort_index().items()}}
 print(json.dumps(result))
 ")
-EXPECTED_ROWS=106
+EXPECTED_ROWS=117
 ACTUAL_ROWS=$(echo "$SEED_OUT" | "$VENV" -c "import json,sys; d=json.load(sys.stdin); print(d['rows'])")
 if [[ "$ACTUAL_ROWS" != "$EXPECTED_ROWS" ]]; then
   echo "DRIFT: seed row count $ACTUAL_ROWS != expected $EXPECTED_ROWS" >&2
@@ -28,7 +28,7 @@ if [[ "$ACTUAL_ROWS" != "$EXPECTED_ROWS" ]]; then
 fi
 echo "  OK: $ACTUAL_ROWS rows — $SEED_OUT"
 
-echo "=== CLAIM: test-suite-green (14 cases) ==="
+echo "=== CLAIM: test-suite-green (54 cases) ==="
 TEST_OUT=$(PYTHONPATH=. "$VENV" -m pytest tests/ -q 2>&1 | tail -3)
 if ! echo "$TEST_OUT" | grep -q "passed"; then
   echo "DRIFT: test suite did not report 'passed'" >&2

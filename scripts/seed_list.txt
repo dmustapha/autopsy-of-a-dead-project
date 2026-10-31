@@ -16,7 +16,7 @@ golang/go, alive, Go language itself, continuous development
 torvalds/linux, alive, the Linux kernel, constant activity
 denoland/deno, alive, active Rust-based JS runtime, frequent releases
 sveltejs/svelte, alive, active frontend framework with regular releases
-astro-build/astro, alive, fast-growing modern web framework, active community
+# ERR astro-build/astro: not found (replaced by eslint/eslint in buffer)
 vitejs/vite, alive, high-velocity build tool, frequent releases
 shadcn-ui/ui, alive, very active component library
 langchain-ai/langchain, alive, huge AI community project, daily commits
@@ -30,7 +30,7 @@ home-assistant/core, alive, massive open-source home automation, extremely activ
 # ============ COMPLETED (archived / reached purpose / deliberate quiet) ============
 google/leveldb, completed, archived, purpose served as a reference KV store
 facebookarchive/pop, completed, archived design-prototyping tool, deliberately finished
-facebookarchive/fixit, completed, archived linter, stated end-of-life
+# ERR facebookarchive/fixit: not found (private/removed)
 h5bp/html5-boilerplate, completed, long-lived template, mature and quiet
 twbs/bootstrap-sass, completed, official sass port, superseded by core bootstrap sass
 jquery-archive/jquery-mobile, completed, archived, era ended with mobile web shift
@@ -41,12 +41,12 @@ addyosmani/backbone-fundamentals, completed, finished book-as-repo, stable
 google/closure-library, completed, archived Google closure library, purpose served
 adobe/brackets, completed, archived text editor, deliberate end-of-life announcement
 twbs/ratchet, completed, archived mobile-web proto tool, era ended
-nicowillis/patterntap, completed, archived design patterns library, stable
+# REMOVED duplicate: nicowillis/patterntap (kept in buffer section below)
 twitter/typeahead.js, completed, archived autocomplete library, purpose served
 facebookarchive/Remodel, completed, archived iOS codegen tool, stated end-of-life
 d3/d3-request, completed, archived d3 submodule, superseded by d3-fetch
 jxnblk/rebass, completed, archived UI kit, author moved to theme-ui
-nicholasstephan/firebase-login, completed, archived firebase auth helper, era ended
+# ERR nicholasstephan/firebase-login: not found (replaced by yahoo/mojito + pouchdb/pouchdb-server)
 mapbox/mapbox-gl-js, completed, v2 license change era, v1 branch archived and complete
 #
 # ============ ABANDONED (dead, often not archived; once-popular) ============
@@ -60,16 +60,16 @@ Leaflet/Leaflet.markercluster, abandoned, popular plugin, maintainer stepped awa
 gruntjs/grunt, abandoned, task runner displaced by npm scripts and webpack
 bower/bower, abandoned, package manager officially deprecated, left to rest
 request/request, abandoned, hugely popular HTTP client, formally deprecated
-visionmedia/express, abandoned, the old express org path, moved to expressjs org
+# REMOVED: visionmedia/express — redirect alias for expressjs/express (same canonical repo, duplicate features)
 visionmedia/mocha, abandoned, old visionmedia mocha mirror, unmaintained path
 tj/jade, abandoned, template engine superseded by pug, the tj fork dormant
-krakenjs/krakenjs, abandoned, PayPal Node framework, multi-year silence
+# ERR krakenjs/krakenjs: not found (replaced by pugjs/pug + less/less.js)
 flatiron/flatiron, abandoned, once-hyped Node framework, long dead
 mbostock/d3, abandoned, old pre-org d3 mirror under mbostock, untouched
 visionmedia/supertest, abandoned, old supertest mirror, zero activity
 mde/ejs, abandoned, once-popular JS templating, long dormant
 wycats/handlebars.js, abandoned, old mirror path, moved to handlebars-lang org
-mikeal/request, abandoned, another old mirror of the deprecated request library
+# REMOVED: mikeal/request — redirect alias for request/request (same canonical repo, duplicate features)
 #
 # ============ BURNED_OUT (single maintainer, steep decay to zero) ============
 sindresorhus/caprine, burned_out, single-maintainer desktop app, cadence dropped off
@@ -80,17 +80,17 @@ isaacs/node-glob, burned_out, long solo-maintained, decaying cadence
 petkaantonov/bluebird, burned_out, promise lib, maintainer moved on, decay to near zero
 caolan/async, burned_out, once-ubiquitous, single-lead cadence collapse
 mrdoob/stats.js, burned_out, tiny solo tool, long-tail near-zero commits
-substack/node-mkdirp, burned_out, one-maintainer micro-lib, dormant
+# ERR substack/node-mkdirp: not found
 jonschlinkert/micromatch, burned_out, prolific solo author, cadence thinned
 isaacs/minimatch, burned_out, solo npm author, cadence steadily declined
 component/component, burned_out, tj solo project, steep decline after heyday
 substack/tape, burned_out, solo test framework, thinning cadence
 visionmedia/debug, burned_out, tiny debug util, original solo maintainer faded
-ForbesLindesay/then-request, burned_out, solo promise-based HTTP, long dormant
+# ERR ForbesLindesay/then-request: not found (replaced by rstacruz/nprogress + stylus/stylus + isaacs/node-tap)
 yeoman/generator-webapp, burned_out, once-maintained yeoman generator, single-person cadence collapse
 mishoo/UglifyJS2, burned_out, single-maintainer minifier, activity tapering
 tj/co, burned_out, tj solo async lib, steep decay after async/await killed the use case
-nicholasstephan/director, burned_out, solo router lib, long dormant
+# ERR nicholasstephan/director: not found
 substack/hyperx, burned_out, solo hyperscript helper, near-zero recent activity
 #
 # ============ PIVOTED (short active life, successor exists) ============
@@ -99,20 +99,20 @@ facebookarchive/react-native-fbsdk, pivoted, replaced by react-native-fbsdk-next
 facebookarchive/draft-js, pivoted, editor superseded by Lexical, pointer to successor
 yarnpkg/yarn, pivoted, classic yarn, development moved to the berry rewrite
 expo/react-native-gesture-handler, pivoted, early effort folded into the RN ecosystem rewrite
-zeit/next.js, pivoted, zeit org mirror, project moved to the vercel org
+# REMOVED: zeit/next.js — redirect alias for vercel/next.js (same canonical repo, duplicate features)
 balderdashy/waterline, pivoted, ORM split out of sails, direction changed
 emberjs/list-view, pivoted, superseded by vertical-collection addon
 google/incremental-dom, pivoted, approach superseded by lit-html direction
 polymer/polymer, pivoted, superseded by the Lit library, README points onward
-nicowillis/grid, pivoted, early CSS grid experiment, superseded by CSS Grid spec
+# ERR nicowillis/grid: not found (replaced by immutable-js/immutable-js + jashkenas/backbone + Reactive-Extensions/RxJS)
 twbs/bootlint, pivoted, Bootstrap linter, superseded by integrated tooling
 google/web-starter-kit, pivoted, Google's old starter kit, superseded by modern tooling
 addyosmani/yeoman, pivoted, old personal yeoman mirror, moved to the yeoman org
 reactjs/react-router, pivoted, old react-router under reactjs org, moved to remix-run
-ReactTraining/react-router, pivoted, router moved to remix-run org
+# REMOVED: ReactTraining/react-router — redirect alias for reactjs/react-router (same canonical repo, duplicate features)
 redux-offline/redux-offline, pivoted, offline-first redux, successor patterns emerged
-nicowillis/patternlib, pivoted, pattern library superseded by storybook-era approach
-nicowillis/photoshop-cc-2014-keyboard-shortcuts, pivoted, replaced by newer PS version docs
+# ERR nicowillis/patternlib: not found
+# ERR nicowillis/photoshop-cc-2014-keyboard-shortcuts: not found
 react-community/react-native-maps, pivoted, moved to react-native-maps/react-native-maps org
 #
 # ============ ADDITIONAL BUFFER (to ensure >= 100 rows after fetch failures) ============
@@ -122,17 +122,36 @@ expressjs/express, alive, most-used Node.js web framework, steady cadence
 axios/axios, alive, extremely popular HTTP client, active maintenance
 tailwindcss/tailwindcss, alive, high-velocity CSS framework
 # --- completed ---
-facebookarchive/nux, completed, archived Facebook NUX library, stated end-of-life
+# ERR facebookarchive/nux: not found
 twitter/twemoji, completed, archived twitter emoji set, purpose served
 google/material-design-lite, completed, archived Google material design library, superseded by MDC-web
 # --- abandoned ---
-nicowillis/patterntap, abandoned, pattern library experiment, unmaintained for years
-mishoo/UglifyJS, abandoned, original UglifyJS (v1), superseded by UglifyJS2, unmaintained
+# REMOVED duplicate: nicowillis/patterntap (kept in buffer section below as completed)
+# REMOVED: mishoo/UglifyJS — redirect alias for mishoo/UglifyJS2 (same canonical repo, duplicate features)
 # --- burned_out ---
-creationix/nvm, burned_out, node version manager, single-maintainer with tapering cadence
-substack/through, burned_out, tiny stream helper, solo author, dormant for years
+creationix/nvm, abandoned, node version manager, 259 contributors — multi-person project gone quiet, no formal EOL announcement; rubric disqualifies burned_out for contributor_count>10
+# ERR substack/through: not found
 visionmedia/koa, burned_out, early koa mirror under visionmedia, solo-creator, dormant
 # --- pivoted ---
 JedWatson/react-select, pivoted, original react-select, heavily rewritten in v2+, old codebase frozen
-rackt/react-router, pivoted, old org react-router, moved to ReactTraining then remix-run
+# REMOVED: rackt/react-router — redirect alias for reactjs/react-router (same canonical repo, duplicate features)
 rackt/redux, pivoted, old rackt/redux mirror, project moved to reduxjs/redux org
+# --- replacements for fetch-failures (dedup fix + balance restore) ---
+# These repos were verified fetchable and canonical (no redirect duplicates)
+# pivoted (+3): canonical orgs, successor exists
+immutable-js/immutable-js, pivoted, Immutable.js canonical org; superseded by newer immutable patterns
+jashkenas/backbone, pivoted, Backbone.js largely superseded by React/Vue era; minimal activity
+Reactive-Extensions/RxJS, pivoted, old RxJS repo superseded by ReactiveX/rxjs rewrite
+# burned_out (+3): solo/tiny team, cadence collapsed
+rstacruz/nprogress, burned_out, solo-maintained progress bar lib, cadence dropped to near-zero
+stylus/stylus, burned_out, CSS preprocessor, small team, activity collapsed
+isaacs/node-tap, burned_out, solo tap test runner, cadence thinned significantly
+# completed (+2): archived with clean end states
+yahoo/mojito, completed, archived Yahoo Node.js MVC framework, deliberate end-of-life
+pouchdb/pouchdb-server, completed, archived PouchDB server adapter, purpose served
+# abandoned (+2): multi-person, no announcement
+# REMOVED: pugjs/pug — redirect alias for tj/jade (same canonical repo, duplicate features)
+gulpjs/gulp, abandoned, task runner displaced by npm scripts and webpack, long-declining activity
+less/less.js, abandoned, Less.js canonical org, multi-person, long-declining activity
+# alive (+1): stable active project
+eslint/eslint, alive, widely adopted linter, large team, continuous active releases
