@@ -2,16 +2,17 @@
 
 | Phase | Verdict | Reason | State status | Updated |
 |---|---|---|---|---|
-| intel | pass | — | complete | 2026-10-31T20:30:54Z |
-| warroom | pass | — | complete | 2026-10-31T20:30:55Z |
-| forge | pass_with_blockers | franchise skeleton not fully scaffolded at C0 (2.3 P1); entry-gate completeness checklist not recorded (N-17) | complete | 2026-10-31T20:31:00Z |
-| critique | pass | — | complete | 2026-10-31T20:31:00Z |
-| build | pass | — | complete | 2026-10-31T20:31:00Z |
-| debug | pass_with_blockers | no lens neighbor-behavior contracts (N-35 experiment) | complete | 2026-10-31T20:31:00Z |
-| wire | pass_with_blockers | wire=WIRED-WITH-DEGRADATION | WIRED-WITH-DEGRADATION | 2026-10-31T20:31:00Z |
-| verify_milestone | pass_with_blockers | claims ledger block missing (Step 0.7) | complete | 2026-10-31T20:31:00Z |
-| design | pass | — | complete | 2026-10-31T20:31:01Z |
-| design_forge | pass | — | complete | 2026-10-31T20:31:01Z |
-| stress_test | pass | — | complete | 2026-10-31T20:31:01Z |
-| deploy | pass | — | complete | 2026-10-31T20:31:01Z |
-| verify_preflight | fail | deadline gate missing from preflight state (Step 0.0 mandatory) | complete | 2026-10-31T20:31:01Z |
+| warroom | fail | warroom-transcript: warroom transcript warroom/deliberation-transcript.md absent/empty — full reasoning deferred to ephemeral context (DFT-110/202, off-disk breach); warroom risk-register: no ## Risk Register section on disk (DFT-206 floor of 8); warroom generation: research/ideas.md absent — generated pool off-disk (DFT-209) | complete | 2026-11-01T01:29:25Z |
+| forge | fail | forge-doc-quality: forge doc-quality: PLAN.md ABSENT on disk while .forge-state.json exists (engaged forge must write the doc, not just a self-report); PRD.md 104 lines < floor 800 (doc depth is scope_mode-INVARIANT — never compressed for time); PRD.md missing required §-template sections: Overview ProblemStatement RiskRegister BuildPlan (templated/self-graded shell — document-structures.md §PRD) | complete | 2026-11-01T01:29:25Z |
+| critique | pass | — | complete | 2026-11-01T01:29:25Z |
+| build | pass | — | complete | 2026-11-01T01:29:25Z |
+| debug | pass_with_blockers | no lens neighbor-behavior contracts (N-35 experiment) | complete | 2026-11-01T01:29:25Z |
+| wire | pass_with_blockers | wire=WIRED-WITH-DEGRADATION | WIRED-WITH-DEGRADATION | 2026-11-01T01:29:25Z |
+| verify_milestone | pass_with_blockers | claims ledger block missing (Step 0.7) | complete | 2026-11-01T01:29:25Z |
+| design | pass | — | complete | 2026-11-01T01:29:25Z |
+| design_forge | pass | — | complete | 2026-11-01T01:29:25Z |
+| stress_test | pass | — | complete | 2026-11-01T01:29:25Z |
+| deploy | pass | — | complete | 2026-11-01T01:29:25Z |
+| livetest | pass | — | complete | 2026-11-01T01:29:25Z |
+| demo_rehearsal | pass | — | complete | 2026-11-01T01:29:25Z |
+| verify_preflight | fail | deadline gate missing from preflight state (Step 0.0 mandatory) | complete | 2026-11-01T01:29:25Z |

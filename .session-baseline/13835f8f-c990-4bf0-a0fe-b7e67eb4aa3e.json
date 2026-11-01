@@ -1,0 +1,104 @@
+{
+  "ts": 1793496415,
+  "phases": {
+    "intel": "complete",
+    "warroom": "complete",
+    "forge": "complete_with_blockers",
+    "critique": "complete",
+    "url_preverify": "complete",
+    "build": "complete_with_blockers",
+    "debug": "complete_with_blockers",
+    "wire": "complete_with_blockers",
+    "verify_milestone": "complete_with_blockers",
+    "design": "complete",
+    "design_forge": "complete",
+    "stress_test": "complete",
+    "polish": "skipped",
+    "deploy": "complete",
+    "livetest": "complete",
+    "interrogate": "skipped",
+    "demo_rehearsal": "pending",
+    "demo": "pending",
+    "package": "pending",
+    "verify_preflight": "pending"
+  },
+  "state_files": {
+    "build": {
+      "exists": true,
+      "mtime": 1793296500
+    },
+    "critique": {
+      "exists": true,
+      "mtime": 1793253731
+    },
+    "debug": {
+      "exists": true,
+      "mtime": 1793322488
+    },
+    "demo": {
+      "exists": false,
+      "mtime": 0
+    },
+    "demo_rehearsal": {
+      "exists": true,
+      "mtime": 1793496342
+    },
+    "deploy": {
+      "exists": true,
+      "mtime": 1793477982
+    },
+    "design": {
+      "exists": true,
+      "mtime": 1793456968
+    },
+    "design_forge": {
+      "exists": true,
+      "mtime": 1793458480
+    },
+    "forge": {
+      "exists": true,
+      "mtime": 1793252738
+    },
+    "intel": {
+      "exists": false,
+      "mtime": 0
+    },
+    "interrogate": {
+      "exists": false,
+      "mtime": 0
+    },
+    "livetest": {
+      "exists": true,
+      "mtime": 1793480031
+    },
+    "package": {
+      "exists": false,
+      "mtime": 0
+    },
+    "polish": {
+      "exists": false,
+      "mtime": 0
+    },
+    "stress_test": {
+      "exists": true,
+      "mtime": 1793458993
+    },
+    "verify_milestone": {
+      "exists": true,
+      "mtime": 1793343138
+    },
+    "verify_preflight": {
+      "exists": true,
+      "mtime": 1793343138
+    },
+    "warroom": {
+      "exists": true,
+      "mtime": 1793239662
+    },
+    "wire": {
+      "exists": true,
+      "mtime": 1793342163
+    }
+  },
+  "beat_seq": 4
+}
