@@ -1,0 +1,1 @@
+Paste a GitHub repo and get a forensic death certificate: an open-weight model classifies how the project died, and refuses to invent what it cannot defend.
